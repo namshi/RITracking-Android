@@ -7,6 +7,7 @@ import de.rocketinternet.android.tracking.interfaces.RIOpenUrlTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
 import de.rocketinternet.android.tracking.utils.LogUtils;
 import android.util.Log;
@@ -83,6 +84,9 @@ public class RITracking implements
         }
 
         // TODO: Initialize trackers
+        RIGoogleAnalyticsTracker googleAnalyticsTracker = new RIGoogleAnalyticsTracker();
+        mTrackers = new RITracker[1];
+        mTrackers[0] = googleAnalyticsTracker;
 
         for (final RITracker tracker : mTrackers) {
             tracker.execute(new Runnable() {
