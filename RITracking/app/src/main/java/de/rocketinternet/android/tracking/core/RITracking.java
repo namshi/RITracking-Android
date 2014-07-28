@@ -1,10 +1,12 @@
 package de.rocketinternet.android.tracking.core;
 
+import de.rocketinternet.android.tracking.handlers.RIOpenUrlHandler;
 import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIExceptionTracking;
 import de.rocketinternet.android.tracking.interfaces.RIOpenUrlTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
+import de.rocketinternet.android.tracking.listeners.OnHandledOpenUrl;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
@@ -14,8 +16,10 @@ import android.util.Log;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
 
 /**
  * @author alessandro.balocco
@@ -30,7 +34,7 @@ public class RITracking implements
     private static RITracking sInstance;
     private static boolean mIsDebug;
     private RITracker[] mTrackers;
-    private List<RITracker> mHandlers;
+    private List<RIOpenUrlHandler> mHandlers;
 
     private RITracking() {}
 
@@ -46,10 +50,16 @@ public class RITracking implements
         return sInstance;
     }
 
-    // TODO: What is the purpose?
-    public void initWithTrackers(RITracker[] trackers) {
-        getInstance();
-        mHandlers = new ArrayList<RITracker>();
+    // TODO: Give the option to initialize other trackers
+    public void initTrackers(RITracker[] trackers) {
+    }
+
+    // TODO: Pass in some handlers
+    public void initHandlers(List<RIOpenUrlHandler> handlers) {
+        if (mHandlers == null) {
+            mHandlers = new ArrayList<RIOpenUrlHandler>();
+        }
+        mHandlers.addAll(handlers);
     }
 
     public static boolean isDebug() {
@@ -171,10 +181,6 @@ public class RITracking implements
             return;
         }
 
-//        for (RIOpenURLHandler *handler in self.handlers) {
-//            [handler handleOpenURL:url];
-//        }
-//
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RIEventTracking) {
                 tracker.execute(new Runnable() {
@@ -187,58 +193,10 @@ public class RITracking implements
         }
     }
 
-//    - (void)registerHandler:(void (^)(NSDictionary *))handlerBlock forOpenURLPattern:(NSString *)pattern
-//    {
-//        RIDebugLog(@"Registering handler for deeplink URL match pattern '%@'", pattern);
-//
-//        NSError *error;
-//        NSArray *matches;
-//        NSMutableArray *macros = [NSMutableArray array];
-//
-//        while (YES) {
-//            NSRegularExpression *regex = [NSRegularExpression
-//            regularExpressionWithPattern:@"\\{([^\\}]+)\\}"
-//            options:0
-//            error:&error];
-//
-//            if (error) {
-//                RIRaiseError(@"Unexpected error when registering open URL handler "
-//                @"for pattern '%@': %@", pattern, error);
-//                return;
-//            }
-//
-//            matches = [regex matchesInString:pattern
-//            options:0
-//            range:NSMakeRange(0, pattern.length)];
-//
-//            if (0 == matches.count) break;
-//
-//            NSRange macroRange = [matches[0] rangeAtIndex:1];
-//            NSRange range = [matches[0] rangeAtIndex:0];
-//            NSString *macro = [pattern substringWithRange:macroRange];
-//
-//            [macros addObject:macro];
-//            pattern = [pattern stringByReplacingCharactersInRange:range withString:@"(.*)"];
-//        }
-//
-//        RIDebugLog(@"Deeplink handler pattern captures macros '%@'", macros);
-//
-//        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern
-//        options:0
-//        error:&error];
-//
-//        if (error) {
-//            RIRaiseError(@"Unexpected error when creating regular expression with pattern '%@'",
-//                    pattern);
-//            return;
-//        }
-//
-//        RIOpenURLHandler *handler = [[RIOpenURLHandler alloc] initWithHandlerBlock:handlerBlock
-//        regex:regex
-//        macros:macros];
-//
-//        [self.handlers addObject:handler];
-//    }
+    @Override
+    public void registerHandler(List<String> params, String pattern) {
+        // TODO: write code for handler
+    }
 
     @Override
     public void trackCheckoutWithTransactionId(final String idTransaction, final RITrackingTotal total) {

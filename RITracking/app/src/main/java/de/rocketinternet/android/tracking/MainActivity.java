@@ -2,10 +2,19 @@ package de.rocketinternet.android.tracking;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import de.rocketinternet.android.tracking.utils.LogUtils;
 
 /**
  * @author alessandro.balocco
