@@ -1,5 +1,7 @@
 package de.rocketinternet.android.tracking.trackers;
 
+import android.content.Context;
+
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
@@ -19,16 +21,16 @@ public abstract class RITracker {
     protected ExecutorService mQueue;
 
     /**
+     * Initialize the tracker providing it with a valid context
+     *
+     * @return true if the tracker was successfully initialized
+     */
+    public abstract boolean initializeTracker(Context context);
+
+    /**
      * Execute a certain operation
      *
      * @param runnable A runnable containing next operation
      */
     public abstract void execute(Runnable runnable);
-
-    /**
-     * Hook to recognise an app launch, given launch options
-     *
-     * @param options The launching options.
-     */
-    public abstract void trackApplicationLaunch(Map<String, String> options);
 }

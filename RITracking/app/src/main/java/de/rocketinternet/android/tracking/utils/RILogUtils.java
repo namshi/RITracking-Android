@@ -3,7 +3,7 @@ package de.rocketinternet.android.tracking.utils;
 import de.rocketinternet.android.tracking.core.RITracking;
 import android.util.Log;
 
-public class LogUtils {
+public class RILogUtils {
 
     private static final String APP_LOG_TAG = "RITracking";
 

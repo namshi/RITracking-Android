@@ -19,7 +19,6 @@ public interface RIEventTracking {
      * @param value (optional) The value of the action
      * @param action (optional) An identifier for the user action
      * @param category (optional) An identifier for the category of the app the user is in
-     * @param data (optional) Additional data about the event
      */
-    void trackEvent(String event, int value, String action, String category, Map<String, Object> data);
+    void trackEvent(String event, int value, String action, String category);
 }

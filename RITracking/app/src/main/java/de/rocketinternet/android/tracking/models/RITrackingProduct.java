@@ -16,7 +16,7 @@ public class RITrackingProduct {
     /**
      * Quantity of the product
      */
-    private long mQuantity;
+    private int mQuantity;
     /**
      * Price of the product
      */
@@ -30,7 +30,7 @@ public class RITrackingProduct {
      */
     private String mCategory;
 
-    public RITrackingProduct(String identifier, String name, long quantity, double price,
+    public RITrackingProduct(String identifier, String name, int quantity, double price,
                              String currency, String category) {
         mIdentifier = identifier;
         mName = name;
@@ -56,11 +56,11 @@ public class RITrackingProduct {
         mName = name;
     }
 
-    public long getQuantity() {
+    public int getQuantity() {
         return mQuantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(int quantity) {
         mQuantity = quantity;
     }
 

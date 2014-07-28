@@ -1,6 +1,5 @@
 package de.rocketinternet.android.tracking.handlers;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,9 +8,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.rocketinternet.android.tracking.interfaces.RIOpenUrlTracking;
 import de.rocketinternet.android.tracking.listeners.OnHandledOpenUrl;
-import de.rocketinternet.android.tracking.utils.LogUtils;
+import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  *  @author alessandro.balocco
@@ -50,7 +48,7 @@ public class RIOpenUrlHandler {
         for (int i = 0; i < separatedQueryParams.length; i++) {
             String[] queryParam = separatedQueryParams[i].split("=");
             params.put(queryParam[0], queryParam[1]);
-            LogUtils.logError("Query param " + (i + 1) + " with key = " + queryParam[0] + " and value = " + queryParam[1]);
+            RILogUtils.logError("Query param " + (i + 1) + " with key = " + queryParam[0] + " and value = " + queryParam[1]);
         }
 
         if (mListener != null) {

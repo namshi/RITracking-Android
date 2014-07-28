@@ -6,20 +6,21 @@ import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIExceptionTracking;
 import de.rocketinternet.android.tracking.interfaces.RIOpenUrlTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
-import de.rocketinternet.android.tracking.listeners.OnHandledOpenUrl;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
-import de.rocketinternet.android.tracking.utils.LogUtils;
+import de.rocketinternet.android.tracking.utils.RILogUtils;
+
+import android.content.Context;
 import android.util.Log;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Handler;
 
 /**
  * @author alessandro.balocco
@@ -33,7 +34,7 @@ public class RITracking implements
 
     private static RITracking sInstance;
     private static boolean mIsDebug;
-    private RITracker[] mTrackers;
+    private List<RITracker> mTrackers;
     private List<RIOpenUrlHandler> mHandlers;
 
     private RITracking() {}
@@ -75,46 +76,33 @@ public class RITracking implements
     }
 
     /**
-     *  Load the configuration needed from a plist file in the given path and launching options
-     *
-     *  @param path Path to the configuration file (plist file).
-     *  @param launchOptions The launching options.
+     *  Load the configuration needed from the assets folder
      */
-    public void startWithConfigurationFromPropertyListAtPath(String path,
-                                                             final Map<String, String> launchOptions) {
-        LogUtils.logDebug("Starting initialisation with property list at path " + path);
-        LogUtils.logDebug("Starting initialisation with launch options " + launchOptions);
+    public void startWithConfigurationFromPropertyList(Context context) {
+        RILogUtils.logDebug("Starting initialisation with property list");
 
-        boolean loaded = RITrackingConfiguration.getInstance().loadFromPropertyListAtPath(path);
+        boolean loaded = RITrackingConfiguration.getInstance().loadFromPropertyList(context);
 
         if (!loaded) {
-            LogUtils.logError("Unexpected error occurred when loading tracking configuration from " +
-                    "property list file at path " + path);
+            RILogUtils.logError("Unexpected error occurred when loading tracking configuration from " +
+                    "property list file");
             return;
         }
 
         // TODO: Initialize trackers
+        mTrackers = new ArrayList<RITracker>();
+        // Google Analytics
         RIGoogleAnalyticsTracker googleAnalyticsTracker = new RIGoogleAnalyticsTracker();
-        mTrackers = new RITracker[1];
-        mTrackers[0] = googleAnalyticsTracker;
-
-        for (final RITracker tracker : mTrackers) {
-            tracker.execute(new Runnable() {
-                @Override
-                public void run() {
-                    tracker.trackApplicationLaunch(launchOptions);
-                }
-            });
-        }
+        if (googleAnalyticsTracker.initializeTracker(context)) { mTrackers.add(googleAnalyticsTracker); }
     }
 
     @Override
     public void trackEvent(final String event, final int value, final String action, final String category, final Map<String, Object> data) {
-        LogUtils.logDebug("Tracking event: " + event + " with value: " + value + " with action: " + action +
+        RILogUtils.logDebug("Tracking event: " + event + " with value: " + value + " with action: " + action +
                 "with category: " + category + " and data: " + data);
 
         if (mTrackers == null) {
-            LogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
             return;
         }
 
@@ -132,10 +120,10 @@ public class RITracking implements
 
     @Override
     public void trackScreenWithName(final String name) {
-        LogUtils.logDebug("Tracking screen with name: " + name);
+        RILogUtils.logDebug("Tracking screen with name: " + name);
 
         if (mTrackers == null) {
-            LogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
             return;
         }
 
@@ -153,10 +141,10 @@ public class RITracking implements
 
     @Override
     public void trackExceptionWithName(final String name) {
-        LogUtils.logDebug("Tracking exception with name " + name);
+        RILogUtils.logDebug("Tracking exception with name " + name);
 
         if (mTrackers == null) {
-            LogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
             return;
         }
 
@@ -174,10 +162,10 @@ public class RITracking implements
 
     @Override
     public void trackOpenUrl(final URL url) {
-        LogUtils.logDebug("Tracking deepling with URL " + url);
+        RILogUtils.logDebug("Tracking deepling with URL " + url);
 
         if (mTrackers == null) {
-            LogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
             return;
         }
 
@@ -200,10 +188,10 @@ public class RITracking implements
 
     @Override
     public void trackCheckoutWithTransactionId(final String idTransaction, final RITrackingTotal total) {
-        LogUtils.logDebug("Tracking checkout transaction with id " + idTransaction);
+        RILogUtils.logDebug("Tracking checkout transaction with id " + idTransaction);
 
         if (mTrackers == null) {
-            LogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
             return;
         }
 

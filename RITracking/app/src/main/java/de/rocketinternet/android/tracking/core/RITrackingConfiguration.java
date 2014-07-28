@@ -1,9 +1,16 @@
 package de.rocketinternet.android.tracking.core;
 
-import de.rocketinternet.android.tracking.utils.LogUtils;
+import android.content.Context;
 
+import de.rocketinternet.android.tracking.utils.RIAssetsPropertiesUtils;
+import de.rocketinternet.android.tracking.utils.RILogUtils;
+
+import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  *  @author alessandro.balocco
@@ -27,18 +34,16 @@ public class RITrackingConfiguration {
     /**
      *  Loads a property list located in the given path to read the contained configuration settings
      *
-     *  @param path The path where is the configuration file
-     *
      *  @return True in case of success, false in case of error
      */
-    public boolean loadFromPropertyListAtPath(String path) {
+    public boolean loadFromPropertyList(Context context) {
         // Clear old values to avoid state information
         if (mProperties != null) { mProperties = null; };
 
-        Map<String, String> properties = loadPropertiesFromFile(path);
+        Map<String, String> properties = loadPropertiesFromFile(context);
 
         if (properties == null) {
-            LogUtils.logError("Missing properties when loading property file at path '%@'", path);
+            RILogUtils.logError("Missing properties when loading properties file");
             return false;
         }
 
@@ -47,10 +52,18 @@ public class RITrackingConfiguration {
         return true;
     }
 
-    private HashMap<String, String> loadPropertiesFromFile(String path) {
-        HashMap<String, String> propertiesFromFile = new HashMap<String, String>();
-        // TODO: read properties from file and fill the map
-        return propertiesFromFile;
+    private HashMap<String, String> loadPropertiesFromFile(Context context) {
+        HashMap<String, String> propertiesMap = null;
+        try {
+            Properties properties = RIAssetsPropertiesUtils.getProperties(context);
+            propertiesMap = new HashMap<String, String>();
+            for (String name: properties.stringPropertyNames()) {
+                propertiesMap.put(name, properties.getProperty(name));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return propertiesMap;
     }
 
     /**

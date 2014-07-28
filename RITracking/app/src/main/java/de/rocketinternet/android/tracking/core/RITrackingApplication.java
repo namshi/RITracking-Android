@@ -21,10 +21,7 @@ public class RITrackingApplication extends Application {
         super.onCreate();
 
         RITracking.getInstance().setDebug(true);
-
-        // TODO: add file with configurations
-        String trackingConfigFilePath = "";
-        RITracking.getInstance().startWithConfigurationFromPropertyListAtPath(trackingConfigFilePath, new HashMap<String, String>());
+        RITracking.getInstance().startWithConfigurationFromPropertyList(getApplicationContext());
     }
 
     @Override
