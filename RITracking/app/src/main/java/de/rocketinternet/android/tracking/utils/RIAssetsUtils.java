@@ -7,16 +7,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class RIAssetsPropertiesUtils {
+/**
+ *  @author alessandro.balocco
+ *
+ *  Utility class that provide access to the assets folder of the app
+ */
+public class RIAssetsUtils {
 
-    private static final String LOG_TAG = RIAssetsPropertiesUtils.class.getSimpleName();
-	private static final String PROPERTIES_FILE_NAME = "ri_tracking_config.properties";
+    private static final String LOG_TAG = RIAssetsUtils.class.getSimpleName();
 
-	public static Properties getProperties(Context context) throws IOException {
+	public static Properties getProperties(Context context, String propertyFileName) throws IOException {
         Properties properties = new Properties();
 		try {
 			AssetManager assetManager = context.getAssets();
-			InputStream inputStream = assetManager.open(PROPERTIES_FILE_NAME);
+			InputStream inputStream = assetManager.open(propertyFileName);
 			properties.load(inputStream);
 		} catch (IOException e) {
             RILogUtils.logError(LOG_TAG, "" + e.toString());

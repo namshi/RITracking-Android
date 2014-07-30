@@ -1,6 +1,5 @@
 package de.rocketinternet.android.tracking.trackers;
 
-import de.rocketinternet.android.tracking.core.RITracking;
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
@@ -16,7 +15,6 @@ import android.text.TextUtils;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.analytics.ecommerce.Product;
 import com.google.android.gms.analytics.ecommerce.ProductAction;
 
 import java.util.Map;
@@ -57,15 +55,15 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     }
 
     private void createTracker(Context context, String trackingId) {
-        // Dispatch tracking information every 10 seconds (default: 1800)
-        GoogleAnalytics.getInstance(context).setLocalDispatchPeriod(10);
+        // Dispatch tracking information every 5 seconds (default: 1800)
+        GoogleAnalytics.getInstance(context).setLocalDispatchPeriod(5);
         mTracker = GoogleAnalytics.getInstance(context).newTracker(trackingId);
         mTracker.enableExceptionReporting(true);
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category) {
+    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
         RILogUtils.logDebug("Google Analytics - Tracking event: " + event);
 
         if (mTracker == null) {

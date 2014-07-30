@@ -1,33 +1,37 @@
 package de.rocketinternet.android.tracking.interfaces;
 
+import android.net.Uri;
+
 import java.net.URL;
 import java.util.List;
 
-import de.rocketinternet.android.tracking.listeners.OnHandledOpenUrl;
+import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 
 /**
- * @author alessandro.balocco
- *         <p/>
- *         API protocol for deeplink URL tracking
+ *  @author alessandro.balocco
+ *
+ *  API interface for deeplink URL tracking
  */
 public interface RIOpenUrlTracking {
 
     /**
-     * Track a deeplink URL
+     * Track a deep-link URL
      *
-     * @param url The URL opened.
+     * @param uri The URL opened.
      */
-    void trackOpenUrl(URL url);
+    void trackOpenUrl(Uri uri);
 
     /**
-     * Register a handler block to be called when the given pattern matches a deeplink URL.
-     * <p/>
-     * The deeplink URL pattern may contain capture directives of the format `{<name>}` where '<name>'
+     * Register a handler block to be called when the given pattern matches a deep-link URL.
+     *
+     * The deep-link URL pattern may contain capture directives of the format `{<name>}` where '<name>'
      * is replaced with the actual property name to access the captured information.
      * The handler block receives a dictionary hash containing key-value properties obtained from pattern
-     * capture directives and from the query string of the deeplink URL.
+     * capture directives and from the query string of the deep-link URL.
      *
-     * @param pattern  A pattern of regex extended with capture directive syntax.
+     * @param identifier    An identifier for filtering callbacks
+     * @param pattern       A pattern of regex extended with capture directive syntax.
+     * @param listener      A listener for callbacks
      */
-    void registerHandler(List<String> params, String pattern);
+    void registerHandler(String identifier, String pattern, RIOnHandledOpenUrl listener);
 }

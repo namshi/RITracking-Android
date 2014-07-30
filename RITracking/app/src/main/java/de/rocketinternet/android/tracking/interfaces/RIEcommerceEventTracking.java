@@ -6,10 +6,9 @@ import de.rocketinternet.android.tracking.models.RITrackingTotal;
 /**
  * @author alessandro.balocco
  *
- * <p/>
- * This protocol implements tracking to the commerce transactions
- * <p/>
- * The implementation to this protocol should maintain a state machine to collect cart information.
+ * This interface implements tracking for e-commerce transactions
+ *
+ * The implementation to this interface should maintain a state machine to collect cart information.
  * Adding/Removing to/from cart is forwarded to Ad-X and A4S (http://goo.gl/iSjKut) instantly.
  * Both:
  *      A4S (http://www.ad4screen.com/DocSDK/doku.php?id=events)

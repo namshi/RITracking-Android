@@ -3,14 +3,14 @@ package de.rocketinternet.android.tracking.interfaces;
 /**
  *  @author alessandro.balocco
  *
- *  API protocol for exception tracking
+ *  API interface for exception tracking
  */
 public interface RIExceptionTracking {
 
     /**
      * Track an exception occurrence by name
      *
-     * @param name The exception that happed.
+     * @param name The exception that happened.
      */
     void trackExceptionWithName(String name);
 }

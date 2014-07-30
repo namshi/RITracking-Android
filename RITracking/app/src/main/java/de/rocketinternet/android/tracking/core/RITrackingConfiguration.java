@@ -1,14 +1,8 @@
 package de.rocketinternet.android.tracking.core;
 
-import android.content.Context;
+import android.text.TextUtils;
 
-import de.rocketinternet.android.tracking.utils.RIAssetsPropertiesUtils;
-import de.rocketinternet.android.tracking.utils.RILogUtils;
-
-import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
@@ -24,6 +18,11 @@ public class RITrackingConfiguration {
 
     private RITrackingConfiguration() {}
 
+    /**
+     *  Creates and initializes an 'RITrackingConfiguration' object
+     *
+     *  @return The newly-initialized object
+     */
     public static RITrackingConfiguration getInstance() {
         if (sInstance == null) {
             sInstance = new RITrackingConfiguration();
@@ -32,37 +31,23 @@ public class RITrackingConfiguration {
     }
 
     /**
-     *  Loads a property list located in the given path to read the contained configuration settings
+     *  Loads a property map from a property file to read the contained configuration settings
      *
-     *  @return True in case of success, false in case of error
+     *  @return true in case of success, false in case of error
      */
-    public boolean loadFromPropertyList(Context context) {
+    public HashMap<String, String> loadPropertiesFromFile(Properties properties) {
         // Clear old values to avoid state information
-        if (mProperties != null) { mProperties = null; };
+        if (mProperties != null && !mProperties.isEmpty()) { mProperties = null; };
 
-        Map<String, String> properties = loadPropertiesFromFile(context);
-
-        if (properties == null) {
-            RILogUtils.logError("Missing properties when loading properties file");
-            return false;
-        }
-
-        mProperties = properties;
-
-        return true;
-    }
-
-    private HashMap<String, String> loadPropertiesFromFile(Context context) {
-        HashMap<String, String> propertiesMap = null;
-        try {
-            Properties properties = RIAssetsPropertiesUtils.getProperties(context);
-            propertiesMap = new HashMap<String, String>();
-            for (String name: properties.stringPropertyNames()) {
+        HashMap<String, String> propertiesMap = new HashMap<String, String>();
+        for (String name: properties.stringPropertyNames()) {
+            if (!TextUtils.isEmpty(properties.getProperty(name))) {
                 propertiesMap.put(name, properties.getProperty(name));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+        mProperties = propertiesMap;
+
         return propertiesMap;
     }
 
@@ -71,10 +56,10 @@ public class RITrackingConfiguration {
      *
      *  @param key The key to search
      *
-     *  @return Returns the value for the given key
+     *  @return the value for the given key
      */
     public String getValueFromKeyMap(String key) {
-        return mProperties.containsKey(key) ? mProperties.get(key) : null;
+        return (mProperties != null && mProperties.containsKey(key)) ? mProperties.get(key) : null;
     }
 
     /**

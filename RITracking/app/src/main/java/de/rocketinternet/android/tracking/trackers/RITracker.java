@@ -2,11 +2,12 @@ package de.rocketinternet.android.tracking.trackers;
 
 import android.content.Context;
 
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 /**
  * @author alessandro.balocco
+ *
+ * This class provides basic functionalities to every considered tracker
  */
 public abstract class RITracker {
 

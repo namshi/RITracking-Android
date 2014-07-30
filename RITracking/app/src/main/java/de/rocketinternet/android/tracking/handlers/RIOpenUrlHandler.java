@@ -1,5 +1,7 @@
 package de.rocketinternet.android.tracking.handlers;
 
+import android.net.Uri;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +10,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.rocketinternet.android.tracking.listeners.OnHandledOpenUrl;
+import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
@@ -19,31 +21,37 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
  */
 public class RIOpenUrlHandler {
 
-    private OnHandledOpenUrl mListener;
+    private String mIdentifier;
     private String mRegex;
-    private String[] mMacros;
+    private RIOnHandledOpenUrl mListener;
 
-    public RIOpenUrlHandler(OnHandledOpenUrl listener, String regex, String[] macros) {
-        mListener = listener;
+    public RIOpenUrlHandler(String identifier, String regex, RIOnHandledOpenUrl listener) {
+        mIdentifier = identifier;
         mRegex = regex;
-        mMacros = macros;
+        mListener = listener;
     }
 
-    public void handleOpenUrl(URL url) {
+    /**
+     *  Method that check if this handler need to handle the provided uri
+     *
+     *  @param uri  the provided uri to analyze
+     *  @return     true if the uri was handled successfully
+     */
+    public boolean handleOpenUrl(Uri uri) {
         List<String> matches = new ArrayList<String>();
         Pattern pattern = Pattern.compile(mRegex);
-        Matcher matcher = pattern.matcher(url.toString());
+        Matcher matcher = pattern.matcher(uri.getPath());
         while (matcher.find()) {
             matches.add(matcher.group());
         }
 
         if (matches.size() == 0) {
-            return;
+            return false;
         }
 
         Map<String, String> params = new HashMap<String, String>();
 
-        String urlQueryParams = url.getQuery();
+        String urlQueryParams = uri.getQuery();
         String[] separatedQueryParams = urlQueryParams.split("&");
         for (int i = 0; i < separatedQueryParams.length; i++) {
             String[] queryParam = separatedQueryParams[i].split("=");
@@ -52,7 +60,10 @@ public class RIOpenUrlHandler {
         }
 
         if (mListener != null) {
-            mListener.onHandledOpenUrl(params);
+            mListener.onHandledOpenUrl(mIdentifier, params);
+            return true;
         }
+
+        return false;
     }
 }

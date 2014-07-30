@@ -1,11 +1,8 @@
 package de.rocketinternet.android.tracking.core;
 
 import android.app.Application;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.net.Uri;
 
-import java.util.HashMap;
+import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  *  @author alessandro.balocco
@@ -21,7 +18,9 @@ public class RITrackingApplication extends Application {
         super.onCreate();
 
         RITracking.getInstance().setDebug(true);
-        RITracking.getInstance().startWithConfigurationFromPropertyList(getApplicationContext());
+        RITracking.getInstance().startWithConfigurationFromPropertiesList(getApplicationContext());
+
+        RILogUtils.logDebug("RITracking App launched");
     }
 
     @Override

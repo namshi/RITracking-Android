@@ -10,7 +10,7 @@ public interface RIScreenTracking {
     /**
      *  Track the display of a presented screen view to the user, given its name
      *
-     *  @param name The screen's name.
+     *  @param name The screen name.
      */
     void trackScreenWithName(String name);
 }
