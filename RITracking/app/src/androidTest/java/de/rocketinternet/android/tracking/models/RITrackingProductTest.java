@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
-import de.rocketinternet.android.tracking.utils.FileUtils;
 
 /**
  * @author alessandro.balocco
@@ -23,7 +22,7 @@ public class RITrackingProductTest extends InstrumentationTestCase {
         super.tearDown();
     }
 
-    public void testInitialization() {
+    public void testInitializationWithValues() {
         RITrackingProduct product = new RITrackingProduct("product5", "productName", 5, 5.0, "eur", "productCategory");
 
         assertEquals("product5", product.getIdentifier());
@@ -31,6 +30,28 @@ public class RITrackingProductTest extends InstrumentationTestCase {
         assertEquals(5, product.getQuantity());
         assertEquals(5.0, product.getPrice());
         assertEquals("eur", product.getCurrency());
+        assertEquals("productCategory", product.getCategory());
+    }
+
+    public void testSetters() {
+        RITrackingProduct product = new RITrackingProduct();
+
+        product.setIdentifier("product5");
+        assertEquals("product5", product.getIdentifier());
+
+        product.setName("productName");
+        assertEquals("productName", product.getName());
+
+        product.setQuantity(5);
+        assertEquals(5, product.getQuantity());
+
+        product.setPrice(5.0);
+        assertEquals(5.0, product.getPrice());
+
+        product.setCurrency("eur");
+        assertEquals("eur", product.getCurrency());
+
+        product.setCategory("productCategory");
         assertEquals("productCategory", product.getCategory());
     }
 }

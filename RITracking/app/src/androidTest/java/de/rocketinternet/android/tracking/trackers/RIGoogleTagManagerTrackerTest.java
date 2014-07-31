@@ -2,18 +2,17 @@ package de.rocketinternet.android.tracking.trackers;
 
 import android.test.InstrumentationTestCase;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-
 import java.util.Properties;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleAnalyticsTrackerMock;
+import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleTagManagerTrackerMock;
 import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
  * @author alessandro.balocco
  */
-public class RIGoogleAnalyticsTrackerTest extends InstrumentationTestCase {
+public class RIGoogleTagManagerTrackerTest extends InstrumentationTestCase {
 
     @Override
     protected void setUp() throws Exception {
@@ -34,7 +33,7 @@ public class RIGoogleAnalyticsTrackerTest extends InstrumentationTestCase {
         Properties properties = RIResourceUtils.getProperties(getInstrumentation().getContext(), propertiesFileName);
         RITrackingConfiguration.getInstance().loadPropertiesFromFile(properties);
 
-        RIGoogleAnalyticsTrackerMock tracker = new RIGoogleAnalyticsTrackerMock();
+        RIGoogleTagManagerTrackerMock tracker = new RIGoogleTagManagerTrackerMock();
         assertFalse(tracker.initializeTracker(getInstrumentation().getContext()));
     }
 
@@ -43,7 +42,7 @@ public class RIGoogleAnalyticsTrackerTest extends InstrumentationTestCase {
         Properties properties = RIResourceUtils.getProperties(getInstrumentation().getContext(), propertiesFileName);
         RITrackingConfiguration.getInstance().loadPropertiesFromFile(properties);
 
-        RIGoogleAnalyticsTrackerMock tracker = new RIGoogleAnalyticsTrackerMock();
+        RIGoogleTagManagerTrackerMock tracker = new RIGoogleTagManagerTrackerMock();
         assertTrue(tracker.initializeTracker(getInstrumentation().getContext()));
     }
 }

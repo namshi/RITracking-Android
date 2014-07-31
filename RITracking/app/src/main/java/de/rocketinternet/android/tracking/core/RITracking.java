@@ -6,12 +6,14 @@ import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIExceptionTracking;
 import de.rocketinternet.android.tracking.interfaces.RIOpenUrlTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
+import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
+import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
-import de.rocketinternet.android.tracking.utils.RIAssetsUtils;
+import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 import android.content.Context;
@@ -34,6 +36,7 @@ import java.util.Properties;
 public class RITracking implements
         RIEventTracking,
         RIScreenTracking,
+        RIUserTracking,
         RIExceptionTracking,
         RIOpenUrlTracking,
         RIEcommerceEventTracking {
@@ -59,11 +62,18 @@ public class RITracking implements
         return sInstance;
     }
 
-    // TODO: Give the option to initialize other trackers
-    public void initTrackers(List<RITracker> trackers) {
+    /**
+     *  Give option to initialize tracker after application is launched
+     *
+     *  @param trackers the list of supplied trackers
+     */
+    public void addTrackers(List<RITracker> trackers) {
         if (mTrackers == null) {
             mTrackers = new ArrayList<RITracker>();
         }
+
+        String message = "### Trackers initialized manually ###";
+        logTrackers(trackers, message);
         mTrackers.addAll(trackers);
     }
 
@@ -87,21 +97,28 @@ public class RITracking implements
      */
     public void startWithConfigurationFromPropertiesList(Context context) {
         RILogUtils.logDebug("Starting initialisation with property list");
+        Properties properties = RIResourceUtils.getProperties(context, PROPERTIES_FILE_NAME);
+        RITrackingConfiguration.getInstance().loadPropertiesFromFile(properties);
 
-        try {
-            Properties properties = RIAssetsUtils.getProperties(context, PROPERTIES_FILE_NAME);
-            RITrackingConfiguration.getInstance().loadPropertiesFromFile(properties);
-        } catch (IOException e) {
-            RILogUtils.logError("Unexpected error occurred when loading tracking configuration from " +
-                    "property list file");
-            return;
-        }
+        initializeTrackers(context);
+    }
 
-        // TODO: Initialize trackers
+    /**
+     *  Initialize all the needed trackers when app starts
+     *
+     *  @param context a context needed for trackers initialization
+     */
+    private void initializeTrackers(Context context) {
         mTrackers = new ArrayList<RITracker>();
-        // Google Analytics
+        // Google Analytics - actually deprecated
         RIGoogleAnalyticsTracker googleAnalyticsTracker = new RIGoogleAnalyticsTracker();
         if (googleAnalyticsTracker.initializeTracker(context)) { mTrackers.add(googleAnalyticsTracker); }
+        // Google Tag Manager
+        RIGoogleTagManagerTracker googleTagManagerTracker = new RIGoogleTagManagerTracker();
+        if (googleTagManagerTracker.initializeTracker(context)) { mTrackers.add(googleTagManagerTracker); }
+
+        String message = "## Trackers initialized onAppStart ##";
+        logTrackers(mTrackers, message);
     }
 
     @Override
@@ -148,6 +165,27 @@ public class RITracking implements
     }
 
     @Override
+    public void trackUser(final String userEvent, final Map<String, Object> map) {
+        RILogUtils.logDebug("Tracking user event: " + userEvent);
+
+        if (mTrackers == null) {
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            return;
+        }
+
+        for (final RITracker tracker : mTrackers) {
+            if (tracker instanceof RIUserTracking) {
+                tracker.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((RIUserTracking) tracker).trackUser(userEvent, map);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
     public void trackExceptionWithName(final String name) {
         RILogUtils.logDebug("Tracking exception with name " + name);
 
@@ -157,7 +195,7 @@ public class RITracking implements
         }
 
         for (final RITracker tracker : mTrackers) {
-            if (tracker instanceof RIEventTracking) {
+            if (tracker instanceof RIExceptionTracking) {
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
@@ -178,7 +216,7 @@ public class RITracking implements
         }
 
         for (final RITracker tracker : mTrackers) {
-            if (tracker instanceof RIEventTracking) {
+            if (tracker instanceof RIOpenUrlTracking) {
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
@@ -219,7 +257,7 @@ public class RITracking implements
         }
 
         for (final RITracker tracker : mTrackers) {
-            if (tracker instanceof RIEventTracking) {
+            if (tracker instanceof RIEcommerceEventTracking) {
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
@@ -231,13 +269,27 @@ public class RITracking implements
     }
 
     @Override
-    public void trackProductAddToCart(RITrackingProduct product) {
+    public void trackAddProductToCart(RITrackingProduct product) {
 
     }
 
     @Override
-    public void trackRemoveFromCartForProductWithID(String idTransaction, int quantity) {
+    public void trackRemoveProductFromCart(String idTransaction, int quantity) {
 
+    }
+
+    /**
+     *  Utility method that logs which trackers were initialized either manually or automatically
+     *  when application launches. These log are shown only when debug mode is set to TRUE.
+     */
+    private void logTrackers(List<RITracker> trackers, String message) {
+        if (isDebug()) {
+            RILogUtils.logDebug(message);
+            for (int i = 0; i < trackers.size(); i++) {
+                RILogUtils.logDebug("Tracker identifier: " + trackers.get(i).getIdentifier());
+            }
+            RILogUtils.logDebug("#####################################");
+        }
     }
 
     /**

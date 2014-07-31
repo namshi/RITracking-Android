@@ -17,9 +17,21 @@ public abstract class RITracker {
     protected static final int NUMBER_OF_CONCURRENT_TASKS = 1;
 
     /**
+     * String that identifies the tracker
+     */
+    protected String mIdentifier;
+
+    /**
      * Queue to avoid different trackers to stall each other or the app flow.
      */
     protected ExecutorService mQueue;
+
+    /**
+     * Get the identifier of the tracker. Mostly used for debugging reasons
+     *
+     * @return the identifier name of the tracker
+     */
+    public abstract String getIdentifier();
 
     /**
      * Initialize the tracker providing it with a valid context

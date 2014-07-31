@@ -12,13 +12,15 @@ import java.util.concurrent.TimeUnit;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleAnalyticsTrackerMock;
 import de.rocketinternet.android.tracking.trackers.RITracker;
+import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleTagManagerTrackerMock;
 
 /**
  * @author alessandro.balocco
  */
 public class RITrackingTest extends InstrumentationTestCase {
 
-    private RIGoogleAnalyticsTrackerMock mGoogleAnalyticsTracker;
+    private RIGoogleAnalyticsTrackerMock mGoogleAnalyticsTrackerMock;
+    private RIGoogleTagManagerTrackerMock mGoogleTagManagerTrackerMock;
 
     @Override
     protected void setUp() throws Exception {
@@ -34,9 +36,11 @@ public class RITrackingTest extends InstrumentationTestCase {
 
     private void createTrackersList() {
         List<RITracker> trackers = new ArrayList<RITracker>();
-        mGoogleAnalyticsTracker = new RIGoogleAnalyticsTrackerMock();
-        trackers.add(mGoogleAnalyticsTracker);
-        RITracking.getInstance().initTrackers(trackers);
+        mGoogleAnalyticsTrackerMock = new RIGoogleAnalyticsTrackerMock();
+        mGoogleTagManagerTrackerMock = new RIGoogleTagManagerTrackerMock();
+        trackers.add(mGoogleAnalyticsTrackerMock);
+        trackers.add(mGoogleTagManagerTrackerMock);
+        RITracking.getInstance().addTrackers(trackers);
     }
 
     @Override
@@ -48,53 +52,82 @@ public class RITrackingTest extends InstrumentationTestCase {
 
     public void testTrackEvent() throws InterruptedException {
         // Evaluate initial situation
-        assertEquals(0, mGoogleAnalyticsTracker.getNumberOfTrackedEvents());
-        assertFalse(mGoogleAnalyticsTracker.isEventTracked());
+        assertEquals(0, mGoogleAnalyticsTrackerMock.getNumberOfTrackedEvents());
+        assertFalse(mGoogleAnalyticsTrackerMock.isEventTracked());
+        assertEquals(0, mGoogleTagManagerTrackerMock.getNumberOfTrackedEvents());
+        assertFalse(mGoogleTagManagerTrackerMock.isEventTracked());
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(1);
-        mGoogleAnalyticsTracker.setSignal(latch);
+        CountDownLatch latch = new CountDownLatch(2);
+        mGoogleAnalyticsTrackerMock.setSignal(latch);
+        mGoogleTagManagerTrackerMock.setSignal(latch);
         RITracking.getInstance().trackEvent("", 0, "", "", new HashMap<String, Object>());
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results
         assertEquals(0, latch.getCount());
-        assertEquals(1, mGoogleAnalyticsTracker.getNumberOfTrackedEvents());
-        assertTrue(mGoogleAnalyticsTracker.isEventTracked());
+
+        assertEquals(1, mGoogleAnalyticsTrackerMock.getNumberOfTrackedEvents());
+        assertTrue(mGoogleAnalyticsTrackerMock.isEventTracked());
+        assertEquals(1, mGoogleTagManagerTrackerMock.getNumberOfTrackedEvents());
+        assertTrue(mGoogleTagManagerTrackerMock.isEventTracked());
     }
 
     public void testTrackScreenName() throws InterruptedException {
         String screenName = "HomePage";
 
         // Evaluate initial situation
-        assertTrue(TextUtils.isEmpty(mGoogleAnalyticsTracker.getLastTrackedScreenName()));
+        assertTrue(TextUtils.isEmpty(mGoogleAnalyticsTrackerMock.getLastTrackedScreenName()));
+        assertTrue(TextUtils.isEmpty(mGoogleTagManagerTrackerMock.getLastTrackedScreenName()));
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(1);
-        mGoogleAnalyticsTracker.setSignal(latch);
+        CountDownLatch latch = new CountDownLatch(2);
+        mGoogleAnalyticsTrackerMock.setSignal(latch);
+        mGoogleTagManagerTrackerMock.setSignal(latch);
         RITracking.getInstance().trackScreenWithName(screenName);
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results
         assertEquals(0, latch.getCount());
-        assertEquals(screenName, mGoogleAnalyticsTracker.getNumberOfTrackedEvents());
+
+        assertEquals(screenName, mGoogleAnalyticsTrackerMock.getLastTrackedScreenName());
+        assertEquals(screenName, mGoogleTagManagerTrackerMock.getLastTrackedScreenName());
+    }
+
+    public void testTrackUser() throws InterruptedException {
+        String userEvent = "Today is my birthday";
+
+        // Evaluate initial situation
+        assertTrue(TextUtils.isEmpty(mGoogleTagManagerTrackerMock.getLastUserEvent()));
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mGoogleTagManagerTrackerMock.setSignal(latch);
+        RITracking.getInstance().trackUser(userEvent, new HashMap<String, Object>());
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertEquals(userEvent, mGoogleTagManagerTrackerMock.getLastUserEvent());
+
     }
 
     public void testTrackExceptionWithName() throws InterruptedException {
         String exception = "Something weird happened!";
 
         // Evaluate initial situation
-        assertTrue(TextUtils.isEmpty(mGoogleAnalyticsTracker.getLastTrackedException()));
+        assertTrue(TextUtils.isEmpty(mGoogleAnalyticsTrackerMock.getLastTrackedException()));
 
         // Set count down depending on how many tracker we expect the callback from
         CountDownLatch latch = new CountDownLatch(1);
-        mGoogleAnalyticsTracker.setSignal(latch);
-        RITracking.getInstance().trackScreenWithName(exception);
+        mGoogleAnalyticsTrackerMock.setSignal(latch);
+        RITracking.getInstance().trackExceptionWithName(exception);
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results
         assertEquals(0, latch.getCount());
-        assertEquals(exception, mGoogleAnalyticsTracker.getNumberOfTrackedEvents());
+        assertEquals(exception, mGoogleAnalyticsTrackerMock.getLastTrackedException());
     }
 
     public void testTrackCheckoutWithTransactionId() throws InterruptedException {
@@ -102,16 +135,20 @@ public class RITrackingTest extends InstrumentationTestCase {
         RITrackingTotal total = new RITrackingTotal(20, 0.2f, 3, "eur");
 
         // Evaluate initial situation
-        assertTrue(TextUtils.isEmpty(mGoogleAnalyticsTracker.getLastCheckoutTransaction()));
+        assertTrue(TextUtils.isEmpty(mGoogleAnalyticsTrackerMock.getLastCheckoutTransaction()));
+        assertTrue(TextUtils.isEmpty(mGoogleTagManagerTrackerMock.getLastCheckoutTransaction()));
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(1);
-        mGoogleAnalyticsTracker.setSignal(latch);
+        CountDownLatch latch = new CountDownLatch(2);
+        mGoogleAnalyticsTrackerMock.setSignal(latch);
+        mGoogleTagManagerTrackerMock.setSignal(latch);
         RITracking.getInstance().trackCheckoutWithTransactionId(transactionId, total);
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results
         assertEquals(0, latch.getCount());
-        assertEquals(transactionId, mGoogleAnalyticsTracker.getLastCheckoutTransaction());
+
+        assertEquals(transactionId, mGoogleAnalyticsTrackerMock.getLastCheckoutTransaction());
+        assertEquals(transactionId, mGoogleTagManagerTrackerMock.getLastCheckoutTransaction());
     }
 }

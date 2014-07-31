@@ -9,26 +9,26 @@ import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
-import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
+import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
 
 /**
- * @author alessandro.balocco
+ *  @author alessandro.balocco
  */
-public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
+public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
 
     private CountDownLatch mSignal;
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
-    private String mLastTrackedScreenName, mLastTrackedException, mLastCheckoutTransaction;
+    private String mLastTrackedScreenName, mLastTrackedCheckoutTransaction, mLastTrackedUserEvent;
 
-    public RIGoogleAnalyticsTrackerMock() {
+    public RIGoogleTagManagerTrackerMock() {
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
     }
 
     @Override
     public boolean initializeTracker(Context context) {
-        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleAnalitycsTrackerID");
-        return !TextUtils.isEmpty(trackingId);
+        String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleTagManagerContainerID");
+        return !TextUtils.isEmpty(containerId);
     }
 
     public void setSignal(CountDownLatch signal) {
@@ -49,14 +49,14 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     }
 
     @Override
-    public void trackExceptionWithName(String name) {
-        mLastTrackedException = name;
+    public void trackUser(String userEvent, Map<String, Object> map) {
+        mLastTrackedUserEvent = userEvent;
         mSignal.countDown();
     }
 
     @Override
     public void trackCheckoutWithTransactionId(String idTransaction, RITrackingTotal total) {
-        mLastCheckoutTransaction = idTransaction;
+        mLastTrackedCheckoutTransaction = idTransaction;
         mSignal.countDown();
     }
 
@@ -72,11 +72,11 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
         return mLastTrackedScreenName;
     }
 
-    public String getLastTrackedException() {
-        return mLastTrackedException;
+    public String getLastUserEvent() {
+        return mLastTrackedUserEvent;
     }
 
     public String getLastCheckoutTransaction() {
-        return mLastCheckoutTransaction;
+        return mLastTrackedCheckoutTransaction;
     }
 }

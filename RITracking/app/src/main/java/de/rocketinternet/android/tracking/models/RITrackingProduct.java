@@ -30,6 +30,8 @@ public class RITrackingProduct {
      */
     private String mCategory;
 
+    public RITrackingProduct() {}
+
     public RITrackingProduct(String identifier, String name, int quantity, double price,
                              String currency, String category) {
         mIdentifier = identifier;

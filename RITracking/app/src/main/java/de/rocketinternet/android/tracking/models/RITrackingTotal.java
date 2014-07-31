@@ -22,6 +22,8 @@ public class RITrackingTotal {
      */
     private String mCurrency;
 
+    public RITrackingTotal() {}
+
     public RITrackingTotal(int net, float tax, int shipping, String currency) {
         mNet = net;
         mTax = tax;
@@ -41,7 +43,7 @@ public class RITrackingTotal {
         return mTax;
     }
 
-    public void setTax(int tax) {
+    public void setTax(float tax) {
         mTax = tax;
     }
 

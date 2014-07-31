@@ -19,7 +19,7 @@ public interface RIEcommerceEventTracking {
 
     /**
      * This method with include any previous calls to trackAddToCartForProductWithID and
-     * trackRemoveFromCartForProductWithID.
+     * trackRemoveProductFromCart.
      *
      * @param idTransaction The transaction ID
      * @param total         RITrackingProduct product
@@ -31,7 +31,7 @@ public interface RIEcommerceEventTracking {
      *
      * @param product The product added
      */
-    void trackProductAddToCart(RITrackingProduct product);
+    void trackAddProductToCart(RITrackingProduct product);
 
     /**
      * Track a product that was removed from the cart
@@ -39,5 +39,5 @@ public interface RIEcommerceEventTracking {
      * @param idTransaction The transaction ID
      * @param quantity      The quantity removed from the cart
      */
-    void trackRemoveFromCartForProductWithID(String idTransaction, int quantity);
+    void trackRemoveProductFromCart(String idTransaction, int quantity);
 }

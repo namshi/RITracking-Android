@@ -1,10 +1,13 @@
 package de.rocketinternet.android.tracking.core;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
  *  @author alessandro.balocco
@@ -28,6 +31,15 @@ public class RITrackingConfiguration {
             sInstance = new RITrackingConfiguration();
         }
         return sInstance;
+    }
+
+    /**
+     *  Check if library is allowed to load GoogleTagManager depending on the presence of a container
+     *
+     *  @return true in case we are allowed to load GoogleTagManager
+     */
+    public boolean isResourceAvailable(Context context, String resourceName, String resourceType) {
+        return RIResourceUtils.isResourceAvailable(context, resourceName, resourceType);
     }
 
     /**

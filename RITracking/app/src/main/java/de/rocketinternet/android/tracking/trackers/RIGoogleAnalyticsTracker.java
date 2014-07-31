@@ -23,6 +23,7 @@ import java.util.concurrent.Executors;
 /**
  *  @author alessandro.balocco
  *
+ *  @deprecated this tracker is actually deprecated in favor of GTMTracker
  *  Convenience controller to proxy-pass tracking information to Google Analytics
  */
 public class RIGoogleAnalyticsTracker extends RITracker implements
@@ -31,7 +32,8 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
         RIExceptionTracking,
         RIEcommerceEventTracking {
 
-    private static final String RI_GOOGLE_ANALYTICS_TRACKING_ID = "RIGoogleAnalyticsTrackingID";
+    private static final String TRACKER_ID = "RIGoogleAnalitycsTrackerID";
+    private static final String TRACKING_ID = "RIGoogleAnalyticsTrackingID";
     private Tracker mTracker;
 
     public RIGoogleAnalyticsTracker() {}
@@ -42,9 +44,14 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     }
 
     @Override
+    public String getIdentifier() {
+        return mIdentifier;
+    }
+
+    @Override
     public boolean initializeTracker(Context context) {
         RILogUtils.logDebug("Initializing Google Analytics tracker");
-        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RI_GOOGLE_ANALYTICS_TRACKING_ID);
+        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(TRACKING_ID);
         if (!TextUtils.isEmpty(trackingId)) {
             createTracker(context, trackingId);
         } else {
@@ -60,6 +67,7 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
         mTracker = GoogleAnalytics.getInstance(context).newTracker(trackingId);
         mTracker.enableExceptionReporting(true);
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
+        mIdentifier = TRACKER_ID;
     }
 
     @Override
@@ -139,12 +147,12 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     }
 
     @Override
-    public void trackProductAddToCart(RITrackingProduct product) {
+    public void trackAddProductToCart(RITrackingProduct product) {
         // TODO: add implementation
     }
 
     @Override
-    public void trackRemoveFromCartForProductWithID(String idTransaction, int quantity) {
+    public void trackRemoveProductFromCart(String idTransaction, int quantity) {
         // TODO: add implementation
     }
 }
