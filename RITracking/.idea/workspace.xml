@@ -26,53 +26,12 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ead64df-03ae-4450-855d-989af4c0b6ce" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/androidTest/res/raw/gtm_default_container" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/raw/gtm_default_container" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/libs/libGoogleAnalyticsServices.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/gtm/RIContainerHolder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/gtm/RIContainerLoadedCallback.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIGoogleTagManagerTracker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIGoogleTagManagerTrackerMock.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/RIGoogleTagManagerTrackerTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/utils/RITrackersConstants.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIUserTracking.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/1_dexmaker_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/1_dexmaker_mockito_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_19_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/dexmaker_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/dexmaker_mockito_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/mockito_all_1_9_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/mockito_core_1_9_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/objenesis_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_5_0_77.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_19_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/utils/FileUtils.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIAssetsUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIResourceUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/.gitignore" afterPath="$PROJECT_DIR$/app/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIEcommerceEventTracking.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIEcommerceEventTracking.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIGoogleAnalyticsTracker.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIGoogleAnalyticsTracker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIGoogleAnalyticsTrackerMock.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIGoogleAnalyticsTrackerMock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/RIGoogleAnalyticsTrackerTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/RIGoogleAnalyticsTrackerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RITracker.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RITracker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingConfiguration.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingConfiguration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingConfigurationTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingConfigurationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/models/RITrackingProduct.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/models/RITrackingProduct.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/models/RITrackingProductTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/models/RITrackingProductTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/models/RITrackingTotal.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/models/RITrackingTotal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/models/RITrackingTotalTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/models/RITrackingTotalTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/assets/properties/empty_ri_tracking_config.properties" afterPath="$PROJECT_DIR$/app/src/androidTest/assets/properties/empty_ri_tracking_config.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/assets/ri_tracking_config.properties" afterPath="$PROJECT_DIR$/app/src/main/assets/ri_tracking_config.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/assets/properties/valid_ri_tracking_config.properties" afterPath="$PROJECT_DIR$/app/src/androidTest/assets/properties/valid_ri_tracking_config.properties" />
+    <list default="true" id="3ead64df-03ae-4450-855d-989af4c0b6ce" name="Default" comment="Add file">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/serializers/RIAppLaunchJsonSerializer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIDisplayUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIPackageUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RITracking.iws" />
@@ -99,41 +58,74 @@
       <file leaf-file-name="RITracking.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1488" max-vertical-offset="3915">
-              <caret line="259" column="59" selection-start-line="259" selection-start-column="59" selection-end-line="259" selection-end-column="59" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="194" max-vertical-offset="3915">
+              <caret line="48" column="45" selection-start-line="48" selection-start-column="45" selection-end-line="48" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RITrackingTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java">
+      <file leaf-file-name="RITrackingApplication.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1390" max-vertical-offset="2400">
-              <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
+              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RITrackingActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
+              <caret line="32" column="76" selection-start-line="32" selection-start-column="76" selection-end-line="32" selection-end-column="76" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RIAppLaunchJsonSerializer.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/serializers/RIAppLaunchJsonSerializer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.03125" vertical-offset="0" max-vertical-offset="780">
+              <caret line="44" column="5" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1304#1315#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RIGoogleTagManagerTrackerMock.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIGoogleTagManagerTrackerMock.java">
+      <file leaf-file-name="RIPackageUtils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIPackageUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1005">
-              <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RITrackingActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java">
+      <file leaf-file-name="RIDisplayUtils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIDisplayUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53956836" vertical-offset="0" max-vertical-offset="556">
-              <caret line="25" column="79" selection-start-line="25" selection-start-column="79" selection-end-line="25" selection-end-column="79" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RILogUtils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RILogUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="11" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -150,7 +142,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="master" />
+        <entry key="$PROJECT_DIR$/.." value="feature_bootstrap" />
       </map>
     </option>
   </component>
@@ -1307,10 +1299,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/RITrackingConfigurationTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RILogUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIEventTracking.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/listeners/RIOnHandledOpenUrl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/handlers/RIOpenUrlHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIExceptionTracking.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIOpenUrlTracking.java" />
@@ -1332,12 +1320,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/assets/ri_tracking_config.properties" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingConfiguration.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIGoogleAnalyticsTracker.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/MainActivityChild.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/gtm/RIGoogleTagManagerConstants.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIEcommerceEventTracking.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/assets/properties/valid_ri_tracking_config.properties" />
         <option value="$PROJECT_DIR$/app/src/androidTest/assets/properties/empty_ri_tracking_config.properties" />
@@ -1356,15 +1342,22 @@
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/models/RITrackingTotal.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/models/RITrackingTotalTest.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIGoogleTagManagerTrackerMock.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIPackageUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIJsonUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/serializers/RIAppLaunchJsonSerializer.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIDisplayUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="68" />
     <option name="y" value="22" />
-    <option name="width" value="1529" />
-    <option name="height" value="1057" />
+    <option name="width" value="1744" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1494,29 +1487,7 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="androidTest" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RITracking" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RITracking" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="androidTest" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1527,6 +1498,10 @@
               <option name="myItemId" value="tracking" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1546,7 +1521,45 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="androidTest" />
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tracking" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="serializers" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RITracking" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RITracking" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1559,6 +1572,58 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RITracking" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RITracking" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tracking" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="containers" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RITracking" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RITracking" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1952,11 +2017,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1529" height="1057" extended-state="6" />
+    <frame x="68" y="22" width="1744" height="1054" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2878486" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28784648" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32914376" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1976,8 +2041,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28244787" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37938362" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2467685" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12260128" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2040,34 +2105,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/java/lang/ClassLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5884" max-vertical-offset="11625">
-          <caret line="456" column="0" selection-start-line="456" selection-start-column="0" selection-end-line="456" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/java/util/HashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1354" max-vertical-offset="14580">
-          <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar!/com/google/android/gms/analytics/Tracker.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0" vertical-offset="0" max-vertical-offset="1710">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar!/com/google/android/gms/analytics/ecommerce/ProductAction.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12618296" vertical-offset="0" max-vertical-offset="951">
-          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar!/com/google/android/gms/analytics/GoogleAnalytics.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34174553" vertical-offset="380" max-vertical-offset="1530">
@@ -2174,14 +2211,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.333333" vertical-offset="15" max-vertical-offset="375">
           <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
-          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -2428,14 +2457,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1488" max-vertical-offset="3915">
-          <caret line="259" column="59" selection-start-line="259" selection-start-column="59" selection-end-line="259" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1390" max-vertical-offset="2400">
@@ -2455,11 +2476,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="194" max-vertical-offset="3915">
+          <caret line="48" column="45" selection-start-line="48" selection-start-column="45" selection-end-line="48" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RILogUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="11" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
+          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53956836" vertical-offset="0" max-vertical-offset="556">
-          <caret line="25" column="79" selection-start-line="25" selection-start-column="79" selection-end-line="25" selection-end-column="79" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
+          <caret line="32" column="76" selection-start-line="32" selection-start-column="76" selection-end-line="32" selection-end-column="76" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIPackageUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/RIDisplayUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/utils/serializers/RIAppLaunchJsonSerializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.03125" vertical-offset="0" max-vertical-offset="780">
+          <caret line="44" column="5" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
