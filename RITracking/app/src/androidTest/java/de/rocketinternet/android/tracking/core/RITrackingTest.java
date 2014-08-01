@@ -1,5 +1,6 @@
 package de.rocketinternet.android.tracking.core;
 
+import android.app.Activity;
 import android.test.InstrumentationTestCase;
 import android.text.TextUtils;
 
@@ -10,8 +11,9 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
-import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleAnalyticsTrackerMock;
 import de.rocketinternet.android.tracking.trackers.RITracker;
+import de.rocketinternet.android.tracking.trackers.mocks.RIAd4PushTrackerMock;
+import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleAnalyticsTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleTagManagerTrackerMock;
 
 /**
@@ -21,6 +23,7 @@ public class RITrackingTest extends InstrumentationTestCase {
 
     private RIGoogleAnalyticsTrackerMock mGoogleAnalyticsTrackerMock;
     private RIGoogleTagManagerTrackerMock mGoogleTagManagerTrackerMock;
+    private RIAd4PushTrackerMock mAd4PushTrackerMock;
 
     @Override
     protected void setUp() throws Exception {
@@ -38,8 +41,10 @@ public class RITrackingTest extends InstrumentationTestCase {
         List<RITracker> trackers = new ArrayList<RITracker>();
         mGoogleAnalyticsTrackerMock = new RIGoogleAnalyticsTrackerMock();
         mGoogleTagManagerTrackerMock = new RIGoogleTagManagerTrackerMock();
+        mAd4PushTrackerMock = new RIAd4PushTrackerMock();
         trackers.add(mGoogleAnalyticsTrackerMock);
         trackers.add(mGoogleTagManagerTrackerMock);
+        trackers.add(mAd4PushTrackerMock);
         RITracking.getInstance().addTrackers(trackers);
     }
 
@@ -150,5 +155,41 @@ public class RITrackingTest extends InstrumentationTestCase {
 
         assertEquals(transactionId, mGoogleAnalyticsTrackerMock.getLastCheckoutTransaction());
         assertEquals(transactionId, mGoogleTagManagerTrackerMock.getLastCheckoutTransaction());
+    }
+
+    public void testOnActivityResumed() throws InterruptedException {
+        Activity mockActivity = new Activity();
+
+        // Evaluate initial situation
+        assertFalse(mAd4PushTrackerMock.wasActivityResumed());
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mAd4PushTrackerMock.setSignal(latch);
+        RITracking.getInstance().onActivityResumed(mockActivity);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertTrue(mAd4PushTrackerMock.wasActivityResumed());
+    }
+
+    public void testOnActivityPaused() throws InterruptedException {
+        Activity mockActivity = new Activity();
+
+        // Evaluate initial situation
+        assertFalse(mAd4PushTrackerMock.wasActivityPaused());
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mAd4PushTrackerMock.setSignal(latch);
+        RITracking.getInstance().onActivityResumed(mockActivity);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertTrue(mAd4PushTrackerMock.wasActivityPaused());
     }
 }

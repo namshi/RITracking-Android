@@ -37,15 +37,15 @@
             android:name="com.ad4screen.sdk.A4SService"
             android:label="A4S Service"
             android:process=":A4SService">
-            <meta-data
-                android:name="com.ad4screen.partnerid"
-                android:value="YOUR.PARTNER.ID" />
-            <meta-data
-                android:name="com.ad4screen.privatekey"
-                android:value="YOUR.PRIVATE.KEY" />
-            <meta-data
-                android:name="com.ad4screen.senderid"
-                android:value="gcm:YOUR.PROJECT.ID" />
+            <!--<meta-data-->
+            <!--android:name="com.ad4screen.partnerid"-->
+            <!--android:value="YOUR.PARTNER.ID" />-->
+            <!--<meta-data-->
+            <!--android:name="com.ad4screen.privatekey"-->
+            <!--android:value="YOUR.PRIVATE.KEY" />-->
+            <!--<meta-data-->
+            <!--android:name="com.ad4screen.senderid"-->
+            <!--android:value="gcm:YOUR.PROJECT.ID" />-->
         </service>
 
         <receiver
@@ -92,7 +92,7 @@
 
         <!-- [A4S-InApp[ -->
         <receiver
-            android:name="YOUR.PACKAGE.YOUR.RECEIVER"
+            android:name="your.package.your.receiver"
             android:permission="YOUR.PACKAGE.permission.A4S_SEND">
             <intent-filter>
                 <action android:name="com.ad4screen.sdk.intent.action.DISPLAYED" />

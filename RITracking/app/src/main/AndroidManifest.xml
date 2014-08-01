@@ -13,10 +13,10 @@
     <!-- ########## Ad4Push ########## -->
     <!-- #### Change your pkg name ### -->
     <permission
-        android:name="your-package.permission.C2D_MESSAGE"
+        android:name="your.package.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="your-package.permission.C2D_MESSAGE" />
+    <uses-permission android:name="your.package.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <!-- ############################# -->
 
@@ -95,17 +95,17 @@
             android:process=":A4SService">
 
             <!-- Use your partner id -->
-            <meta-data
-                android:name="com.ad4screen.partnerid"
-                android:value="YOUR.PARTNER.ID" />
+            <!--<meta-data-->
+            <!--android:name="com.ad4screen.partnerid"-->
+            <!--android:value="YOUR.PARTNER.ID" />-->
             <!-- Use your private key -->
-            <meta-data
-                android:name="com.ad4screen.privatekey"
-                android:value="YOUR.PRIVATE.KEY" />
+            <!--<meta-data-->
+            <!--android:name="com.ad4screen.privatekey"-->
+            <!--android:value="YOUR.PRIVATE.KEY" />-->
             <!-- Use your sender id -->
-            <meta-data
-                android:name="com.ad4screen.senderid"
-                android:value="gcm:yoursenderid" />
+            <!--<meta-data-->
+            <!--android:name="com.ad4screen.senderid"-->
+            <!--android:value="gcm:yoursenderid" />-->
             <!-- Uncomment this if you don't want to use SDK built-in geolocation -->
             <!--<meta-data
                 android:name="com.ad4screen.no_geoloc"
@@ -141,7 +141,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="your-package" />
+                <category android:name="your.package" />
             </intent-filter>
         </receiver>
 

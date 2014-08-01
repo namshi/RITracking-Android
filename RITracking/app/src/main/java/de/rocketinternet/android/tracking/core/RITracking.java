@@ -1,30 +1,32 @@
 package de.rocketinternet.android.tracking.core;
 
+import android.app.Activity;
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import de.rocketinternet.android.tracking.handlers.RIOpenUrlHandler;
 import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIExceptionTracking;
+import de.rocketinternet.android.tracking.interfaces.RILifeCycleTracking;
 import de.rocketinternet.android.tracking.interfaces.RIOpenUrlTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
-import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
-
-import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
  * @author alessandro.balocco
@@ -39,7 +41,8 @@ public class RITracking implements
         RIUserTracking,
         RIExceptionTracking,
         RIOpenUrlTracking,
-        RIEcommerceEventTracking {
+        RIEcommerceEventTracking,
+        RILifeCycleTracking {
 
     private static final String PROPERTIES_FILE_NAME = "ri_tracking_config.properties";
 
@@ -116,6 +119,11 @@ public class RITracking implements
         // Google Tag Manager
         RIGoogleTagManagerTracker googleTagManagerTracker = new RIGoogleTagManagerTracker();
         if (googleTagManagerTracker.initializeTracker(context)) { mTrackers.add(googleTagManagerTracker); }
+        // Ad4Push
+        RIAd4PushTracker ad4PushTracker = new RIAd4PushTracker();
+        if (ad4PushTracker.initializeTracker(context)) {
+            mTrackers.add(ad4PushTracker);
+        }
 
         String message = "## Trackers initialized onAppStart ##";
         logTrackers(mTrackers, message);
@@ -276,6 +284,48 @@ public class RITracking implements
     @Override
     public void trackRemoveProductFromCart(String idTransaction, int quantity) {
 
+    }
+
+    @Override
+    public void onActivityResumed(final Activity activity) {
+        RILogUtils.logDebug("Activity: was resumed");
+
+        if (mTrackers == null) {
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            return;
+        }
+
+        for (final RITracker tracker : mTrackers) {
+            if (tracker instanceof RILifeCycleTracking) {
+                tracker.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((RILifeCycleTracking) tracker).onActivityResumed(activity);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void onActivityPaused(final Activity activity) {
+        RILogUtils.logDebug("Activity: was paused");
+
+        if (mTrackers == null) {
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            return;
+        }
+
+        for (final RITracker tracker : mTrackers) {
+            if (tracker instanceof RILifeCycleTracking) {
+                tracker.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((RILifeCycleTracking) tracker).onActivityPaused(activity);
+                    }
+                });
+            }
+        }
     }
 
     /**
