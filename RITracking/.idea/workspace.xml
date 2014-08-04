@@ -29,10 +29,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ead64df-03ae-4450-855d-989af4c0b6ce" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/fragments/RITrackingFragment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/annotations/RITrackingScreenAnnotation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/RITrackingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/containers/activities/RITrackingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RITracking.iws" />
@@ -2028,7 +2024,11 @@
       <created>1406711780713</created>
       <updated>1406711780713</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add annotation to track screen">
+      <created>1407172671155</created>
+      <updated>1407172671155</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2112,7 +2112,8 @@
     </option>
     <MESSAGE value="Add needed libraries&#10;" />
     <MESSAGE value="Add file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add file" />
+    <MESSAGE value="Add annotation to track screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add annotation to track screen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
