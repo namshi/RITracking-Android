@@ -26,7 +26,7 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
  * @author alessandro.balocco
  */
 @RITrackingScreenAnnotation(screenName = "Homepage")
-public class MainActivity extends RITrackingActivity {
+public class RIMainExampleActivity extends RITrackingActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

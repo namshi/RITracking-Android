@@ -1,8 +1,7 @@
 package de.rocketinternet.android.tracking.containers.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import java.lang.annotation.Annotation;
@@ -18,12 +17,10 @@ import de.rocketinternet.android.tracking.core.RITracking;
  *
  * - Sending screen name of the fragment when it is attached if screen annotation has been defined
  *
- * This class is supported from API level 11. If you are targeting something smaller as minumum SDK
- * you should use {@link de.rocketinternet.android.tracking.containers.fragments.RITrackingFragmentSupport}
- * instead
+ * This class is extend Fragment class from the support library. Use this class if your minumum SDK
+ * is smaller that API level 11.
  */
-@SuppressLint("NewApi")
-public class RITrackingFragment extends Fragment {
+public class RITrackingFragmentSupport extends Fragment {
 
     @Override
     public void onAttach(Activity activity) {

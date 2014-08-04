@@ -1,4 +1,4 @@
-package de.rocketinternet.android.tracking;
+package de.rocketinternet.android.tracking.containers.deeplinks;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.Map;
 
+import de.rocketinternet.android.tracking.R;
 import de.rocketinternet.android.tracking.core.RITracking;
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 
@@ -18,17 +19,12 @@ import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
  * intercepting deep-linking actions should extend this activity and implement RIOnHandledOpenUrl.
  * By doing that, they will be able to redirect their users to any specific activity.
  */
-abstract class RIDeepLinkingActivity extends Activity {
-
-    private TextView mTextView;
+public abstract class RIDeepLinkingActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deep_linking);
 
-        // Debug UI
-        mTextView = (TextView) findViewById(R.id.text);
         registerHandlers();
         handleIntentReceived();
 
@@ -40,7 +36,7 @@ abstract class RIDeepLinkingActivity extends Activity {
      *  This method is meant to register the handlers for deep linking and saving them in
      *  RITraking singleton. Users of the library should provide their handlers.
      */
-    abstract void registerHandlers();
+    protected abstract void registerHandlers();
 
     private void handleIntentReceived() {
         Intent intent = getIntent();
@@ -50,7 +46,5 @@ abstract class RIDeepLinkingActivity extends Activity {
 
         Uri data = intent.getData();
         RITracking.getInstance().queryHandlers(data);
-
-        mTextView.setText("This is a deep linking activity and this is the url: " + data.toString());
     }
 }
