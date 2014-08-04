@@ -18,6 +18,12 @@
 
     <uses-permission android:name="your.package.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="your.package.permission.A4S_SEND"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="yourpackage.permission.A4S_SEND" />
     <!-- ############################# -->
 
     <application
@@ -154,5 +160,18 @@
         <activity
             android:name="com.ad4screen.sdk.A4SInterstitial"
             android:theme="@style/com_ad4screen_sdk_theme_interstitial" />
+
+        <!--&lt;!&ndash; Use your custom receiver but that the one in the library as an example &ndash;&gt;-->
+        <!--<receiver-->
+            <!--android:name="my-package.InAppHandler">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.ad4screen.sdk.intent.action.DISPLAYED" />-->
+                <!--<action android:name="com.ad4screen.sdk.intent.action.CLICKED" />-->
+
+                <!--<category android:name="com.ad4screen.sdk.intent.category.PUSH_NOTIFICATIONS" />-->
+                <!--<category android:name="com.ad4screen.sdk.intent.category.INAPP_NOTIFICATIONS" />-->
+                <!--<category android:name="com.ad4screen.sdk.intent.category.INBOX_NOTIFICATIONS" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 </manifest>

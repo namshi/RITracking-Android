@@ -27,18 +27,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: de.rocketinternet.android.tracking" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ead64df-03ae-4450-855d-989af4c0b6ce" name="Default" comment="Changed Application class to suits Ad4Push SDK">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/ad4push/RIAd4PushUserEnum.java" />
+    <list default="true" id="3ead64df-03ae-4450-855d-989af4c0b6ce" name="Default" comment="Add methods to Ad4PushTracker for tracking screen, user and event. Add tests for these methods.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTracker.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTracker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIAd4PushTrackerMock.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIAd4PushTrackerMock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIGoogleTagManagerTracker.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIGoogleTagManagerTracker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIGoogleTagManagerTrackerMock.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIGoogleTagManagerTrackerMock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/utils/RITrackersConstants.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/utils/RITrackersConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIUserTracking.java" afterPath="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIUserTracking.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/a4SSDK/src/main/res/layout/com_ad4screen_sdk_banner.xml" afterPath="$PROJECT_DIR$/a4SSDK/src/main/res/layout/com_ad4screen_sdk_banner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/a4SSDK/src/main/res/layout/com_ad4screen_sdk_template_banner.xml" afterPath="$PROJECT_DIR$/a4SSDK/src/main/res/layout/com_ad4screen_sdk_template_banner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/a4SSDK/src/main/res/layout/com_ad4screen_sdk_template_banner_fullscreen.xml" afterPath="$PROJECT_DIR$/a4SSDK/src/main/res/layout/com_ad4screen_sdk_template_banner_fullscreen.xml" />
@@ -86,11 +77,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RITrackingTest.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.98255813" vertical-offset="1769" max-vertical-offset="2745">
+              <caret line="163" column="0" selection-start-line="163" selection-start-column="0" selection-end-line="174" selection-end-column="23" />
+              <folding>
+                <element signature="e#476#515#0" expanded="true" />
+                <element signature="e#1292#1310#0" expanded="true" />
+                <element signature="e#1437#1455#0" expanded="true" />
+                <element signature="e#2001#2019#0" expanded="true" />
+                <element signature="e#3147#3165#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RITrackingTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6463654" vertical-offset="2416" max-vertical-offset="2970">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2219" max-vertical-offset="2970">
               <caret line="198" column="50" selection-start-line="198" selection-start-column="50" selection-end-line="198" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RIAd4PushTracker.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTracker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="553" max-vertical-offset="1860">
+              <caret line="95" column="46" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -1793,23 +1810,23 @@
         <option value="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTrackerTest.java" />
         <option value="$PROJECT_DIR$/a4SSDK/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITrackingApplication.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/utils/RITrackersConstants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/core/RITracking.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIGoogleTagManagerTracker.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/interfaces/RIUserTracking.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/ad4push/RIAd4PushUserEnum.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTracker.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIGoogleTagManagerTrackerMock.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/mocks/RIAd4PushTrackerMock.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTracker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
     <option name="width" value="1920" />
-    <option name="height" value="878" />
+    <option name="height" value="1120" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -2453,15 +2470,19 @@
       <created>1407144458095</created>
       <updated>1407144458095</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add methods to Ad4PushTracker for tracking screen, user and event. Add tests for these methods.">
+      <created>1407157105444</created>
+      <updated>1407157105444</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="878" extended-state="6" />
+    <frame x="0" y="22" width="1920" height="1120" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28784648" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2868526" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32914376" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2482,7 +2503,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22364217" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2952756" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22410358" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2542,7 +2563,8 @@
     <MESSAGE value="Add Ad4Push library and start integration" />
     <MESSAGE value="Add Ad4Push tracker initialization using activity methods callbacks" />
     <MESSAGE value="Changed Application class to suits Ad4Push SDK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed Application class to suits Ad4Push SDK" />
+    <MESSAGE value="Add methods to Ad4PushTracker for tracking screen, user and event. Add tests for these methods." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add methods to Ad4PushTracker for tracking screen, user and event. Add tests for these methods." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -2725,14 +2747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/import-summary.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1025" max-vertical-offset="1665">
-          <caret line="104" column="31" selection-start-line="104" selection-start-column="31" selection-end-line="104" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="640">
@@ -2871,14 +2885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1818" max-vertical-offset="2430">
-          <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/utils/RITrackersConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
@@ -2946,17 +2952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTracker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="883" max-vertical-offset="1890">
-          <caret line="95" column="46" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
-          <folding>
-            <element signature="e#1402#1403#0" expanded="true" />
-            <element signature="e#1436#1437#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTrackerTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="705">
@@ -2988,9 +2983,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/de/rocketinternet/android/tracking/core/RITrackingTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6463654" vertical-offset="2416" max-vertical-offset="2970">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2219" max-vertical-offset="2970">
           <caret line="198" column="50" selection-start-line="198" selection-start-column="50" selection-end-line="198" selection-end-column="50" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/rocketinternet/android/tracking/trackers/RIAd4PushTracker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="553" max-vertical-offset="1860">
+          <caret line="95" column="46" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.98255813" vertical-offset="1769" max-vertical-offset="2745">
+          <caret line="163" column="0" selection-start-line="163" selection-start-column="0" selection-end-line="174" selection-end-column="23" />
+          <folding>
+            <element signature="e#476#515#0" expanded="true" />
+            <element signature="e#1292#1310#0" expanded="true" />
+            <element signature="e#1437#1455#0" expanded="true" />
+            <element signature="e#2001#2019#0" expanded="true" />
+            <element signature="e#3147#3165#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
