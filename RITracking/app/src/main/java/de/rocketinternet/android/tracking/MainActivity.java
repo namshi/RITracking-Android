@@ -17,13 +17,16 @@ import com.google.android.gms.tagmanager.TagManager;
 
 import java.util.concurrent.TimeUnit;
 
+import de.rocketinternet.android.tracking.annotations.RITrackingScreenAnnotation;
+import de.rocketinternet.android.tracking.containers.activities.RITrackingActivity;
 import de.rocketinternet.android.tracking.trackers.gtm.RIContainerHolder;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
  */
-public class MainActivity extends Activity {
+@RITrackingScreenAnnotation(screenName = "Homepage")
+public class MainActivity extends RITrackingActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
