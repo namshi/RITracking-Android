@@ -113,19 +113,21 @@ public class RIAd4PushTracker extends RITracker implements
     }
 
     @Override
-    public void onActivityResumed(Activity activity) {
-        RILogUtils.logDebug("Ad4Push tracker - Activity: " + activity.getLocalClassName() + " was resumed");
+    public void trackActivityResumed(Activity activity) {
+        if (activity != null) {
+            RILogUtils.logDebug("Ad4Push tracker - Activity: " + activity.getLocalClassName() + " was resumed");
 
-        if (mA4S == null) {
-            RILogUtils.logError("Missing Ad4Push singleton reference");
-            return;
+            if (mA4S == null) {
+                RILogUtils.logError("Missing Ad4Push singleton reference");
+                return;
+            }
+
+            mA4S.startActivity(activity);
         }
-
-        mA4S.startActivity(activity);
     }
 
     @Override
-    public void onActivityPaused(Activity activity) {
+    public void trackActivityPaused(Activity activity) {
         RILogUtils.logDebug("Ad4Push tracker - Activity: " + activity.getLocalClassName() + " was paused");
 
         if (mA4S == null) {

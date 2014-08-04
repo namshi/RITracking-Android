@@ -293,7 +293,7 @@ public class RITracking implements
     }
 
     @Override
-    public void onActivityResumed(final Activity activity) {
+    public void trackActivityResumed(final Activity activity) {
         RILogUtils.logDebug("Activity: was resumed");
 
         if (mTrackers == null) {
@@ -306,7 +306,7 @@ public class RITracking implements
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
-                        ((RILifeCycleTracking) tracker).onActivityResumed(activity);
+                        ((RILifeCycleTracking) tracker).trackActivityResumed(activity);
                     }
                 });
             }
@@ -314,7 +314,7 @@ public class RITracking implements
     }
 
     @Override
-    public void onActivityPaused(final Activity activity) {
+    public void trackActivityPaused(final Activity activity) {
         RILogUtils.logDebug("Activity: was paused");
 
         if (mTrackers == null) {
@@ -327,7 +327,7 @@ public class RITracking implements
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
-                        ((RILifeCycleTracking) tracker).onActivityPaused(activity);
+                        ((RILifeCycleTracking) tracker).trackActivityPaused(activity);
                     }
                 });
             }

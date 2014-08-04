@@ -56,13 +56,13 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     }
 
     @Override
-    public void onActivityResumed(Activity activity) {
+    public void trackActivityResumed(Activity activity) {
         mActivityWasResumed = true;
         mSignal.countDown();
     }
 
     @Override
-    public void onActivityPaused(Activity activity) {
+    public void trackActivityPaused(Activity activity) {
         mActivityWasPaused = true;
         mSignal.countDown();
     }

@@ -14,12 +14,12 @@ public interface RILifeCycleTracking {
      *
      * @param activity The activity that is actually running
      */
-    void onActivityResumed(Activity activity);
+    void trackActivityResumed(Activity activity);
 
     /**
      * Track the onPause callback of the Activity
      *
      * @param activity The activity that is actually going in background
      */
-    void onActivityPaused(Activity activity);
+    void trackActivityPaused(Activity activity);
 }

@@ -178,7 +178,7 @@ public class RITrackingTest extends InstrumentationTestCase {
         // Set count down depending on how many tracker we expect the callback from
         CountDownLatch latch = new CountDownLatch(1);
         mAd4PushTrackerMock.setSignal(latch);
-        RITracking.getInstance().onActivityResumed(mockActivity);
+        RITracking.getInstance().trackActivityResumed(mockActivity);
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results
@@ -196,7 +196,7 @@ public class RITrackingTest extends InstrumentationTestCase {
         // Set count down depending on how many tracker we expect the callback from
         CountDownLatch latch = new CountDownLatch(1);
         mAd4PushTrackerMock.setSignal(latch);
-        RITracking.getInstance().onActivityPaused(mockActivity);
+        RITracking.getInstance().trackActivityPaused(mockActivity);
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results

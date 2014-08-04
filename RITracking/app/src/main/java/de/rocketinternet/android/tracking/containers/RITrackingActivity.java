@@ -33,7 +33,7 @@ public class RITrackingActivity extends Activity {
     protected void onResume() {
         super.onResume();
         ((RITrackingApplication) getApplication()).handleMainActivityResumed(this);
-        RITracking.getInstance().onActivityResumed(this);
+        RITracking.getInstance().trackActivityResumed(this);
     }
 
     @Override
@@ -44,6 +44,6 @@ public class RITrackingActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        RITracking.getInstance().onActivityPaused(this);
+        RITracking.getInstance().trackActivityPaused(this);
     }
 }
