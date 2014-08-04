@@ -2,13 +2,20 @@ package de.rocketinternet.android.tracking.trackers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 
 import com.ad4screen.sdk.A4S;
 
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
+import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RILifeCycleTracking;
+import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
+import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
+import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
@@ -17,6 +24,9 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
  *         Convenience controller to proxy-pass tracking information to Ad4Push
  */
 public class RIAd4PushTracker extends RITracker implements
+        RIScreenTracking,
+        RIUserTracking,
+        RIEventTracking,
         RILifeCycleTracking {
 
     private static final String TRACKER_ID = "RIAd4PushTrackerID";
@@ -53,6 +63,53 @@ public class RIAd4PushTracker extends RITracker implements
         mA4S = A4S.get(context);
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
         mIdentifier = TRACKER_ID;
+    }
+
+
+    @Override
+    public void trackScreenWithName(String name) {
+        RILogUtils.logDebug("Ad4Push tracker - Tracking screen with name: " + name);
+
+        if (mA4S == null) {
+            RILogUtils.logError("Missing Ad4Push singleton reference");
+            return;
+        }
+
+        mA4S.putState(RITrackersConstants.AD4PUSH_VIEW, name);
+    }
+
+    @Override
+    public void trackUser(String userEvent, Map<String, Object> map, RIAd4PushUserEnum ad4PushValue) {
+        RILogUtils.logDebug("Ad4Push tracker - Tracking user event: " + userEvent);
+
+        if (mA4S == null) {
+            RILogUtils.logError("Missing Ad4Push singleton reference");
+            return;
+        }
+
+        Bundle bundle = new Bundle();
+        switch (ad4PushValue) {
+            case DEVICE_INFO:
+                for (Map.Entry<String, Object> entry : map.entrySet()) {
+                    bundle.putString(entry.getKey(), (String) entry.getValue());
+                }
+                mA4S.updateDeviceInfo(bundle);
+            case IGNORE:
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+        RILogUtils.logDebug("Ad4Push tracker - Tracking event with name: " + event);
+
+        if (mA4S == null) {
+            RILogUtils.logError("Missing Ad4Push singleton reference");
+            return;
+        }
+
+        mA4S.trackEvent(value, event);
     }
 
     @Override

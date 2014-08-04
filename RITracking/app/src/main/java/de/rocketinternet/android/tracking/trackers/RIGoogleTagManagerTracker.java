@@ -22,15 +22,16 @@ import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
 import de.rocketinternet.android.tracking.trackers.gtm.RIContainerHolder;
 import de.rocketinternet.android.tracking.trackers.gtm.RIContainerLoadedCallback;
 import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
- *  @author alessandro.balocco
- *
- *  Convenience controller to proxy-pass tracking information to Google Tag Manager
+ * @author alessandro.balocco
+ *         <p/>
+ *         Convenience controller to proxy-pass tracking information to Google Tag Manager
  */
 public class RIGoogleTagManagerTracker extends RITracker implements
         RIEventTracking,
@@ -47,7 +48,8 @@ public class RIGoogleTagManagerTracker extends RITracker implements
 
     private DataLayer mDataLayer;
 
-    public RIGoogleTagManagerTracker() {}
+    public RIGoogleTagManagerTracker() {
+    }
 
     @Override
     public void execute(Runnable runnable) {
@@ -136,7 +138,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     }
 
     @Override
-    public void trackUser(String userEvent, Map<String, Object> map) {
+    public void trackUser(String userEvent, Map<String, Object> map, RIAd4PushUserEnum ad4PushValue) {
         RILogUtils.logDebug("Google Tag Manager - Tracking user event: " + userEvent);
 
         if (mDataLayer == null) {

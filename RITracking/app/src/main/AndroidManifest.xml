@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.rocketinternet.android.tracking" >
+    package="de.rocketinternet.android.tracking">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,10 +25,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,9 +40,10 @@
               and here it is possible to declare the data patterns to be intercepted -->
         <activity
             android:name="de.rocketinternet.android.tracking.RIDeepLinkingActivity"
-            android:label="@string/app_name" >
-            <intent-filter >
+            android:label="@string/app_name">
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "example://gizmos” -->
@@ -72,13 +73,14 @@
                 <!--<data android:scheme="tagmanager.c.your.application.packagename" />-->
                 <data android:scheme="tagmanager.c.de.rocketinternet.android.tracking" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
 
         <!-- Used for install referrer tracking-->
-        <service android:name="com.google.android.gms.tagmanager.InstallReferrerService"/>
+        <service android:name="com.google.android.gms.tagmanager.InstallReferrerService" />
         <receiver
             android:name="com.google.android.gms.tagmanager.InstallReferrerReceiver"
             android:exported="true">
@@ -133,7 +135,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- Use your partner id -->
+        <!-- Use your package name -->
         <receiver
             android:name="com.ad4screen.sdk.GCMHandler"
             android:permission="com.google.android.c2dm.permission.SEND">

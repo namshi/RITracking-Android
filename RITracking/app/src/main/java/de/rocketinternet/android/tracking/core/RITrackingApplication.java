@@ -10,15 +10,18 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 import de.rocketinternet.android.tracking.utils.serializers.RIAppLaunchJsonSerializer;
 
 /**
- *  @author alessandro.balocco
- *
- *  The RITrackingApplication class provides an application class with preset tracking of user sessions
- *
- *  This class should be inherited by custom application class.
- *  Integrating Ad4Push requires Application class to extend A4SApplication from their SDK.
+ * @author alessandro.balocco
+ *         <p/>
+ *         The RITrackingApplication class provides an application class with preset tracking of user sessions
+ *         <p/>
+ *         This class should be inherited by custom application class.
+ *         Integrating Ad4Push requires Application class to extend A4SApplication from their SDK.
  */
 public class RITrackingApplication extends A4SApplication {
 
+    /**
+     * Field used to store millis when app is launched
+     */
     private long mLaunchTime;
 
     /**
@@ -39,9 +42,12 @@ public class RITrackingApplication extends A4SApplication {
         mLaunchTime = System.currentTimeMillis();
     }
 
+    /**
+     * This is calculating app launching time when first activity is launched.
+     */
     public void handleMainActivityResumed(Activity activity) {
         // Only run the following for the launch of the app
-        if (mLaunchTime == 0) {
+        if (mLaunchTime == -1) {
             return;
         }
 
@@ -50,6 +56,6 @@ public class RITrackingApplication extends A4SApplication {
         RILogUtils.logDebug("Launch JSON data: " + appLaunchInfoJson.toString());
 
         // Reset the launch time to identify the launch was handled
-        mLaunchTime = 0;
+        mLaunchTime = -1;
     }
 }

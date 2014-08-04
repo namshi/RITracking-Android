@@ -25,15 +25,16 @@ import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
+import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
  * @author alessandro.balocco
- *
- * This class allows users of this library to interact with different tracking systems. The class is
- * provides functionalities to track specific events and based on that it automatically spreads these
- * events to registered tracking libraries.
+ *         <p/>
+ *         This class allows users of this library to interact with different tracking systems. The class is
+ *         provides functionalities to track specific events and based on that it automatically spreads these
+ *         events to registered tracking libraries.
  */
 public class RITracking implements
         RIEventTracking,
@@ -51,12 +52,13 @@ public class RITracking implements
     private List<RITracker> mTrackers;
     private List<RIOpenUrlHandler> mHandlers;
 
-    private RITracking() {}
+    private RITracking() {
+    }
 
     /**
-     *  Creates and initializes an 'RITracking' object
+     * Creates and initializes an 'RITracking' object
      *
-     *  @return The newly-initialized object
+     * @return The newly-initialized object
      */
     public static RITracking getInstance() {
         if (sInstance == null) {
@@ -66,9 +68,9 @@ public class RITracking implements
     }
 
     /**
-     *  Give option to initialize tracker after application is launched
+     * Give option to initialize tracker after application is launched
      *
-     *  @param trackers the list of supplied trackers
+     * @param trackers the list of supplied trackers
      */
     public void addTrackers(List<RITracker> trackers) {
         if (mTrackers == null) {
@@ -81,14 +83,14 @@ public class RITracking implements
     }
 
     /**
-     *  A method to check if debug mode is enabled
+     * A method to check if debug mode is enabled
      */
     public boolean isDebug() {
         return mIsDebug;
     }
 
     /**
-     *  A flag to enable debug logging.
+     * A flag to enable debug logging.
      */
     public void setDebug(boolean debugEnabled) {
         mIsDebug = debugEnabled;
@@ -96,7 +98,7 @@ public class RITracking implements
     }
 
     /**
-     *  Load the needed configuration from the assets folder
+     * Load the needed configuration from the assets folder
      */
     public void startWithConfigurationFromPropertiesList(Context context) {
         RILogUtils.logDebug("Starting initialisation with property list");
@@ -107,18 +109,22 @@ public class RITracking implements
     }
 
     /**
-     *  Initialize all the needed trackers when app starts
+     * Initialize all the needed trackers when app starts
      *
-     *  @param context a context needed for trackers initialization
+     * @param context a context needed for trackers initialization
      */
     private void initializeTrackers(Context context) {
         mTrackers = new ArrayList<RITracker>();
         // Google Analytics - actually deprecated
         RIGoogleAnalyticsTracker googleAnalyticsTracker = new RIGoogleAnalyticsTracker();
-        if (googleAnalyticsTracker.initializeTracker(context)) { mTrackers.add(googleAnalyticsTracker); }
+        if (googleAnalyticsTracker.initializeTracker(context)) {
+            mTrackers.add(googleAnalyticsTracker);
+        }
         // Google Tag Manager
         RIGoogleTagManagerTracker googleTagManagerTracker = new RIGoogleTagManagerTracker();
-        if (googleTagManagerTracker.initializeTracker(context)) { mTrackers.add(googleTagManagerTracker); }
+        if (googleTagManagerTracker.initializeTracker(context)) {
+            mTrackers.add(googleTagManagerTracker);
+        }
         // Ad4Push
         RIAd4PushTracker ad4PushTracker = new RIAd4PushTracker();
         if (ad4PushTracker.initializeTracker(context)) {
@@ -173,7 +179,7 @@ public class RITracking implements
     }
 
     @Override
-    public void trackUser(final String userEvent, final Map<String, Object> map) {
+    public void trackUser(final String userEvent, final Map<String, Object> map, final RIAd4PushUserEnum ad4PushValue) {
         RILogUtils.logDebug("Tracking user event: " + userEvent);
 
         if (mTrackers == null) {
@@ -186,7 +192,7 @@ public class RITracking implements
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
-                        ((RIUserTracking) tracker).trackUser(userEvent, map);
+                        ((RIUserTracking) tracker).trackUser(userEvent, map, ad4PushValue);
                     }
                 });
             }
@@ -329,8 +335,8 @@ public class RITracking implements
     }
 
     /**
-     *  Utility method that logs which trackers were initialized either manually or automatically
-     *  when application launches. These log are shown only when debug mode is set to TRUE.
+     * Utility method that logs which trackers were initialized either manually or automatically
+     * when application launches. These log are shown only when debug mode is set to TRUE.
      */
     private void logTrackers(List<RITracker> trackers, String message) {
         if (isDebug()) {
@@ -343,7 +349,7 @@ public class RITracking implements
     }
 
     /**
-     *  Hidden test helper
+     * Hidden test helper
      */
     public void reset() {
         sInstance = null;
