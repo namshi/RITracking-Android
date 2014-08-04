@@ -1,7 +1,8 @@
 package de.rocketinternet.android.tracking.core;
 
 import android.app.Activity;
-import android.app.Application;
+
+import com.ad4screen.sdk.A4SApplication;
 
 import org.json.JSONObject;
 
@@ -14,14 +15,21 @@ import de.rocketinternet.android.tracking.utils.serializers.RIAppLaunchJsonSeria
  *  The RITrackingApplication class provides an application class with preset tracking of user sessions
  *
  *  This class should be inherited by custom application class.
+ *  Integrating Ad4Push requires Application class to extend A4SApplication from their SDK.
  */
-public class RITrackingApplication extends Application {
+public class RITrackingApplication extends A4SApplication {
 
     private long mLaunchTime;
 
+    /**
+     * The callback to this method is required instead of the classic onCreate method.
+     * Refer to this link for additional information about Ad4Push
+     * {@link <a href="http://www.ad4screen.com/DocSDK/javadoc/reference/com/ad4screen/sdk/A4SApplication.html">Ad4Application</a>}
+     */
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public void onApplicationCreate() {
+        super.onApplicationCreate();
+
         RILogUtils.logDebug("RITracking App launched");
 
         RITracking.getInstance().setDebug(true);
