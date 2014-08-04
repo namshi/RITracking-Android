@@ -1,6 +1,7 @@
 package de.rocketinternet.android.tracking.handlers;
 
 import android.net.Uri;
+import android.text.TextUtils;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,12 +23,14 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 public class RIOpenUrlHandler {
 
     private String mIdentifier;
-    private String mRegex;
+    private String mHost;
+    private String mPath;
     private RIOnHandledOpenUrl mListener;
 
-    public RIOpenUrlHandler(String identifier, String regex, RIOnHandledOpenUrl listener) {
+    public RIOpenUrlHandler(String identifier, String host, String path, RIOnHandledOpenUrl listener) {
         mIdentifier = identifier;
-        mRegex = regex;
+        mHost = host;
+        mPath = path;
         mListener = listener;
     }
 
@@ -38,14 +41,16 @@ public class RIOpenUrlHandler {
      *  @return     true if the uri was handled successfully
      */
     public boolean handleOpenUrl(Uri uri) {
-        List<String> matches = new ArrayList<String>();
-        Pattern pattern = Pattern.compile(mRegex);
-        Matcher matcher = pattern.matcher(uri.getPath());
-        while (matcher.find()) {
-            matches.add(matcher.group());
+        if (mHost == null || !mHost.equalsIgnoreCase(uri.getHost())) {
+            return false;
         }
 
-        if (matches.size() == 0) {
+        String path = uri.getPath();
+        if (!TextUtils.isEmpty(path) && path.length() > 0 && path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+
+        if (mPath == null || !mPath.equalsIgnoreCase(path)) {
             return false;
         }
 

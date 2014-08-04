@@ -228,8 +228,8 @@ public class RITracking implements
     }
 
     @Override
-    public void registerHandler(String identifier, String pattern, RIOnHandledOpenUrl listener) {
-        RIOpenUrlHandler handler = new RIOpenUrlHandler(identifier, pattern, listener);
+    public void registerHandler(String identifier, String host, String path, RIOnHandledOpenUrl listener) {
+        RIOpenUrlHandler handler = new RIOpenUrlHandler(identifier, host, path, listener);
         if (mHandlers == null || mHandlers.size() > 0) {
             mHandlers = new ArrayList<RIOpenUrlHandler>();
         }
