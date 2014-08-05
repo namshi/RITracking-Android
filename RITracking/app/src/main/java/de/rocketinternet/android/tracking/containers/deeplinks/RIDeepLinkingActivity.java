@@ -42,9 +42,10 @@ public abstract class RIDeepLinkingActivity extends Activity {
         Intent intent = getIntent();
         if (intent == null || intent.getData() == null) {
             finish();
+            return;
         }
 
         Uri data = intent.getData();
-        RITracking.getInstance().queryHandlers(data);
+        RITracking.getInstance().trackOpenUrl(data);
     }
 }

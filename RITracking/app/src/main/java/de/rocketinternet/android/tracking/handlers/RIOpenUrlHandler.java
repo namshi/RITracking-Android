@@ -50,6 +50,10 @@ public class RIOpenUrlHandler {
             path = path.substring(0, path.length() - 1);
         }
 
+        if (!mPath.startsWith("/")) {
+            mPath = "/" + mPath;
+        }
+
         if (mPath == null || !mPath.equalsIgnoreCase(path)) {
             return false;
         }

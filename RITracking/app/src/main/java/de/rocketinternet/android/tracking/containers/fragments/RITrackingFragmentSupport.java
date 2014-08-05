@@ -8,6 +8,7 @@ import java.lang.annotation.Annotation;
 
 import de.rocketinternet.android.tracking.annotations.RITrackingScreenAnnotation;
 import de.rocketinternet.android.tracking.core.RITracking;
+import de.rocketinternet.android.tracking.utils.RIAnnotationUtils;
 
 /**
  * @author alessandro.balocco
@@ -26,12 +27,11 @@ public class RITrackingFragmentSupport extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        Annotation annotation = activity.getClass().getAnnotation(RITrackingScreenAnnotation.class);
-        if (annotation != null) {
-            String screenName = ((RITrackingScreenAnnotation) annotation).screenName();
-            if (!TextUtils.isEmpty(screenName)) {
-                RITracking.getInstance().trackScreenWithName(screenName);
-            }
+        // Weird cast to Object in this case. For explanations refer to this link
+        // http://stackoverflow.com/questions/18505973/android-studio-ambiguous-method-call-getclass
+        String screenName = RIAnnotationUtils.getScreenNameFromAnnotation(((Object) this).getClass());
+        if (!TextUtils.isEmpty(screenName)) {
+            RITracking.getInstance().trackScreenWithName(screenName);
         }
     }
 }

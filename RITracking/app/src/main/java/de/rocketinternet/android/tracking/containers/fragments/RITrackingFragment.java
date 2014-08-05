@@ -9,6 +9,7 @@ import java.lang.annotation.Annotation;
 
 import de.rocketinternet.android.tracking.annotations.RITrackingScreenAnnotation;
 import de.rocketinternet.android.tracking.core.RITracking;
+import de.rocketinternet.android.tracking.utils.RIAnnotationUtils;
 
 /**
  * @author alessandro.balocco
@@ -29,12 +30,9 @@ public class RITrackingFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        Annotation annotation = activity.getClass().getAnnotation(RITrackingScreenAnnotation.class);
-        if (annotation != null) {
-            String screenName = ((RITrackingScreenAnnotation) annotation).screenName();
-            if (!TextUtils.isEmpty(screenName)) {
-                RITracking.getInstance().trackScreenWithName(screenName);
-            }
+        String screenName = RIAnnotationUtils.getScreenNameFromAnnotation(getClass());
+        if (!TextUtils.isEmpty(screenName)) {
+            RITracking.getInstance().trackScreenWithName(screenName);
         }
     }
 }
