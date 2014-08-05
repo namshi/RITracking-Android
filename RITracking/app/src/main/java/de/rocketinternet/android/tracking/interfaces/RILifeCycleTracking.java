@@ -10,6 +10,14 @@ import android.app.Activity;
 public interface RILifeCycleTracking {
 
     /**
+     * Track the onCreate callback of the Activity
+     *
+     * @param activity          The activity that is actually running
+     * @param isSplashScreen    flag that indicates if the activity is a splash screen
+     */
+    void trackActivityCreated(Activity activity, boolean isSplashScreen);
+
+    /**
      * Track the onResume callback of the Activity
      *
      * @param activity The activity that is actually running

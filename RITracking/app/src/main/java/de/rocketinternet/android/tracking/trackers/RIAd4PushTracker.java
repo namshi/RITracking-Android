@@ -33,6 +33,7 @@ public class RIAd4PushTracker extends RITracker implements
     private static final String INTEGRATION_NEEDED = "RIAd4PushIntegration";
 
     private A4S mA4S;
+    private boolean mNotificationEnabled;
 
     @Override
     public void execute(Runnable runnable) {
@@ -124,6 +125,25 @@ public class RIAd4PushTracker extends RITracker implements
         }
 
         mA4S.trackEvent(value, event);
+    }
+
+    @Override
+    public void trackActivityCreated(Activity activity, boolean isSplashScreen) {
+        if (activity != null) {
+            RILogUtils.logDebug("Ad4Push tracker - Activity: " + activity.getLocalClassName() + " was created");
+
+            if (mA4S == null) {
+                RILogUtils.logError("Missing Ad4Push singleton reference");
+                return;
+            }
+
+            if (isSplashScreen) {
+                mA4S.setPushNotificationLocked(true);
+            } else if (!mNotificationEnabled) {
+                mA4S.setPushNotificationLocked(false);
+                mNotificationEnabled = true;
+            }
+        }
     }
 
     @Override

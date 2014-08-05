@@ -17,7 +17,11 @@ import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
 public class RIAd4PushTrackerMock extends RIAd4PushTracker {
 
     private CountDownLatch mSignal;
-    private boolean mActivityWasResumed, mActivityWasPaused, mIsEventTracked;
+    private boolean mActivityWasCreated;
+    private boolean mActivityWasSplashScreen;
+    private boolean mActivityWasResumed;
+    private boolean mActivityWasPaused;
+    private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
     private String mLastTrackedScreenName;
     private String mLastTrackedCheckoutTransaction;
@@ -64,6 +68,14 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
         mSignal.countDown();
     }
 
+
+    @Override
+    public void trackActivityCreated(Activity activity, boolean isSplashScreen) {
+        mActivityWasCreated = true;
+        mActivityWasSplashScreen = isSplashScreen;
+        mSignal.countDown();
+    }
+
     @Override
     public void trackActivityResumed(Activity activity) {
         mActivityWasResumed = true;
@@ -94,6 +106,15 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
 
     public String getLastTrackedScreenName() {
         return mLastTrackedScreenName;
+    }
+
+
+    public boolean wasActivityCreated() {
+        return mActivityWasCreated;
+    }
+
+    public boolean wasActivitySplashScreen() {
+        return mActivityWasSplashScreen;
     }
 
     public boolean wasActivityResumed() {

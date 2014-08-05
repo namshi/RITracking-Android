@@ -26,14 +26,14 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
  * @author alessandro.balocco
  */
 @RITrackingScreenAnnotation(screenName = "Homepage")
-public class RIMainExampleActivity extends RITrackingActivity {
+public class RISampleMainActivity extends RITrackingActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "Actual class is: " + getClass().getName(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Current class is: " + getClass().getName(), Toast.LENGTH_LONG).show();
 
         RILogUtils.logDebug("First activity app launched");
     }

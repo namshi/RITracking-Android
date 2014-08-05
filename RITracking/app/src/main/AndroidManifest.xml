@@ -33,7 +33,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RIMainExampleActivity"
+            android:name=".RISampleMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +47,7 @@
               take a look to RIDeepLinkingExampleActivity for implementing deep-linking filtering.
               You should use your package name -->
         <activity
-            android:name="de.rocketinternet.android.tracking.RIDeepLinkingExampleActivity"
+            android:name=".RISampleDeepLinkingActivity"
             android:label="@string/app_name" >
             <intent-filter >
                 <action android:name="android.intent.action.VIEW" />
@@ -154,7 +154,7 @@
 
         <!-- Use a custom receiver in the application but this is a working example -->
         <receiver
-            android:name="de.rocketinternet.android.tracking.RIPushNotificationExampleReceiver">
+            android:name=".RISamplePushNotificationReceiver">
             <intent-filter>
                 <action android:name="com.ad4screen.sdk.intent.action.DISPLAYED" />
                 <action android:name="com.ad4screen.sdk.intent.action.CLICKED" />

@@ -24,7 +24,7 @@ import de.rocketinternet.android.tracking.utils.RIAnnotationUtils;
  * instead
  */
 @SuppressLint("NewApi")
-public class RITrackingFragment extends Fragment {
+public abstract class RITrackingFragment extends Fragment {
 
     @Override
     public void onAttach(Activity activity) {

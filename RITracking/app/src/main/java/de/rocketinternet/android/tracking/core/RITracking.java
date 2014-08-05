@@ -315,6 +315,28 @@ public class RITracking implements
     }
 
     @Override
+    public void trackActivityCreated(final Activity activity, final boolean isSplashScreen) {
+        RILogUtils.logDebug("Activity: was created");
+
+        if (mTrackers == null) {
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            return;
+        }
+
+        for (final RITracker tracker : mTrackers) {
+            if (tracker instanceof RILifeCycleTracking) {
+                tracker.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((RILifeCycleTracking) tracker).trackActivityCreated(activity, isSplashScreen);
+                    }
+                });
+            }
+        }
+
+    }
+
+    @Override
     public void trackActivityResumed(final Activity activity) {
         RILogUtils.logDebug("Activity: was resumed");
 

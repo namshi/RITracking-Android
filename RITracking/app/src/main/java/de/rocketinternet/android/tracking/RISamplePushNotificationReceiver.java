@@ -8,8 +8,11 @@ import android.text.TextUtils;
 
 /**
  * @author alessandro.balocco
+ *
+ * This class is meant to be a sample broadcast receiver that intercept to Ad4Push Notification
+ * and allow to implement actions in the handleEvent method.
  */
-public class RIPushNotificationExampleReceiver extends BroadcastReceiver {
+public class RISamplePushNotificationReceiver extends BroadcastReceiver {
 
     public static final String INTENT_ACTION_DISPLAYED = "com.ad4screen.sdk.intent.action.DISPLAYED";
     public static final String INTENT_ACTION_CLICKED = "com.ad4screen.sdk.intent.action.CLICKED";

@@ -233,7 +233,27 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertTrue(listener.getQueryParams().containsKey("handler2"));
     }
 
-    public void testOnActivityResumed() throws InterruptedException {
+    public void testTrackActivityCreatedAsSplashScreen() throws InterruptedException {
+        Activity mockActivity = new Activity();
+
+        // Evaluate initial situation
+        assertFalse(mAd4PushTrackerMock.wasActivityCreated());
+        assertFalse(mAd4PushTrackerMock.wasActivitySplashScreen());
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mAd4PushTrackerMock.setSignal(latch);
+        RITracking.getInstance().trackActivityCreated(mockActivity, true);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertTrue(mAd4PushTrackerMock.wasActivityCreated());
+        assertTrue(mAd4PushTrackerMock.wasActivitySplashScreen());
+    }
+
+    public void testTrackActivityResumed() throws InterruptedException {
         Activity mockActivity = new Activity();
 
         // Evaluate initial situation
@@ -251,7 +271,7 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertTrue(mAd4PushTrackerMock.wasActivityResumed());
     }
 
-    public void testOnActivityPaused() throws InterruptedException {
+    public void testTrackActivityPaused() throws InterruptedException {
         Activity mockActivity = new Activity();
 
         // Evaluate initial situation

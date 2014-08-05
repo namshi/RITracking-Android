@@ -19,7 +19,7 @@ import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
  * intercepting deep-linking actions should extend this activity and implement RIOnHandledOpenUrl.
  * By doing that, they will be able to redirect their users to any specific activity.
  */
-public abstract class RIDeepLinkingActivity extends Activity {
+public abstract class RITrackingDeepLinkingActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
