@@ -19,7 +19,9 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     private CountDownLatch mSignal;
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
-    private String mLastTrackedScreenName, mLastTrackedException, mLastCheckoutTransaction;
+    private String mLastTrackedScreenName;
+    private String mLastTrackedException;
+    private String mLastCheckoutTransaction;
 
     public RIGoogleAnalyticsTrackerMock() {
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);

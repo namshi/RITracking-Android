@@ -43,7 +43,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
 
     private static final String TRACKER_ID = "RIGoogleTagManagerTrackerID";
     private static final String CONTAINER_ID = "RIGoogleTagManagerContainerID";
-    private static final String RESOURCE_NAME = "gtm_default_container";
+    private static final String RESOURCE_NAME = "gtm_container";
     private static final String RESOURCE_TYPE = "raw";
 
     private DataLayer mDataLayer;
@@ -86,7 +86,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
         tagManager.setVerboseLoggingEnabled(RITracking.getInstance().isDebug());
 
         PendingResult<ContainerHolder> pending =
-                tagManager.loadContainerPreferNonDefault(containerId, R.raw.gtm_default_container);
+                tagManager.loadContainerPreferNonDefault(containerId, R.raw.gtm_container);
 
         // The onResult method will be called as soon as one of the following happens:
         //  - 1. a saved container is loaded

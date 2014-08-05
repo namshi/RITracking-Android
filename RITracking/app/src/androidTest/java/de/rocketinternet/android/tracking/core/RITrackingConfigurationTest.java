@@ -57,7 +57,7 @@ public class RITrackingConfigurationTest extends InstrumentationTestCase {
     }
 
     public void testResourceFileFound() {
-        String fileName = "gtm_default_container";
+        String fileName = "gtm_container";
         String folderToSearch = "raw";
 
         boolean fileIsInResources =

@@ -30,8 +30,9 @@ public interface RIOpenUrlTracking {
      * capture directives and from the query string of the deep-link URL.
      *
      * @param identifier    An identifier for filtering callbacks
-     * @param pattern       A pattern of regex extended with capture directive syntax.
+     * @param host          The host part of the link
+     * @param path          The path part of the link
      * @param listener      A listener for callbacks
      */
-    void registerHandler(String identifier, String pattern, RIOnHandledOpenUrl listener);
+    void registerHandler(String identifier, String host, String path, RIOnHandledOpenUrl listener);
 }

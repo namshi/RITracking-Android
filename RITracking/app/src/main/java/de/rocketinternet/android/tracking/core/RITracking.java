@@ -264,35 +264,6 @@ public class RITracking implements
 
     @Override
     public void trackOpenUrl(final Uri uri) {
-        RILogUtils.logDebug("Tracking deepling with Uri " + uri);
-
-        if (mTrackers == null) {
-            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
-            return;
-        }
-
-        for (final RITracker tracker : mTrackers) {
-            if (tracker instanceof RIOpenUrlTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RIOpenUrlTracking) tracker).trackOpenUrl(uri);
-                    }
-                });
-            }
-        }
-    }
-
-    @Override
-    public void registerHandler(String identifier, String pattern, RIOnHandledOpenUrl listener) {
-        RIOpenUrlHandler handler = new RIOpenUrlHandler(identifier, pattern, listener);
-        if (mHandlers == null || mHandlers.size() > 0) {
-            mHandlers = new ArrayList<RIOpenUrlHandler>();
-        }
-        mHandlers.add(handler);
-    }
-
-    public void queryHandlers(Uri uri) {
         if (mHandlers != null) {
             boolean continueLooping = true;
             for (int i = 0; i < mHandlers.size() && continueLooping; i++) {
@@ -301,6 +272,15 @@ public class RITracking implements
                 }
             }
         }
+    }
+
+    @Override
+    public void registerHandler(String identifier, String host, String path, RIOnHandledOpenUrl listener) {
+        RIOpenUrlHandler handler = new RIOpenUrlHandler(identifier, host, path, listener);
+        if (mHandlers == null) {
+            mHandlers = new ArrayList<RIOpenUrlHandler>();
+        }
+        mHandlers.add(handler);
     }
 
     @Override
