@@ -1,5 +1,6 @@
 package de.rocketinternet.android.tracking.core;
 
+import android.net.Uri;
 import android.test.InstrumentationTestCase;
 import android.text.TextUtils;
 
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import de.rocketinternet.android.tracking.handlers.RIOpenUrlHandler;
+import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrlMockImpl;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleAnalyticsTrackerMock;
 import de.rocketinternet.android.tracking.trackers.RITracker;
@@ -150,5 +153,29 @@ public class RITrackingTest extends InstrumentationTestCase {
 
         assertEquals(transactionId, mGoogleAnalyticsTrackerMock.getLastCheckoutTransaction());
         assertEquals(transactionId, mGoogleTagManagerTrackerMock.getLastCheckoutTransaction());
+    }
+
+    public void testTrackUrl() throws InterruptedException {
+        // Calling Uri
+        Uri uri = Uri.parse("schema://testHost/testPath?handler2=value1&key2=value2");
+
+        // Create listener
+        RIOnHandledOpenUrlMockImpl listener = new RIOnHandledOpenUrlMockImpl();
+
+        // Register handlers
+        RITracking.getInstance().registerHandler("Handler1", "testHost1", "testPathOne", listener);
+        RITracking.getInstance().registerHandler("Handler2", "testHost", "testPath", listener);
+        RITracking.getInstance().registerHandler("Handler3", "testHost3", "testPathThree", listener);
+
+        // Set count down to 0, here is used only for waiting notification
+        CountDownLatch latch = new CountDownLatch(0);
+        RITracking.getInstance().trackOpenUrl(uri);
+        latch.await(4, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+        assertTrue(listener.isHandlerCalled());
+        assertEquals("Handler2", listener.getHandlerIdentifier());
+        assertTrue(listener.getQueryParams().containsKey("handler2"));
     }
 }

@@ -19,7 +19,9 @@ public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
     private CountDownLatch mSignal;
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
-    private String mLastTrackedScreenName, mLastTrackedCheckoutTransaction, mLastTrackedUserEvent;
+    private String mLastTrackedScreenName;
+    private String mLastTrackedCheckoutTransaction;
+    private String mLastTrackedUserEvent;
 
     public RIGoogleTagManagerTrackerMock() {
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);

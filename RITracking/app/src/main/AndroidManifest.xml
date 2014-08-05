@@ -15,7 +15,7 @@
         android:name=".core.RITrackingApplication"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".RIMainExampleActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,36 +25,36 @@
         </activity>
 
         <!--  Add Activity to listen for deep-links. The activity should extend RIDeepLinkingActivity
-              and here it is possible to declare the data patterns to be intercepted -->
+              and here it is possible to declare the data patterns to be intercepted. As an example
+              take a look to RIDeepLinkingExampleActivity for implementing deep-linking filtering.
+              You should use your package name -->
         <activity
-            android:name="de.rocketinternet.android.tracking.RIDeepLinkingActivity"
+            android:name="de.rocketinternet.android.tracking.RIDeepLinkingExampleActivity"
             android:label="@string/app_name" >
             <intent-filter >
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "example://gizmos” -->
-                <data android:scheme="example" android:host="gizmos" />
-                <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
-                <data android:scheme="http" android:host="www.example.com" android:pathPrefix="/gizmos" />
+                <!-- Accepts URIs that begin with "example://”. Change with expected scheme -->
+                <data android:scheme="example" />
             </intent-filter>
         </activity>
 
         <!--  Add preview activity for Google Tag Manager -->
+        <!--  You should add project package name -->
         <activity
             android:name="com.google.android.gms.tagmanager.PreviewActivity"
             android:label="@string/app_name"
             android:noHistory="true">  <!-- optional, removes the previewActivity from the activity stack. -->
             <intent-filter>
-                <!--<data android:scheme="tagmanager.c.your.application.packagename" />-->
-                <data android:scheme="tagmanager.c.de.rocketinternet.android.tracking" />
+                <data android:scheme="tagmanager.c.your.application.packagename" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
         </activity>
 
-        <!-- Used for install referrer tracking-->
+        <!-- Used for install referrer tracking -->
         <service android:name="com.google.android.gms.tagmanager.InstallReferrerService"/>
         <receiver
             android:name="com.google.android.gms.tagmanager.InstallReferrerReceiver"
