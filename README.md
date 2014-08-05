@@ -146,13 +146,13 @@ Integrating the library requires the users to follow these steps:
 
 #### Deep-Links
 The library simplifies deep-linking filtering and definition. If the application is interested in
-receving and handling deep-links these are the steps to follow:
+receving and handling deep-links these are the steps to follow:  
+
 1.  Create an Activity that extends RIDeepLinkingActivity:
         
         public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity {
             /*...*/
         }
-        
     By doing that the IDE will require this class to implement the method for registering
     handlers for deep-links:
         
@@ -160,10 +160,10 @@ receving and handling deep-links these are the steps to follow:
         protected void registerHandlers() {
             // Register Handlers for intercepting deep-links
             RITracking.getInstance().registerHandler("IDENTIFIER", "HOST", "PATH", this);
-        }
-        
+        }  
+    
     Finally make the class implements RIOnHandledOpenUrl to get callback from handlers:
-        
+    
         public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity implements RIOnHandledOpenUrl {
             
             /*...*/
