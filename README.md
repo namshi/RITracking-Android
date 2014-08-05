@@ -152,7 +152,7 @@ receving and handling deep-links these are the steps to follow:
         public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity {
             /*...*/
         }
-    
+        
     By doing that the IDE will require this class to implement the method for registering
     handlers for deep-links:
         
@@ -161,7 +161,7 @@ receving and handling deep-links these are the steps to follow:
             // Register Handlers for intercepting deep-links
             RITracking.getInstance().registerHandler("IDENTIFIER", "HOST", "PATH", this);
         }
-    
+        
     Finally make the class implements RIOnHandledOpenUrl to get callback from handlers:
         
         public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity implements RIOnHandledOpenUrl {
@@ -176,7 +176,7 @@ receving and handling deep-links these are the steps to follow:
                 }
             }
         }
-
+        
 2.  Declare activity in the AndroidManifest of the application with expected filter:
         
         <activity
