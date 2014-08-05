@@ -103,25 +103,24 @@
             android:process=":A4SService">
 
             <!-- Use your partner id -->
-            <!--<meta-data-->
-            <!--android:name="com.ad4screen.partnerid"-->
-            <!--android:value="YOUR.PARTNER.ID" />-->
+            <meta-data
+                android:name="com.ad4screen.partnerid"
+                android:value="your.partner.id" />
             <!-- Use your private key -->
-            <!--<meta-data-->
-            <!--android:name="com.ad4screen.privatekey"-->
-            <!--android:value="YOUR.PRIVATE.KEY" />-->
+            <meta-data
+                android:name="com.ad4screen.privatekey"
+                android:value="your.private.key" />
             <!-- Use your sender id -->
-            <!--<meta-data-->
-            <!--android:name="com.ad4screen.senderid"-->
-            <!--android:value="gcm:yoursenderid" />-->
-            <!-- Uncomment this if you don't want to use SDK built-in geolocation -->
-            <!--<meta-data
+            <meta-data
+                android:name="com.ad4screen.senderid"
+                android:value="gcm:yoursenderid" />
+            <meta-data
                 android:name="com.ad4screen.no_geoloc"
-                android:value="true" /> -->
+                android:value="true" />
             <!-- Uncomment this if you want to track Facebook app -->
             <!--<meta-data
                 android:name="com.ad4screen.facebook_appid"
-                android:value="fb:yourfacebookid" />  -->
+                android:value="fb:yourfacebookid" /> -->
         </service>
 
         <receiver
@@ -161,17 +160,17 @@
             android:name="com.ad4screen.sdk.A4SInterstitial"
             android:theme="@style/com_ad4screen_sdk_theme_interstitial" />
 
-        <!--&lt;!&ndash; Use your custom receiver but that the one in the library as an example &ndash;&gt;-->
-        <!--<receiver-->
-            <!--android:name="my-package.InAppHandler">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.ad4screen.sdk.intent.action.DISPLAYED" />-->
-                <!--<action android:name="com.ad4screen.sdk.intent.action.CLICKED" />-->
+        <!-- Use a custom receiver in the application but this is a working example -->
+        <receiver
+            android:name="de.rocketinternet.android.tracking.RIPushNotificationExampleReceiver">
+            <intent-filter>
+                <action android:name="com.ad4screen.sdk.intent.action.DISPLAYED" />
+                <action android:name="com.ad4screen.sdk.intent.action.CLICKED" />
 
-                <!--<category android:name="com.ad4screen.sdk.intent.category.PUSH_NOTIFICATIONS" />-->
-                <!--<category android:name="com.ad4screen.sdk.intent.category.INAPP_NOTIFICATIONS" />-->
-                <!--<category android:name="com.ad4screen.sdk.intent.category.INBOX_NOTIFICATIONS" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+                <category android:name="com.ad4screen.sdk.intent.category.PUSH_NOTIFICATIONS" />
+                <category android:name="com.ad4screen.sdk.intent.category.INAPP_NOTIFICATIONS" />
+                <category android:name="com.ad4screen.sdk.intent.category.INBOX_NOTIFICATIONS" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

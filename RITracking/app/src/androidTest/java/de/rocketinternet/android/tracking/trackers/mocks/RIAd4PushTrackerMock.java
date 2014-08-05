@@ -2,6 +2,7 @@ package de.rocketinternet.android.tracking.trackers.mocks;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -9,7 +10,6 @@ import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
-import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
 
 /**
  * @author alessandro.balocco
@@ -19,7 +19,10 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     private CountDownLatch mSignal;
     private boolean mActivityWasResumed, mActivityWasPaused, mIsEventTracked;
     private int mNumberOfSentEvents = 0;
-    private String mLastTrackedScreenName, mLastTrackedCheckoutTransaction, mLastTrackedUserEvent;
+    private String mLastTrackedScreenName;
+    private String mLastTrackedCheckoutTransaction;
+    private Location mLastLocation;
+    private Map<String, Object> mDeviceInfo;
 
     public RIAd4PushTrackerMock() {
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
@@ -50,8 +53,14 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     }
 
     @Override
-    public void trackUser(String userEvent, Map<String, Object> map, RIAd4PushUserEnum ad4PushUserEnum) {
-        mLastTrackedUserEvent = userEvent;
+    public void updateDeviceInfo(Map<String, Object> map) {
+        mDeviceInfo = map;
+        mSignal.countDown();
+    }
+
+    @Override
+    public void updateGeoLocation(Location location) {
+        mLastLocation = location;
         mSignal.countDown();
     }
 
@@ -75,8 +84,12 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
         return mNumberOfSentEvents;
     }
 
-    public String getLastUserEvent() {
-        return mLastTrackedUserEvent;
+    public Location getLastLocation() {
+        return mLastLocation;
+    }
+
+    public Map<String, Object> getDeviceInfo() {
+        return mDeviceInfo;
     }
 
     public String getLastTrackedScreenName() {

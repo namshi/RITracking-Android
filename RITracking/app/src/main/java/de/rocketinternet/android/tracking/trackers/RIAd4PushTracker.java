@@ -2,6 +2,7 @@ package de.rocketinternet.android.tracking.trackers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 
 import com.ad4screen.sdk.A4S;
@@ -14,14 +15,13 @@ import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RILifeCycleTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
-import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
 import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Convenience controller to proxy-pass tracking information to Ad4Push
+ *
+ * Convenience controller to proxy-pass tracking information to Ad4Push
  */
 public class RIAd4PushTracker extends RITracker implements
         RIScreenTracking,
@@ -79,8 +79,13 @@ public class RIAd4PushTracker extends RITracker implements
     }
 
     @Override
-    public void trackUser(String userEvent, Map<String, Object> map, RIAd4PushUserEnum ad4PushValue) {
-        RILogUtils.logDebug("Ad4Push tracker - Tracking user event: " + userEvent);
+    public void trackUserInfo(String userEvent, Map<String, Object> map) {
+        // Not used by this tracker
+    }
+
+    @Override
+    public void updateDeviceInfo(Map<String, Object> map) {
+        RILogUtils.logDebug("Ad4Push tracker - update device info");
 
         if (mA4S == null) {
             RILogUtils.logError("Missing Ad4Push singleton reference");
@@ -88,16 +93,25 @@ public class RIAd4PushTracker extends RITracker implements
         }
 
         Bundle bundle = new Bundle();
-        switch (ad4PushValue) {
-            case DEVICE_INFO:
-                for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    bundle.putString(entry.getKey(), (String) entry.getValue());
-                }
-                mA4S.updateDeviceInfo(bundle);
-            case IGNORE:
-            default:
-                break;
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            bundle.putString(entry.getKey(), (String) entry.getValue());
         }
+        mA4S.updateDeviceInfo(bundle);
+    }
+
+    @Override
+    public void updateGeoLocation(Location location) {
+        if (location != null) {
+            RILogUtils.logDebug("Ad4Push tracker - update geolocation with: lng = " + location.getLongitude() +
+                    "and lat = " + location.getLatitude());
+        }
+
+        if (mA4S == null) {
+            RILogUtils.logError("Missing Ad4Push singleton reference");
+            return;
+        }
+
+        mA4S.updateGeolocation(location);
     }
 
     @Override

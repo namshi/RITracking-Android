@@ -1,6 +1,7 @@
 package de.rocketinternet.android.tracking.trackers;
 
 import android.content.Context;
+import android.location.Location;
 import android.text.TextUtils;
 
 import com.google.android.gms.common.api.PendingResult;
@@ -22,7 +23,6 @@ import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
-import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
 import de.rocketinternet.android.tracking.trackers.gtm.RIContainerHolder;
 import de.rocketinternet.android.tracking.trackers.gtm.RIContainerLoadedCallback;
 import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
@@ -138,7 +138,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     }
 
     @Override
-    public void trackUser(String userEvent, Map<String, Object> map, RIAd4PushUserEnum ad4PushValue) {
+    public void trackUserInfo(String userEvent, Map<String, Object> map) {
         RILogUtils.logDebug("Google Tag Manager - Tracking user event: " + userEvent);
 
         if (mDataLayer == null) {
@@ -147,6 +147,16 @@ public class RIGoogleTagManagerTracker extends RITracker implements
         }
 
         mDataLayer.pushEvent(userEvent, map);
+    }
+
+    @Override
+    public void updateDeviceInfo(Map<String, Object> map) {
+        // Not used by this tracker
+    }
+
+    @Override
+    public void updateGeoLocation(Location location) {
+        // Not used by this tracker
     }
 
     @Override

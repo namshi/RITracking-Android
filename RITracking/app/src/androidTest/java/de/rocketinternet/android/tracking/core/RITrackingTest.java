@@ -1,18 +1,19 @@
 package de.rocketinternet.android.tracking.core;
 
 import android.app.Activity;
+import android.location.Location;
 import android.test.InstrumentationTestCase;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.RITracker;
-import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
 import de.rocketinternet.android.tracking.trackers.mocks.RIAd4PushTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleAnalyticsTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleTagManagerTrackerMock;
@@ -108,26 +109,62 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertEquals(screenName, mAd4PushTrackerMock.getLastTrackedScreenName());
     }
 
-    public void testTrackUser() throws InterruptedException {
+    public void testTrackUserInfo() throws InterruptedException {
         String userEvent = "Today is my birthday";
 
         // Evaluate initial situation
         assertTrue(TextUtils.isEmpty(mGoogleTagManagerTrackerMock.getLastUserEvent()));
-        assertTrue(TextUtils.isEmpty(mAd4PushTrackerMock.getLastUserEvent()));
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(2);
+        CountDownLatch latch = new CountDownLatch(1);
         mGoogleTagManagerTrackerMock.setSignal(latch);
-        mAd4PushTrackerMock.setSignal(latch);
-        RITracking.getInstance().trackUser(userEvent, new HashMap<String, Object>(), RIAd4PushUserEnum.DEVICE_INFO);
+        RITracking.getInstance().trackUserInfo(userEvent, new HashMap<String, Object>());
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results
         assertEquals(0, latch.getCount());
 
         assertEquals(userEvent, mGoogleTagManagerTrackerMock.getLastUserEvent());
-        assertEquals(userEvent, mAd4PushTrackerMock.getLastUserEvent());
+    }
 
+    public void testUpdateDeviceInfo() throws InterruptedException {
+        Map<String, Object> deviceInfo = new HashMap<String, Object>();
+        deviceInfo.put("userId", "0000000000");
+
+        // Evaluate initial situation
+        assertNull(mAd4PushTrackerMock.getDeviceInfo());
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mAd4PushTrackerMock.setSignal(latch);
+        RITracking.getInstance().updateDeviceInfo(deviceInfo);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertTrue(mAd4PushTrackerMock.getDeviceInfo().containsKey("userId"));
+    }
+
+    public void testUpdateGeolocation() throws InterruptedException {
+        Location location = new Location("testLocation");
+        location.setLatitude(50.0);
+        location.setLongitude(20.0);
+
+        // Evaluate initial situation
+        assertNull(mAd4PushTrackerMock.getLastLocation());
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mAd4PushTrackerMock.setSignal(latch);
+        RITracking.getInstance().updateGeoLocation(location);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertEquals(50.0, mAd4PushTrackerMock.getLastLocation().getLatitude());
+        assertEquals(20.0, mAd4PushTrackerMock.getLastLocation().getLongitude());
     }
 
     public void testTrackExceptionWithName() throws InterruptedException {

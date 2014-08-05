@@ -2,6 +2,7 @@ package de.rocketinternet.android.tracking.core;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.util.Log;
 
@@ -25,7 +26,6 @@ import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
-import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
@@ -179,7 +179,7 @@ public class RITracking implements
     }
 
     @Override
-    public void trackUser(final String userEvent, final Map<String, Object> map, final RIAd4PushUserEnum ad4PushValue) {
+    public void trackUserInfo(final String userEvent, final Map<String, Object> map) {
         RILogUtils.logDebug("Tracking user event: " + userEvent);
 
         if (mTrackers == null) {
@@ -192,7 +192,49 @@ public class RITracking implements
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
-                        ((RIUserTracking) tracker).trackUser(userEvent, map, ad4PushValue);
+                        ((RIUserTracking) tracker).trackUserInfo(userEvent, map);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void updateDeviceInfo(final Map<String, Object> map) {
+        RILogUtils.logDebug("Update Device Info");
+
+        if (mTrackers == null) {
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            return;
+        }
+
+        for (final RITracker tracker : mTrackers) {
+            if (tracker instanceof RIUserTracking) {
+                tracker.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((RIUserTracking) tracker).updateDeviceInfo(map);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void updateGeoLocation(final Location location) {
+        RILogUtils.logDebug("Update Device Info");
+
+        if (mTrackers == null) {
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            return;
+        }
+
+        for (final RITracker tracker : mTrackers) {
+            if (tracker instanceof RIUserTracking) {
+                tracker.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((RIUserTracking) tracker).updateGeoLocation(location);
                     }
                 });
             }

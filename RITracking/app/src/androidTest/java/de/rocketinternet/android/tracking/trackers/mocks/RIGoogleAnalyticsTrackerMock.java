@@ -27,7 +27,7 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleAnalitycsTrackerID");
+        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleAnalyticsTrackingID");
         return !TextUtils.isEmpty(trackingId);
     }
 

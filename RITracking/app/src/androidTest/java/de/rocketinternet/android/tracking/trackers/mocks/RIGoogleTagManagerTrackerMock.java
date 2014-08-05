@@ -10,7 +10,6 @@ import java.util.concurrent.Executors;
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
-import de.rocketinternet.android.tracking.trackers.ad4push.RIAd4PushUserEnum;
 
 /**
  *  @author alessandro.balocco
@@ -50,7 +49,7 @@ public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
     }
 
     @Override
-    public void trackUser(String userEvent, Map<String, Object> map, RIAd4PushUserEnum ad4PushUserEnum) {
+    public void trackUserInfo(String userEvent, Map<String, Object> map) {
         mLastTrackedUserEvent = userEvent;
         mSignal.countDown();
     }
