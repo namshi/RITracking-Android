@@ -58,6 +58,18 @@
             </intent-filter>
         </activity>
 
+        <!-- Multiple SDKs need to register a broadcast receiver for the INSTALL_REFERRER intent
+             in this library. That's the reason why we are implementing a custom BroadcastReceiver
+             that calls all the other receivers that we want to support. -->
+        <!-- TODO: Copy it into your AndroidManifest -->
+        <receiver
+            android:name="de.rocketinternet.android.tracking.receivers.RITrackingInstallReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
         <!-- ############################## -->
         <!-- ########## TRACKERS ########## -->
         <!-- ############################## -->
@@ -79,13 +91,13 @@
 
         <!-- Used for install referrer tracking -->
         <service android:name="com.google.android.gms.tagmanager.InstallReferrerService"/>
-        <receiver
-            android:name="com.google.android.gms.tagmanager.InstallReferrerReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name="com.google.android.gms.tagmanager.InstallReferrerReceiver"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <!-- ########## AD4PUSH ########## -->
         <!-- Ad4Push service -->
@@ -124,13 +136,13 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name="com.ad4screen.sdk.ReferrerHandler"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name="com.ad4screen.sdk.ReferrerHandler"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <!-- Use your package name -->
         <receiver
