@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.ad4screen.sdk.ReferrerHandler;
 import com.google.android.gms.tagmanager.InstallReferrerReceiver;
 
 /**
@@ -23,10 +24,6 @@ public class RITrackingInstallReceiver extends BroadcastReceiver {
         new InstallReferrerReceiver().onReceive(context, intent);
 
         // Ad4Push
-//        // Adjust
-//        new ReferrerReceiver().onReceive(context, intent);
-//
-//        // Google Analytics
-//        new CampaignTrackingReceiver().onReceive(context, intent);
+        new ReferrerHandler().onReceive(context, intent);
     }
 }
