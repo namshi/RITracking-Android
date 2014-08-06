@@ -4,13 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import java.util.Map;
-
-import de.rocketinternet.android.tracking.R;
 import de.rocketinternet.android.tracking.core.RITracking;
-import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 
 /**
  * @author alessandro.balocco

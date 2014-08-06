@@ -49,7 +49,15 @@ public class RITrackingInstallReceiver extends BroadcastReceiver {
             new ReferrerHandler().onReceive(context, intent);
         }
 
-        // AdJust
-        new ReferrerReceiver().onReceive(context, intent);
+        /**
+         * AdJust
+         *
+         * Check if the tracker has information for initialization
+         */
+        String adJustIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.ADJUST_INTEGRATION);
+        boolean isAdJustIntegrationNeeded = Boolean.valueOf(adJustIntegration);
+        if (isAdJustIntegrationNeeded) {
+            new ReferrerReceiver().onReceive(context, intent);
+        }
     }
 }

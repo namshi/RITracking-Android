@@ -54,11 +54,11 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
         String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GA_TRACKING_ID);
         if (!TextUtils.isEmpty(trackingId)) {
             createTracker(context, trackingId);
+            return true;
         } else {
             RILogUtils.logError("Missing Google Analytics Tracking ID in tracking properties");
-            return false;
         }
-        return true;
+        return false;
     }
 
     private void createTracker(Context context, String trackingId) {

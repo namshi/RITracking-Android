@@ -22,4 +22,7 @@ public class RITrackersConstants {
     /* Ad4Push */
     public static final String AD4PUSH_INTEGRATION = "RIAd4PushIntegration";
     public static final String AD4PUSH_VIEW = "view";
+
+    /* Ad4Just */
+    public static final String ADJUST_INTEGRATION = "RIAd4JustIntegration";
 }

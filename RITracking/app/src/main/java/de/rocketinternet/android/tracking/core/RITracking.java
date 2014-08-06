@@ -23,6 +23,7 @@ import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
+import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
@@ -129,6 +130,11 @@ public class RITracking implements
         RIAd4PushTracker ad4PushTracker = new RIAd4PushTracker();
         if (ad4PushTracker.initializeTracker(context)) {
             mTrackers.add(ad4PushTracker);
+        }
+        // AdJust
+        RIAdjustTracker adJustTracker = new RIAdjustTracker();
+        if (adJustTracker.initializeTracker(context)) {
+            mTrackers.add(adJustTracker);
         }
 
         String message = "## Trackers initialized onAppStart ##";
@@ -264,6 +270,23 @@ public class RITracking implements
 
     @Override
     public void trackOpenUrl(final Uri uri) {
+        RILogUtils.logDebug("Tracking opening URL: " + uri);
+
+        // Looking for trackers that implement the interface
+        if (mTrackers != null) {
+            for (final RITracker tracker : mTrackers) {
+                if (tracker instanceof RIOpenUrlTracking) {
+                    tracker.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((RIOpenUrlTracking) tracker).trackOpenUrl(uri);
+                        }
+                    });
+                }
+            }
+        }
+
+        // Dispatch the uri to registered handlers
         if (mHandlers != null) {
             boolean continueLooping = true;
             for (int i = 0; i < mHandlers.size() && continueLooping; i++) {

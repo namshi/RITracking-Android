@@ -10,6 +10,7 @@ import com.google.android.gms.tagmanager.ContainerHolder;
 import com.google.android.gms.tagmanager.DataLayer;
 import com.google.android.gms.tagmanager.TagManager;
 
+import java.security.Key;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -30,8 +31,7 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Convenience controller to proxy-pass tracking information to Google Tag Manager
+ * Convenience controller to proxy-pass tracking information to Google Tag Manager
  */
 public class RIGoogleTagManagerTracker extends RITracker implements
         RIEventTracking,
@@ -72,7 +72,6 @@ public class RIGoogleTagManagerTracker extends RITracker implements
             RILogUtils.logError("GoogleTagManager tracker ISSUE: you are missing (1) container file " +
                     "in raw folder of your app or (2) container ID in tracking properties");
         }
-
         return false;
     }
 

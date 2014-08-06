@@ -174,5 +174,8 @@
         <meta-data android:name="AdjustAppToken"    android:value="{YourAppToken}" />
         <meta-data android:name="AdjustLogLevel"    android:value="info" />
         <meta-data android:name="AdjustEnvironment" android:value="sandbox" /> <!-- FIXME: change to 'production' -->
+
+        <!-- Enable that feature you plan to send lots of events and they can be batched -->
+        <!--<meta-data android:name="AdjustEventBuffering" android:value="true" />-->
     </application>
 </manifest>

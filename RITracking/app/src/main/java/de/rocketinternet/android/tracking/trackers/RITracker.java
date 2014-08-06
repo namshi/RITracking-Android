@@ -27,6 +27,13 @@ public abstract class RITracker {
     protected ExecutorService mQueue;
 
     /**
+     * Execute a certain operation
+     *
+     * @param runnable A runnable containing next operation
+     */
+    public abstract void execute(Runnable runnable);
+
+    /**
      * Get the identifier of the tracker. Mostly used for debugging reasons
      *
      * @return the identifier name of the tracker
@@ -39,11 +46,4 @@ public abstract class RITracker {
      * @return true if the tracker was successfully initialized
      */
     public abstract boolean initializeTracker(Context context);
-
-    /**
-     * Execute a certain operation
-     *
-     * @param runnable A runnable containing next operation
-     */
-    public abstract void execute(Runnable runnable);
 }
