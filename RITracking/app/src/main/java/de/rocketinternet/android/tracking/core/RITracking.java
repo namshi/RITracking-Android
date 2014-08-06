@@ -173,7 +173,7 @@ public class RITracking implements
         }
 
         for (final RITracker tracker : mTrackers) {
-            if (tracker instanceof RIEventTracking) {
+            if (tracker instanceof RIScreenTracking) {
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {

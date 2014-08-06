@@ -13,6 +13,8 @@ import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 
 /**
  * @author alessandro.balocco
+ *
+ * This class is a mock implementation of the RIGoogleAnalyticsTracker used for testing purposes
  */
 public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
 

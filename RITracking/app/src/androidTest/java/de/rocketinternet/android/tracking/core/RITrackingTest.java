@@ -13,11 +13,12 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import de.rocketinternet.android.tracking.handlers.RIOpenUrlHandler;
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrlMockImpl;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
 import de.rocketinternet.android.tracking.trackers.mocks.RIAd4PushTrackerMock;
+import de.rocketinternet.android.tracking.trackers.mocks.RIAdJustTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleAnalyticsTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleTagManagerTrackerMock;
 
@@ -29,6 +30,7 @@ public class RITrackingTest extends InstrumentationTestCase {
     private RIGoogleAnalyticsTrackerMock mGoogleAnalyticsTrackerMock;
     private RIGoogleTagManagerTrackerMock mGoogleTagManagerTrackerMock;
     private RIAd4PushTrackerMock mAd4PushTrackerMock;
+    private RIAdJustTrackerMock mAdJustTrackerMock;
 
     @Override
     protected void setUp() throws Exception {
@@ -47,9 +49,11 @@ public class RITrackingTest extends InstrumentationTestCase {
         mGoogleAnalyticsTrackerMock = new RIGoogleAnalyticsTrackerMock();
         mGoogleTagManagerTrackerMock = new RIGoogleTagManagerTrackerMock();
         mAd4PushTrackerMock = new RIAd4PushTrackerMock();
+        mAdJustTrackerMock = new RIAdJustTrackerMock();
         trackers.add(mGoogleAnalyticsTrackerMock);
         trackers.add(mGoogleTagManagerTrackerMock);
         trackers.add(mAd4PushTrackerMock);
+        trackers.add(mAdJustTrackerMock);
         RITracking.getInstance().addTrackers(trackers);
     }
 
@@ -68,12 +72,15 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertFalse(mGoogleTagManagerTrackerMock.isEventTracked());
         assertEquals(0, mAd4PushTrackerMock.getNumberOfTrackedEvents());
         assertFalse(mAd4PushTrackerMock.isEventTracked());
+        assertEquals(0, mAdJustTrackerMock.getNumberOfTrackedEvents());
+        assertFalse(mAdJustTrackerMock.isEventTracked());
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(3);
+        CountDownLatch latch = new CountDownLatch(4);
         mGoogleAnalyticsTrackerMock.setSignal(latch);
         mGoogleTagManagerTrackerMock.setSignal(latch);
         mAd4PushTrackerMock.setSignal(latch);
+        mAdJustTrackerMock.setSignal(latch);
         RITracking.getInstance().trackEvent("", 0, "", "", new HashMap<String, Object>());
         latch.await(2, TimeUnit.SECONDS);
 
@@ -86,6 +93,8 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertTrue(mGoogleTagManagerTrackerMock.isEventTracked());
         assertEquals(1, mAd4PushTrackerMock.getNumberOfTrackedEvents());
         assertTrue(mAd4PushTrackerMock.isEventTracked());
+        assertEquals(1, mAdJustTrackerMock.getNumberOfTrackedEvents());
+        assertTrue(mAdJustTrackerMock.isEventTracked());
     }
 
     public void testTrackScreenName() throws InterruptedException {
@@ -221,16 +230,21 @@ public class RITrackingTest extends InstrumentationTestCase {
         RITracking.getInstance().registerHandler("Handler2", "testHost", "testPath", listener);
         RITracking.getInstance().registerHandler("Handler3", "testHost3", "testPathThree", listener);
 
+        // Evaluate initial situation
+        assertNull(mAdJustTrackerMock.getLastTrackerUri());
+
         // Set count down to 0, here is used only for waiting notification
-        CountDownLatch latch = new CountDownLatch(0);
+        CountDownLatch latch = new CountDownLatch(1);
+        mAdJustTrackerMock.setSignal(latch);
         RITracking.getInstance().trackOpenUrl(uri);
-        latch.await(4, TimeUnit.SECONDS);
+        latch.await(3, TimeUnit.SECONDS);
 
         // Validate results
         assertEquals(0, latch.getCount());
         assertTrue(listener.isHandlerCalled());
         assertEquals("Handler2", listener.getHandlerIdentifier());
         assertTrue(listener.getQueryParams().containsKey("handler2"));
+        assertEquals(uri, mAdJustTrackerMock.getLastTrackerUri());
     }
 
     public void testTrackActivityCreatedAsSplashScreen() throws InterruptedException {
@@ -258,10 +272,12 @@ public class RITrackingTest extends InstrumentationTestCase {
 
         // Evaluate initial situation
         assertFalse(mAd4PushTrackerMock.wasActivityResumed());
+        assertFalse(mAdJustTrackerMock.wasActivityResumed());
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(2);
         mAd4PushTrackerMock.setSignal(latch);
+        mAdJustTrackerMock.setSignal(latch);
         RITracking.getInstance().trackActivityResumed(mockActivity);
         latch.await(2, TimeUnit.SECONDS);
 
@@ -269,6 +285,7 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertEquals(0, latch.getCount());
 
         assertTrue(mAd4PushTrackerMock.wasActivityResumed());
+        assertTrue(mAdJustTrackerMock.wasActivityResumed());
     }
 
     public void testTrackActivityPaused() throws InterruptedException {
@@ -276,10 +293,12 @@ public class RITrackingTest extends InstrumentationTestCase {
 
         // Evaluate initial situation
         assertFalse(mAd4PushTrackerMock.wasActivityPaused());
+        assertFalse(mAdJustTrackerMock.wasActivityPaused());
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(2);
         mAd4PushTrackerMock.setSignal(latch);
+        mAdJustTrackerMock.setSignal(latch);
         RITracking.getInstance().trackActivityPaused(mockActivity);
         latch.await(2, TimeUnit.SECONDS);
 
@@ -287,5 +306,6 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertEquals(0, latch.getCount());
 
         assertTrue(mAd4PushTrackerMock.wasActivityPaused());
+        assertTrue(mAdJustTrackerMock.wasActivityPaused());
     }
 }

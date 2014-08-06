@@ -12,7 +12,9 @@ import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
 
 /**
- *  @author alessandro.balocco
+ * @author alessandro.balocco
+ *
+ * This class is a mock implementation of the RIGoogleTagManagerTracker used for testing purposes
  */
 public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
 
