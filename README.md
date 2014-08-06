@@ -281,7 +281,25 @@ dismissed accordigly to
 [Ad4Push documentation](http://www.ad4screen.com/DocSDK/doku.php?id=troubleshooting#splashscreen)
 
 ### AdJust 
-___in development___
+#### Overview
+AdJust tracker is meant to track _events_ and _e-commerce events_. This tracker 
+will be initialized using an AppToken in the AndroidManifest. The tracker will start
+tracking session automatically by extending one of the container provided with the 
+library and described in the __Basic Integration - Setup__ paragraph.
+
+For more information and official documentation 
+[this link](https://github.com/adjust/android_sdk) is the way to go. 
+
+#### Integration
+Integrating adJust tracker will require the following steps: 
+
+1.  Update the _RIAdJustIntegration_ flag in the properties file with a value of true or 
+false depending on the app needs.
+        
+        RIAdJustIntegration=true    // in this case the library will try to initialize the tracker
+
+2. Check AndroidManifest.xml of the library project and copy the parts related to AdJust 
+being sure to add the correct AppToken for your application.
 
 ### BugSense 
 ___in development___
