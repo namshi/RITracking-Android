@@ -135,15 +135,7 @@
             </intent-filter>
         </receiver>
 
-        <!--<receiver-->
-            <!--android:name="com.ad4screen.sdk.ReferrerHandler"-->
-            <!--android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-
-        <!-- TODO: Change to your package name and copz it in your AndroidManifest -->
+        <!-- TODO: Change to your package name and copy it in your AndroidManifest -->
         <receiver
             android:name="com.ad4screen.sdk.GCMHandler"
             android:permission="com.google.android.c2dm.permission.SEND">
@@ -182,13 +174,5 @@
         <meta-data android:name="AdjustAppToken"    android:value="{YourAppToken}" />
         <meta-data android:name="AdjustLogLevel"    android:value="info" />
         <meta-data android:name="AdjustEnvironment" android:value="sandbox" /> <!-- FIXME: change to 'production' -->
-
-        <!--<receiver-->
-            <!--android:name="com.adjust.sdk.ReferrerReceiver"-->
-            <!--android:exported="true" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
     </application>
 </manifest>
