@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -24,6 +25,7 @@ import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
 import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
+import de.rocketinternet.android.tracking.trackers.RIBugSenseTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
 import de.rocketinternet.android.tracking.trackers.RITracker;
@@ -135,6 +137,11 @@ public class RITracking implements
         RIAdjustTracker adJustTracker = new RIAdjustTracker();
         if (adJustTracker.initializeTracker(context)) {
             mTrackers.add(adJustTracker);
+        }
+        // BugSense
+        RIBugSenseTracker bugSenseTracker = new RIBugSenseTracker();
+        if (bugSenseTracker.initializeTracker(context)) {
+            mTrackers.add(bugSenseTracker);
         }
 
         String message = "## Trackers initialized onAppStart ##";
@@ -248,8 +255,8 @@ public class RITracking implements
     }
 
     @Override
-    public void trackExceptionWithName(final String name) {
-        RILogUtils.logDebug("Tracking exception with name " + name);
+    public void trackExceptionWithName(final HashMap<String, String> params, final Exception exception) {
+        RILogUtils.logDebug("Tracking exception: " + exception.getMessage());
 
         if (mTrackers == null) {
             RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
@@ -261,7 +268,7 @@ public class RITracking implements
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
-                        ((RIExceptionTracking) tracker).trackExceptionWithName(name);
+                        ((RIExceptionTracking) tracker).trackExceptionWithName(params, exception);
                     }
                 });
             }

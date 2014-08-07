@@ -1,5 +1,7 @@
 package de.rocketinternet.android.tracking.interfaces;
 
+import java.util.HashMap;
+
 /**
  *  @author alessandro.balocco
  *
@@ -10,7 +12,8 @@ public interface RIExceptionTracking {
     /**
      * Track an exception occurrence by name
      *
-     * @param name The exception that happened.
+     * @param params    Parameters associated with the exception (ex. exception level) (optional)
+     * @param exception The exception that happened.
      */
-    void trackExceptionWithName(String name);
+    void trackExceptionWithName(HashMap<String, String> params, Exception exception);
 }

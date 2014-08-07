@@ -61,20 +61,21 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="A4SSDK" level="project" />
-    <orderEntry type="library" exported="" name="mockito-all-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="adjust-android-3.5.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-5.0.77" level="project" />
-    <orderEntry type="library" exported="" name="libGoogleAnalyticsServices" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="objenesis-1.0" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="dexmaker-1.0" level="project" />
-    <orderEntry type="library" exported="" name="1_dexmaker-1.0" level="project" />
+    <orderEntry type="library" exported="" name="bugsense-3.5" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="dexmaker-mockito-1.0" level="project" />
     <orderEntry type="library" exported="" name="1_dexmaker-mockito-1.0" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="mockito-core-1.9.5" level="project" />
+    <orderEntry type="library" exported="" name="A4SSDK" level="project" />
+    <orderEntry type="library" exported="" name="mockito-all-1.9.5" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="objenesis-1.0" level="project" />
+    <orderEntry type="library" exported="" name="libGoogleAnalyticsServices" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="dexmaker-1.0" level="project" />
+    <orderEntry type="library" exported="" name="1_dexmaker-1.0" level="project" />
     <orderEntry type="module" module-name="a4SSDK" exported="" />
   </component>
 </module>
