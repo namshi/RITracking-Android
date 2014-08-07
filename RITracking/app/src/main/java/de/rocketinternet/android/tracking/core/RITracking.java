@@ -34,10 +34,10 @@ import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
  * @author alessandro.balocco
- *
- * This class allows users of this library to interact with different tracking systems. The class is
- * provides functionalities to track specific events and based on that it automatically spreads these
- * events to registered tracking libraries.
+ *         <p/>
+ *         This class allows users of this library to interact with different tracking systems. The class is
+ *         provides functionalities to track specific events and based on that it automatically spreads these
+ *         events to registered tracking libraries.
  */
 public class RITracking implements
         RIEventTracking,
@@ -255,7 +255,7 @@ public class RITracking implements
     }
 
     @Override
-    public void trackExceptionWithName(final HashMap<String, String> params, final Exception exception) {
+    public void trackException(final HashMap<String, String> params, final Exception exception) {
         RILogUtils.logDebug("Tracking exception: " + exception.getMessage());
 
         if (mTrackers == null) {
@@ -268,7 +268,7 @@ public class RITracking implements
                 tracker.execute(new Runnable() {
                     @Override
                     public void run() {
-                        ((RIExceptionTracking) tracker).trackExceptionWithName(params, exception);
+                        ((RIExceptionTracking) tracker).trackException(params, exception);
                     }
                 });
             }

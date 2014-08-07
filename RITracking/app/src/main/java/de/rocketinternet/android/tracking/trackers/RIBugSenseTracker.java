@@ -18,8 +18,8 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *
- * Convenience controller to proxy-pass tracking information to BugSense
+ *         <p/>
+ *         Convenience controller to proxy-pass tracking information to BugSense
  */
 public class RIBugSenseTracker extends RITracker implements
         RIScreenTracking,
@@ -67,7 +67,7 @@ public class RIBugSenseTracker extends RITracker implements
     }
 
     @Override
-    public void trackExceptionWithName(HashMap<String, String> params, Exception exception) {
+    public void trackException(HashMap<String, String> params, Exception exception) {
         if (exception != null) {
             RILogUtils.logDebug("BugSense tracker - tracking exception: " + exception.getMessage());
 

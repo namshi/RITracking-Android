@@ -2,15 +2,12 @@ package de.rocketinternet.android.tracking.interfaces;
 
 import android.net.Uri;
 
-import java.net.URL;
-import java.util.List;
-
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 
 /**
- *  @author alessandro.balocco
- *
- *  API interface for deeplink URL tracking
+ * @author alessandro.balocco
+ *         <p/>
+ *         API interface for deeplink URL tracking
  */
 public interface RIOpenUrlTracking {
 
@@ -23,16 +20,16 @@ public interface RIOpenUrlTracking {
 
     /**
      * Register a handler block to be called when the given pattern matches a deep-link URL.
-     *
+     * <p/>
      * The deep-link URL pattern may contain capture directives of the format `{<name>}` where '<name>'
      * is replaced with the actual property name to access the captured information.
      * The handler block receives a dictionary hash containing key-value properties obtained from pattern
      * capture directives and from the query string of the deep-link URL.
      *
-     * @param identifier    An identifier for filtering callbacks
-     * @param host          The host part of the link
-     * @param path          The path part of the link
-     * @param listener      A listener for callbacks
+     * @param identifier An identifier for filtering callbacks
+     * @param host       The host part of the link
+     * @param path       The path part of the link
+     * @param listener   A listener for callbacks
      */
     void registerHandler(String identifier, String host, String path, RIOnHandledOpenUrl listener);
 }
