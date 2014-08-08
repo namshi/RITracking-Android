@@ -9,7 +9,7 @@ public class RITrackingTotal {
     /**
      * Net of the order
      */
-    private int mNet;
+    private double mNet;
     /**
      * Tax of the order
      */
@@ -26,7 +26,7 @@ public class RITrackingTotal {
     public RITrackingTotal() {
     }
 
-    public RITrackingTotal(int net, float tax, int shipping,
+    public RITrackingTotal(double net, float tax, int shipping,
                            String currency) {
         mNet = net;
         mTax = tax;
@@ -34,11 +34,11 @@ public class RITrackingTotal {
         mCurrency = currency;
     }
 
-    public int getNet() {
+    public double getNet() {
         return mNet;
     }
 
-    public void setNet(int net) {
+    public void setNet(double net) {
         mNet = net;
     }
 

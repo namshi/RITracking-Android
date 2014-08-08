@@ -42,5 +42,5 @@ public interface RIEcommerceEventTracking {
      * @param quantity  The amount of products removed from the cart
      * @param cartValue The total value of the cart before product removal
      */
-    void trackRemoveProductFromCart(RITrackingProduct product, int quantity, float cartValue);
+    void trackRemoveProductFromCart(RITrackingProduct product, int quantity, double cartValue);
 }

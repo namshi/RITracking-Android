@@ -193,7 +193,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     }
 
     @Override
-    public void trackRemoveProductFromCart(RITrackingProduct product, int quantity, float cartValue) {
+    public void trackRemoveProductFromCart(RITrackingProduct product, int quantity, double cartValue) {
         RILogUtils.logDebug("Google Tag Manager - Tracking remove product with id " +
                 product.getIdentifier() + " from cart");
 
@@ -288,7 +288,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
      * @param cartValue The value of the cart before removing products
      * @link https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2
      */
-    private Map<String, Object> createProductMapToRemoveFromCart(RITrackingProduct product, int quantity, float cartValue) {
+    private Map<String, Object> createProductMapToRemoveFromCart(RITrackingProduct product, int quantity, double cartValue) {
         Map<String, Object> removeFromCartMap = new HashMap<String, Object>();
 
         removeFromCartMap.put(RITrackersConstants.GTM_PRODUCT_SKU, product.getIdentifier());

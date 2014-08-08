@@ -2,6 +2,8 @@ package de.rocketinternet.android.tracking.models;
 
 /**
  * @author alessandro.balocco
+ *         <p/>
+ *         Model class that defines a product and contains product information
  */
 public class RITrackingProduct {
     /**

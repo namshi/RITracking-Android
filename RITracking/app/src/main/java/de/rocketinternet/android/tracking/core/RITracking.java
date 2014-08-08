@@ -34,10 +34,10 @@ import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This class allows users of this library to interact with different tracking systems. The class is
- *         provides functionalities to track specific events and based on that it automatically spreads these
- *         events to registered tracking libraries.
+ *
+ * This class allows users of this library to interact with different tracking systems. The class is
+ * provides functionalities to track specific events and based on that it automatically spreads these
+ * events to registered tracking libraries.
  */
 public class RITracking implements
         RIEventTracking,
@@ -360,7 +360,7 @@ public class RITracking implements
     }
 
     @Override
-    public void trackRemoveProductFromCart(final RITrackingProduct product, final int quantity, final float cartValue) {
+    public void trackRemoveProductFromCart(final RITrackingProduct product, final int quantity, final double cartValue) {
         if (product != null) {
             RILogUtils.logDebug("Tracking remove " + quantity + " products with id " +
                     product.getIdentifier() + " from cart");
