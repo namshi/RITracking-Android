@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrlMockImpl;
-import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RITracker;
 import de.rocketinternet.android.tracking.trackers.mocks.RIAd4PushTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIAdJustTrackerMock;
@@ -208,7 +208,8 @@ public class RITrackingTest extends InstrumentationTestCase {
 
     public void testTrackCheckoutWithTransactionId() throws InterruptedException {
         String transactionId = "id56fca3drt5d";
-        RITrackingTotal total = new RITrackingTotal(20, 0.2f, 3, "eur");
+        RITrackingTransaction transaction = new RITrackingTransaction();
+        transaction.setTransactionId(transactionId);
 
         // Evaluate initial situation
         assertTrue(TextUtils.isEmpty(mGoogleAnalyticsTrackerMock.getLastCheckoutTransaction()));
@@ -218,7 +219,7 @@ public class RITrackingTest extends InstrumentationTestCase {
         CountDownLatch latch = new CountDownLatch(2);
         mGoogleAnalyticsTrackerMock.setSignal(latch);
         mGoogleTagManagerTrackerMock.setSignal(latch);
-        RITracking.getInstance().trackCheckoutWithTransactionId(transactionId, total);
+        RITracking.getInstance().trackCheckoutTransaction(transaction);
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results

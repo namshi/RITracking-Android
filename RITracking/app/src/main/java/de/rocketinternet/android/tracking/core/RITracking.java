@@ -22,7 +22,7 @@ import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
-import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
 import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
 import de.rocketinternet.android.tracking.trackers.RIBugSenseTracker;
@@ -314,34 +314,73 @@ public class RITracking implements
     }
 
     @Override
-    public void trackCheckoutWithTransactionId(final String idTransaction, final RITrackingTotal total) {
-        RILogUtils.logDebug("Tracking checkout transaction with id " + idTransaction);
+    public void trackCheckoutTransaction(final RITrackingTransaction transaction) {
+        if (transaction != null) {
+            RILogUtils.logDebug("Tracking checkout transaction with id " + transaction.getTransactionId());
 
-        if (mTrackers == null) {
-            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
-            return;
-        }
+            if (mTrackers == null) {
+                RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+                return;
+            }
 
-        for (final RITracker tracker : mTrackers) {
-            if (tracker instanceof RIEcommerceEventTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RIEcommerceEventTracking) tracker).trackCheckoutWithTransactionId(idTransaction, total);
-                    }
-                });
+            for (final RITracker tracker : mTrackers) {
+                if (tracker instanceof RIEcommerceEventTracking) {
+                    tracker.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((RIEcommerceEventTracking) tracker).trackCheckoutTransaction(transaction);
+                        }
+                    });
+                }
             }
         }
     }
 
     @Override
-    public void trackAddProductToCart(RITrackingProduct product) {
+    public void trackAddProductToCart(final RITrackingProduct product, final String location) {
+        if (product != null) {
+            RILogUtils.logDebug("Tracking add product with id " + product.getIdentifier() + " to cart");
 
+            if (mTrackers == null) {
+                RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+                return;
+            }
+
+            for (final RITracker tracker : mTrackers) {
+                if (tracker instanceof RIEcommerceEventTracking) {
+                    tracker.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((RIEcommerceEventTracking) tracker).trackAddProductToCart(product, location);
+                        }
+                    });
+                }
+            }
+        }
     }
 
     @Override
-    public void trackRemoveProductFromCart(String idTransaction, int quantity) {
+    public void trackRemoveProductFromCart(final RITrackingProduct product, final int quantity, final float cartValue) {
+        if (product != null) {
+            RILogUtils.logDebug("Tracking remove " + quantity + " products with id " +
+                    product.getIdentifier() + " from cart");
 
+            if (mTrackers == null) {
+                RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+                return;
+            }
+
+            for (final RITracker tracker : mTrackers) {
+                if (tracker instanceof RIEcommerceEventTracking) {
+                    tracker.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((RIEcommerceEventTracking) tracker).trackRemoveProductFromCart(product, quantity, cartValue);
+                        }
+                    });
+                }
+            }
+        }
     }
 
     @Override

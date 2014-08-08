@@ -2,9 +2,10 @@ package de.rocketinternet.android.tracking.models;
 
 /**
  * @author alessandro.balocco
+ *         <p/>
+ *         Model class that defines the total of a checkout
  */
 public class RITrackingTotal {
-
     /**
      * Net of the order
      */
@@ -22,9 +23,11 @@ public class RITrackingTotal {
      */
     private String mCurrency;
 
-    public RITrackingTotal() {}
+    public RITrackingTotal() {
+    }
 
-    public RITrackingTotal(int net, float tax, int shipping, String currency) {
+    public RITrackingTotal(int net, float tax, int shipping,
+                           String currency) {
         mNet = net;
         mTax = tax;
         mShipping = shipping;

@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
-import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 
 /**
@@ -60,8 +60,8 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     }
 
     @Override
-    public void trackCheckoutWithTransactionId(String idTransaction, RITrackingTotal total) {
-        mLastCheckoutTransaction = idTransaction;
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        mLastCheckoutTransaction = transaction.getTransactionId();
         mSignal.countDown();
     }
 
