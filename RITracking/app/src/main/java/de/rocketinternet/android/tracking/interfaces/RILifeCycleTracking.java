@@ -4,7 +4,8 @@ import android.app.Activity;
 
 /**
  * @author alessandro.balocco
- *         API interface for handling lifecycle events
+ *
+ * API interface for handling lifecycle events
  */
 public interface RILifeCycleTracking {
 

@@ -6,7 +6,8 @@ import java.util.Map;
 
 /**
  * @author alessandro.balocco
- *         This interface implements tracking user information
+ *
+ * This interface implements tracking user information
  */
 public interface RIUserTracking {
 

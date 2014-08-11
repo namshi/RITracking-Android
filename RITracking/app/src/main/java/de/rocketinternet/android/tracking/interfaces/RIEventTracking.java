@@ -4,7 +4,8 @@ import java.util.Map;
 
 /**
  * @author alessandro.balocco
- *         This interface implements tracking to an event
+ *
+ * This interface implements tracking to an event
  */
 public interface RIEventTracking {
 

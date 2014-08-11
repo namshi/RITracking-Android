@@ -5,16 +5,16 @@ import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 
 /**
  * @author alessandro.balocco
- *         This interface implements tracking for e-commerce transactions
- *         <p/>
- *         The implementation to this interface should maintain a state machine to collect cart information.
- *         Adding/Removing to/from cart is forwarded to Ad-X and A4S (http://goo.gl/iSjKut) instantly.
- *         <p/>
- *         Trackers:
- *         GA (https://developers.google.com/analytics/devguides/collection/android/v4/ecommerce)
- *         GTM (https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2)
- *         A4S (http://www.ad4screen.com/DocSDK/doku.php?id=events)
- *         ADJUST (https://github.com/adjust/android_sdk#10-add-tracking-of-revenue)
+ *
+ * This interface implements tracking for e-commerce transactions
+ *
+ * The implementation to this interface should maintain a state machine to collect cart information.
+ * Adding/Removing to/from cart is forwarded to Ad-X and A4S (http://goo.gl/iSjKut) instantly.
+ * Trackers:
+ * GA (https://developers.google.com/analytics/devguides/collection/android/v4/ecommerce)
+ * GTM (https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2)
+ * A4S (http://www.ad4screen.com/DocSDK/doku.php?id=events)
+ * ADJUST (https://github.com/adjust/android_sdk#10-add-tracking-of-revenue)
  */
 public interface RIEcommerceEventTracking {
 
