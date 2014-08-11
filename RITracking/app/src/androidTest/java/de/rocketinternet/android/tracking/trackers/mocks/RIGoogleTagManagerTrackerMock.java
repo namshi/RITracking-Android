@@ -71,7 +71,7 @@ public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
     }
 
     @Override
-    public void trackAddProductToCart(RITrackingProduct product, String location) {
+    public void trackAddProductToCart(RITrackingProduct product, String cartId, String location) {
         mLastAddedProduct = product.getName();
         mLocationOfProductBeforeAddingToCart = location;
         mSignal.countDown();

@@ -31,9 +31,10 @@ public interface RIEcommerceEventTracking {
      * Track a product that was added to the cart
      *
      * @param product  The product added to the cart
+     * @param cartId   The id of the current cart
      * @param location The location in the app from where the product was added to the cart
      */
-    void trackAddProductToCart(RITrackingProduct product, String location);
+    void trackAddProductToCart(RITrackingProduct product, String cartId, String location);
 
     /**
      * Track a product that was removed from the cart

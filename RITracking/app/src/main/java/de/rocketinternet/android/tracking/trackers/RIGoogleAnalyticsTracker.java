@@ -159,7 +159,7 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     }
 
     @Override
-    public void trackAddProductToCart(RITrackingProduct product, String location) {
+    public void trackAddProductToCart(RITrackingProduct product, String cartId, String location) {
         // TODO: add implementation
     }
 

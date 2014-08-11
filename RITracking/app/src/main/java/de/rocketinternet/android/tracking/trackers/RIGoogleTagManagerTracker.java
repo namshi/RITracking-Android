@@ -34,8 +34,8 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *
- * Convenience controller to proxy-pass tracking information to Google Tag Manager
+ *         <p/>
+ *         Convenience controller to proxy-pass tracking information to Google Tag Manager
  */
 public class RIGoogleTagManagerTracker extends RITracker implements
         RIEventTracking,
@@ -166,7 +166,8 @@ public class RIGoogleTagManagerTracker extends RITracker implements
 
     @Override
     public void trackCheckoutTransaction(RITrackingTransaction transaction) {
-        RILogUtils.logDebug("Google Tag Manager - Tracking checkout with transaction id: " + transaction.getTransactionId());
+        RILogUtils.logDebug("Google Tag Manager - Tracking checkout with transaction id: " +
+                transaction.getTransactionId());
 
         if (mDataLayer == null) {
             RILogUtils.logError("Missing Google Tag Manager Data Layer reference");
@@ -178,7 +179,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     }
 
     @Override
-    public void trackAddProductToCart(RITrackingProduct product, String location) {
+    public void trackAddProductToCart(RITrackingProduct product, String cartId, String location) {
         RILogUtils.logDebug("Google Tag Manager - Tracking add product with id " +
                 product.getIdentifier() + " to cart");
 
@@ -210,9 +211,10 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     /**
      * This method return a map to be sent to the DataLayer for tracking checkout transaction.
      * This spreadsheet has been used as a reference to create transaction
+     * https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2
      *
      * @param transaction The transaction object containing the information
-     * @link https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2
+     * @return The map for the current transaction
      */
     private Map<String, Object> createTransactionMap(RITrackingTransaction transaction) {
         Map<String, Object> transactionMap = new HashMap<String, Object>();
@@ -257,10 +259,11 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     /**
      * This method return a map to be sent to the DataLayer representing an add a product to cart action.
      * This spreadsheet has been used as a reference to create transaction
+     * https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2
      *
      * @param product  The product that has been added
      * @param location Location in the app from where the product was added to the cart
-     * @link https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2
+     * @return The map for the added product
      */
     private Map<String, Object> createProductMapForAddingToCart(RITrackingProduct product, String location) {
         Map<String, Object> addToCartMap = new HashMap<String, Object>();
@@ -282,11 +285,12 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     /**
      * This method return a map to be sent to the DataLayer representing a remove a product from cart action.
      * This spreadsheet has been used as a reference to create transaction
+     * https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2
      *
      * @param product   The product that has been added
      * @param quantity  The amount of products to be removed from the cart
      * @param cartValue The value of the cart before removing products
-     * @link https://docs.google.com/a/rocket-internet.de/spreadsheet/ccc?key=0AhBBVxg73HxhdG56RHVveEFad2ZrMHN2Q1lKcGpzbmc&usp=drive_web#gid=2
+     * @return The map for the removed product
      */
     private Map<String, Object> createProductMapToRemoveFromCart(RITrackingProduct product, int quantity, double cartValue) {
         Map<String, Object> removeFromCartMap = new HashMap<String, Object>();

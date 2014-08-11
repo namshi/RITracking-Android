@@ -82,20 +82,20 @@ The ones listed below are the events that the libray allows to track:
     User related events are of 3 types and they are tracked by calling the corresponding 
     methods provided by the library.  
     
-    __USER INFO__: The first method tracks user information, below an example:
+    __User Info__: The first method tracks user information, below an example:
         
         String userEvent = "userEvent";
         Map<String, Object> dataMap = new HashMap<String, Object>();
         
         RITracking.getInstance().trackUserInfo(eventName, eventValue, userAction, appCategory, dataMap);
     
-    __DEVICE INFO__: The second method is used to update user device information:
+    __Device Info__: The second method is used to update user device information:
         
         Map<String, Object> deviceInfo = new HashMap<String, Object>();
         
         RITracking.getInstance().updateDeviceInfo(deviceInfo);
         
-    __GEOLOCATION__: The third method is used to update user geolocation:
+    __Geolocation__: The third method is used to update user geolocation:
         
         Location location = new Location("Test location");
         location.setLatitude(0.0);

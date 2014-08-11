@@ -6,28 +6,37 @@ import android.location.Location;
 import android.os.Bundle;
 
 import com.ad4screen.sdk.A4S;
+import com.ad4screen.sdk.analytics.Cart;
+import com.ad4screen.sdk.analytics.Item;
+import com.ad4screen.sdk.analytics.Purchase;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
+import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RILifeCycleTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
+import de.rocketinternet.android.tracking.models.RITrackingProduct;
+import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *
- * Convenience controller to proxy-pass tracking information to Ad4Push
+ *         <p/>
+ *         Convenience controller to proxy-pass tracking information to Ad4Push
  */
 public class RIAd4PushTracker extends RITracker implements
         RIScreenTracking,
         RIUserTracking,
         RIEventTracking,
-        RILifeCycleTracking {
+        RILifeCycleTracking,
+        RIEcommerceEventTracking {
 
     private static final String TRACKER_ID = "RIAd4PushTrackerID";
 
@@ -169,5 +178,87 @@ public class RIAd4PushTracker extends RITracker implements
         }
 
         mA4S.stopActivity(activity);
+    }
+
+    @Override
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        RILogUtils.logDebug("Ad4Push tracker - Tracking checkout with transaction id: " +
+                transaction.getTransactionId());
+
+        if (mA4S == null) {
+            RILogUtils.logError("Missing Ad4Push singleton reference");
+            return;
+        }
+
+        Purchase purchase = createPurchaseFromTransaction(transaction);
+        mA4S.trackPurchase(purchase);
+    }
+
+    @Override
+    public void trackAddProductToCart(RITrackingProduct product, String cartId, String location) {
+        RILogUtils.logDebug("Ad4Push tracker - Tracking add product with id " +
+                product.getIdentifier() + " to cart");
+
+        if (mA4S == null) {
+            RILogUtils.logError("Missing Ad4Push singleton reference");
+            return;
+        }
+
+        Item itemToAdd = createItemFromProduct(product);
+        Cart cart = new Cart(cartId, itemToAdd);
+        mA4S.trackAddToCart(cart);
+    }
+
+    @Override
+    public void trackRemoveProductFromCart(RITrackingProduct product, int quantity, double cartValue) {
+        // Not used by this tracker
+    }
+
+    /**
+     * This method maps a RITrackingProduct to an Item object required by Ad4Push library
+     * To have more information this is the link to the official documentation
+     * http://www.ad4screen.com/DocSDK/doku.php?id=events
+     *
+     * @param product The product to be mapped
+     * @return The Item resulting from the mapping
+     */
+    private Item createItemFromProduct(RITrackingProduct product) {
+        String id = product.getIdentifier();
+        String currency = product.getCurrency();
+        String name = product.getName();
+        String category = product.getCategory();
+        double price = product.getPrice();
+        int quantity = product.getQuantity();
+
+        return new Item(id, currency, name, category, price, quantity);
+    }
+
+    /**
+     * This method maps a RITrackingTransaction to a Purchase object required by Ad4Push library
+     * To have more information this is the link to the official documentation
+     * http://www.ad4screen.com/DocSDK/doku.php?id=events
+     *
+     * @param transaction The transaction to be converted into a Purchase
+     * @return The purchase resulting from the mapping
+     */
+    private Purchase createPurchaseFromTransaction(RITrackingTransaction transaction) {
+        String transactionId = transaction.getTransactionId();
+        String transactionCurrency = "";
+        double transactionPrice = 0;
+        RITrackingTotal transactionTotal = transaction.getTotal();
+        if (transactionTotal != null) {
+            transactionCurrency = transactionTotal.getCurrency();
+            transactionPrice = transactionTotal.getNet();
+        }
+        List<RITrackingProduct> productList = transaction.getProductsList();
+        if (productList != null && productList.size() > 0) {
+            Item[] items = new Item[productList.size()];
+            for (int i = 0; i < productList.size(); i++) {
+                items[i] = createItemFromProduct(productList.get(i));
+            }
+            return new Purchase(transactionId, transactionCurrency, transactionPrice, items);
+        }
+
+        return new Purchase(transactionId, transactionCurrency, transactionPrice);
     }
 }

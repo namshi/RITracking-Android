@@ -215,11 +215,13 @@ public class RITrackingTest extends InstrumentationTestCase {
         // Evaluate initial situation
         assertTrue(TextUtils.isEmpty(mGoogleAnalyticsTrackerMock.getLastCheckoutTransaction()));
         assertTrue(TextUtils.isEmpty(mGoogleTagManagerTrackerMock.getLastCheckoutTransaction()));
+        assertTrue(TextUtils.isEmpty(mAd4PushTrackerMock.getLastCheckoutTransaction()));
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(2);
+        CountDownLatch latch = new CountDownLatch(3);
         mGoogleAnalyticsTrackerMock.setSignal(latch);
         mGoogleTagManagerTrackerMock.setSignal(latch);
+        mAd4PushTrackerMock.setSignal(latch);
         RITracking.getInstance().trackCheckoutTransaction(transaction);
         latch.await(2, TimeUnit.SECONDS);
 
@@ -228,22 +230,27 @@ public class RITrackingTest extends InstrumentationTestCase {
 
         assertEquals(transactionId, mGoogleAnalyticsTrackerMock.getLastCheckoutTransaction());
         assertEquals(transactionId, mGoogleTagManagerTrackerMock.getLastCheckoutTransaction());
+        assertEquals(transactionId, mAd4PushTrackerMock.getLastCheckoutTransaction());
     }
 
     public void testTrackAddProductToCart() throws InterruptedException {
         String location = "Product detail";
         String productName = "productName";
+        String cartId = "cartId";
         RITrackingProduct product = new RITrackingProduct();
         product.setName(productName);
 
         // Evaluate initial situation
         assertTrue(TextUtils.isEmpty(mGoogleTagManagerTrackerMock.getLastAddedProduct()));
         assertTrue(TextUtils.isEmpty(mGoogleTagManagerTrackerMock.getLocationOfProductBeforeAddingToCart()));
+        assertTrue(TextUtils.isEmpty(mAd4PushTrackerMock.getLastAddedProduct()));
+        assertTrue(TextUtils.isEmpty(mAd4PushTrackerMock.getCartIdOfLastAddedProduct()));
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(2);
         mGoogleTagManagerTrackerMock.setSignal(latch);
-        RITracking.getInstance().trackAddProductToCart(product, location);
+        mAd4PushTrackerMock.setSignal(latch);
+        RITracking.getInstance().trackAddProductToCart(product, cartId, location);
         latch.await(2, TimeUnit.SECONDS);
 
         // Validate results
@@ -251,6 +258,8 @@ public class RITrackingTest extends InstrumentationTestCase {
 
         assertEquals(productName, mGoogleTagManagerTrackerMock.getLastAddedProduct());
         assertEquals(location, mGoogleTagManagerTrackerMock.getLocationOfProductBeforeAddingToCart());
+        assertEquals(productName, mAd4PushTrackerMock.getLastAddedProduct());
+        assertEquals(cartId, mAd4PushTrackerMock.getCartIdOfLastAddedProduct());
     }
 
     public void testTrackRemoveProductFromCart() throws InterruptedException {

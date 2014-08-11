@@ -337,7 +337,7 @@ public class RITracking implements
     }
 
     @Override
-    public void trackAddProductToCart(final RITrackingProduct product, final String location) {
+    public void trackAddProductToCart(final RITrackingProduct product, final String cartId, final String location) {
         if (product != null) {
             RILogUtils.logDebug("Tracking add product with id " + product.getIdentifier() + " to cart");
 
@@ -351,7 +351,7 @@ public class RITracking implements
                     tracker.execute(new Runnable() {
                         @Override
                         public void run() {
-                            ((RIEcommerceEventTracking) tracker).trackAddProductToCart(product, location);
+                            ((RIEcommerceEventTracking) tracker).trackAddProductToCart(product, cartId, location);
                         }
                     });
                 }
