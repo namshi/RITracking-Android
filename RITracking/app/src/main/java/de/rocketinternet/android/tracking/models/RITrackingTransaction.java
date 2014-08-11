@@ -6,8 +6,8 @@ import de.rocketinternet.android.tracking.models.enums.RITrackingPaymentMethod;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Model class that defines the transaction describing a checkout operation
+ *
+ * Model class that defines the transaction describing a checkout operation
  */
 public class RITrackingTransaction {
     /**

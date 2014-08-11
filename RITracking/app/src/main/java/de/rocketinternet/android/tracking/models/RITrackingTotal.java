@@ -2,8 +2,8 @@ package de.rocketinternet.android.tracking.models;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Model class that defines the total of a checkout
+ *
+ * Model class that defines the total of a checkout
  */
 public class RITrackingTotal {
     /**

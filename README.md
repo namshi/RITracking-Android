@@ -117,10 +117,82 @@ The ones listed below are the events that the libray allows to track:
     In this case it is up to the user to call the method when needed.
 
 * ###### Track e-commerce events 
-    ___in development___
+    E-commerce related events and action are of 3 types and they are tracked by calling 
+the corresponding methods provided by the library. Tracking e-commerce events requests 
+also developer to use library entities. Check the __Entities__ section to have a better
+understanding of the entities used by the library
+    
+    __Checkout__: The first method tracks a checkout action using a RITrackingTransaction 
+to contains all the useful information.  
 
+        RITrackingTransaction transaction = new RITrackingTransaction();
+
+        RITracking.getInstance().trackCheckoutTransaction(transaction);
+
+    __Add product to cart__: The second method tracks when a product is added to the 
+customer cart.
+
+        RITrackingProduct product = new RITrackingProduct();
+        String cartId = "The id of the cart";
+        String location = "Product detail" // The location from where the product was added
+        
+        RITracking.getInstance().trackAddProductToCart(product, cartId, location);
+
+    __Remove product from cart__: The third method tracks when a product is removed
+from the customer cart.
+
+        RITrackingProduct product = new RITrackingProduct();
+        int quantity = 1;           // The removed quantity
+        double cartValue = 32.50    // The value of the cart before removal
+        
+        RITracking.getInstance().trackRemoveProductFromCart(product, quantity, cartValue);
+        
 Continue reading this guide to have a better understanding which events every tracker is 
-supposed to track and which are the parameters that each one is expecting for them
+supposed to track and which are the parameters that each one is expecting for them.
+
+## Entities
+
+The library makes use of custom entities in order to provide different kind of information
+required by different trackers.
+
+#### RITrackingTransaction
+
+This entity describes a transaction that happens when the user of the app requests a 
+checkout action. It is composed by the following fields:
+
+* String __transactionId__ | _(The id of the transaction)_
+* String __affiliation__ | _(The transaction affiliation)_
+* RITrackingPaymentMethod __paymentMethod__ | _(The payment method used for this transaction)_
+* float __voucherAmount__ | _(The voucher amount)_
+* int __numberOfPreviousPurchases__ | _(The number of previous purchases by the user or 0 if this is a new user)_
+* RITrackingTotal __total__ | _(The total information of the transaction)_
+* List<RITrackingProduct> __productsList__ | _(The list of the products that are ready to be purchased)_
+
+#### RITrackingTotal
+
+This entity describes the total amount for a certain order containing further 
+information as follow:
+
+* double __net__ | _(The net of the order)_
+* float __tax__ | _(The tax of the order)_
+* int __shipping__ | _(The shipping price of the order)_
+* String __currency__ | _(The currency used for the order)_
+
+#### RITrackingProduct
+
+This entity describes a product involved in an operation. Product is described using these
+parameters:
+
+* String __identifier__ | _(The id of the product)_
+* String __name__ | _(The name of the product)_
+* int __quantity__ | _(The quantity of the product)_
+* double __price__ | _(The price of the product)_
+* String __currency__ | _(The currency of the product price)_
+* String __category__ | _(The category of the product)_
+* String __subCategory__ | _(The sub-category of the product)_
+* String __brand__ | _(The brand of the product)_
+* int __mDiscount__ | _(The percentage of discount of this product)_
+* float __averageRating__ | _(The average rating total value)_
 
 ## Basic integration
 
@@ -152,7 +224,9 @@ __Events__ paragraph.
     Supported activities and fragments:
     *   __RITrackingActivity__: it extends Activity
     *   __RITrackingSplashActivity__: it extends Activity (check Ad4Push paragraph for other insights)
-    *   ___in development to add more classes___  
+    *   ___...___
+    *   ___in development to add more classes___
+    *   ___...___
     *   __RITrackingFragment__: it extends Fragment
     *   __RITrackingFragmentSupport__: it extends Fragment class from support library.
 
@@ -215,8 +289,8 @@ is expected to track.
 
 ### Google Tag Manager  
 #### Overview
-Google Tag Manager is meant to track _events_, _user events_, _screens_ and _e-commerce 
-events_. This tracker after successfully retriving the application container, will push 
+Google Tag Manager is meant to track _events_, _user events_, _screens_ and _e-commerce events_. 
+This tracker after successfully retrieving the application container, will push 
 all the information and the event to a so called __Data Layer__ that will automatically 
 match and sync with the web platform.  
 
@@ -238,8 +312,8 @@ being sure to add the correct package name where needed.
 
 ### Ad4Push 
 #### Overview
-Ad4Push tracker is meant to track _events_, _user events_, _screens_ and _e-commerce 
-events_. This tracker will be initialized using a private key, a partner key and a sender 
+Ad4Push tracker is meant to track _events_, _user events_, _screens_ and _e-commerce events_. 
+This tracker will be initialized using a private key, a partner key and a sender 
 id from Google.
 
 For more information and Ad4Push official documentation click on [this link](http://www.ad4screen.com/DocSDK/doku.php). 
@@ -287,10 +361,10 @@ dismissed accordigly to
 
 ### AdJust 
 #### Overview
-AdJust tracker is meant to track _events_ and _e-commerce events_. This tracker 
-will be initialized using an AppToken in the AndroidManifest. The tracker will start
-tracking session automatically by extending one of the container provided with the 
-library and described in the __Basic Integration - Setup__ paragraph.
+AdJust tracker is meant to track _events_ and _e-commerce events_. 
+This tracker will be initialized using an AppToken in the AndroidManifest. The tracker 
+will start tracking session automatically by extending one of the container provided with 
+the library and described in the __Basic Integration - Setup__ paragraph.
 
 For more information and AdJust official documentation click on [this link](https://github.com/adjust/android_sdk). 
 
@@ -335,15 +409,15 @@ Copyright (c) 2014 Martin Biermann
 Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 software and associated documentation files (the "Software"), to deal in the Software 
 without restriction, including without limitation the rights to use, copy, modify, merge, 
-publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
- to whom the Software is furnished to do so, subject to the following conditions:
+publish, distribute, sub-license, and/or sell copies of the Software, and to permit 
+persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or 
 substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
 INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
-PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
 FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 DEALINGS IN THE SOFTWARE.
