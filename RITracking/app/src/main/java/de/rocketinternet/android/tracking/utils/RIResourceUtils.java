@@ -3,9 +3,10 @@ package de.rocketinternet.android.tracking.utils;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import de.rocketinternet.android.tracking.core.RITracking;
 
 /**
  *  @author alessandro.balocco
@@ -34,11 +35,13 @@ public class RIResourceUtils {
             AssetManager assetManager = context.getAssets();
             InputStream inputStream = assetManager.open(propertyFileName);
             properties.load(inputStream);
-        } catch (IOException e) {
+        } catch (Exception e) {
             RILogUtils.logError(LOG_TAG, "" + e.toString());
             e.printStackTrace();
-            throw new RuntimeException("Error loading properties file. Check your assets folder " +
-                    "for the properties file");
+            if (RITracking.getInstance().isDebug()) {
+                throw new RuntimeException("Error loading properties file. Check your assets folder " +
+                        "for the properties file");
+            }
         }
 
         return properties;
