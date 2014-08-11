@@ -1,10 +1,10 @@
 package de.rocketinternet.android.tracking.containers.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import de.rocketinternet.android.tracking.R;
 import de.rocketinternet.android.tracking.core.RITracking;
 import de.rocketinternet.android.tracking.utils.RIAnnotationUtils;
 
@@ -30,5 +30,22 @@ public abstract class RITrackingSplashActivity extends Activity {
         if (!TextUtils.isEmpty(screenName)) {
             RITracking.getInstance().trackScreenWithName(screenName);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RITracking.getInstance().trackActivityResumed(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent newIntent) {
+        this.setIntent(newIntent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        RITracking.getInstance().trackActivityPaused(this);
     }
 }

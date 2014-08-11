@@ -11,11 +11,14 @@ import android.util.DisplayMetrics;
 public class RIDisplayUtils {
 
     public static float getScreenSizeInches(Activity activity) {
-        DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        double x = Math.pow(dm.widthPixels / dm.xdpi, 2);
-        double y = Math.pow(dm.heightPixels / dm.ydpi, 2);
-        double screenInches = Math.sqrt(x + y);
-        return (float) Math.round(screenInches * 10) / 10;
+        if (activity != null) {
+            DisplayMetrics dm = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+            double x = Math.pow(dm.widthPixels / dm.xdpi, 2);
+            double y = Math.pow(dm.heightPixels / dm.ydpi, 2);
+            double screenInches = Math.sqrt(x + y);
+            return (float) Math.round(screenInches * 10) / 10;
+        }
+        return 0f;
     }
 }
