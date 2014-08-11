@@ -216,7 +216,7 @@ public class RIAd4PushTracker extends RITracker implements
 
     /**
      * This method maps a RITrackingProduct to an Item object required by Ad4Push library
-     * To have more information this is the link to the official documentation
+     * To have more information this link points to the official documentation
      * http://www.ad4screen.com/DocSDK/doku.php?id=events
      *
      * @param product The product to be mapped
@@ -235,7 +235,7 @@ public class RIAd4PushTracker extends RITracker implements
 
     /**
      * This method maps a RITrackingTransaction to a Purchase object required by Ad4Push library
-     * To have more information this is the link to the official documentation
+     * To have more information this link points to the official documentation
      * http://www.ad4screen.com/DocSDK/doku.php?id=events
      *
      * @param transaction The transaction to be converted into a Purchase
