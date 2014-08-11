@@ -34,7 +34,6 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
  *         Convenience controller to proxy-pass tracking information to Google Tag Manager
  */
 public class RIGoogleTagManagerTracker extends RITracker implements
@@ -155,12 +154,12 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     }
 
     @Override
-    public void updateDeviceInfo(Map<String, Object> map) {
+    public void trackUpdateDeviceInfo(Map<String, Object> map) {
         // Not used by this tracker
     }
 
     @Override
-    public void updateGeoLocation(Location location) {
+    public void trackUpdateGeoLocation(Location location) {
         // Not used by this tracker
     }
 

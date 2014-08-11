@@ -28,7 +28,6 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
  *         Convenience controller to proxy-pass tracking information to Ad4Push
  */
 public class RIAd4PushTracker extends RITracker implements
@@ -93,7 +92,7 @@ public class RIAd4PushTracker extends RITracker implements
     }
 
     @Override
-    public void updateDeviceInfo(Map<String, Object> map) {
+    public void trackUpdateDeviceInfo(Map<String, Object> map) {
         RILogUtils.logDebug("Ad4Push tracker - update device info");
 
         if (mA4S == null) {
@@ -109,7 +108,7 @@ public class RIAd4PushTracker extends RITracker implements
     }
 
     @Override
-    public void updateGeoLocation(Location location) {
+    public void trackUpdateGeoLocation(Location location) {
         if (location != null) {
             RILogUtils.logDebug("Ad4Push tracker - update geolocation with: lng = " + location.getLongitude() +
                     "and lat = " + location.getLatitude());

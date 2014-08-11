@@ -11,11 +11,12 @@ import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
- *
- * This class is a mock implementation of the RIGoogleTagManagerTracker used for testing purposes
+ *         <p/>
+ *         This class is a mock implementation of the RIGoogleTagManagerTracker used for testing purposes
  */
 public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
 
@@ -37,7 +38,7 @@ public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleTagManagerContainerID");
+        String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GTM_CONTAINER_ID);
         return !TextUtils.isEmpty(containerId);
     }
 

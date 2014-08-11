@@ -18,7 +18,6 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
  *         Convenience controller to proxy-pass tracking information to BugSense
  */
 public class RIBugSenseTracker extends RITracker implements

@@ -12,11 +12,12 @@ import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
- *
- * This class is a mock implementation of the RIAd4PushTracker used for testing purposes
+ *         <p/>
+ *         This class is a mock implementation of the RIAd4PushTracker used for testing purposes
  */
 public class RIAd4PushTrackerMock extends RIAd4PushTracker {
 
@@ -40,7 +41,7 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIAd4PushIntegration");
+        String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.AD4PUSH_INTEGRATION);
         boolean integrationNeeded = Boolean.valueOf(ad4PushIntegration);
         return integrationNeeded;
     }
@@ -63,13 +64,13 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     }
 
     @Override
-    public void updateDeviceInfo(Map<String, Object> map) {
+    public void trackUpdateDeviceInfo(Map<String, Object> map) {
         mDeviceInfo = map;
         mSignal.countDown();
     }
 
     @Override
-    public void updateGeoLocation(Location location) {
+    public void trackUpdateGeoLocation(Location location) {
         mLastLocation = location;
         mSignal.countDown();
     }

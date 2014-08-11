@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.trackers.RIBugSenseTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
@@ -30,7 +31,7 @@ public class RIBugSenseTrackerMock extends RIBugSenseTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String bugSenseApiKey = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIBugSenseApiKey");
+        String bugSenseApiKey = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.BUGSENSE_API_KEY);
         return !TextUtils.isEmpty(bugSenseApiKey);
     }
 

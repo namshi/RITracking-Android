@@ -11,11 +11,12 @@ import java.util.concurrent.Executors;
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
- *
- * This class is a mock implementation of the RIAdjustTracker used for testing purposes
+ *         <p/>
+ *         This class is a mock implementation of the RIAdjustTracker used for testing purposes
  */
 public class RIAdJustTrackerMock extends RIAdjustTracker {
 
@@ -33,7 +34,7 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String adJustIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIAdJustIntegration");
+        String adJustIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.ADJUST_INTEGRATION);
         boolean integrationNeeded = Boolean.valueOf(adJustIntegration);
         return integrationNeeded;
     }

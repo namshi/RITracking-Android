@@ -11,11 +11,12 @@ import java.util.concurrent.Executors;
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
- *
- * This class is a mock implementation of the RIGoogleAnalyticsTracker used for testing purposes
+ *         <p/>
+ *         This class is a mock implementation of the RIGoogleAnalyticsTracker used for testing purposes
  */
 public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
 
@@ -32,7 +33,7 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleAnalyticsTrackingID");
+        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GA_TRACKING_ID);
         return !TextUtils.isEmpty(trackingId);
     }
 

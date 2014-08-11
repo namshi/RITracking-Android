@@ -6,7 +6,6 @@ import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 
 /**
  * @author alessandro.balocco
- *         <p/>
  *         API interface for deeplink URL tracking
  */
 public interface RIOpenUrlTracking {
