@@ -22,6 +22,7 @@ import de.rocketinternet.android.tracking.trackers.mocks.RIAdJustTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIBugSenseTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleAnalyticsTrackerMock;
 import de.rocketinternet.android.tracking.trackers.mocks.RIGoogleTagManagerTrackerMock;
+import de.rocketinternet.android.tracking.trackers.mocks.RINewRelicTrackerMock;
 
 /**
  * @author alessandro.balocco
@@ -33,6 +34,7 @@ public class RITrackingTest extends InstrumentationTestCase {
     private RIAd4PushTrackerMock mAd4PushTrackerMock;
     private RIAdJustTrackerMock mAdJustTrackerMock;
     private RIBugSenseTrackerMock mBugSenseTrackerMock;
+    private RINewRelicTrackerMock mNewRelicTrackerMock;
 
     @Override
     protected void setUp() throws Exception {
@@ -53,11 +55,14 @@ public class RITrackingTest extends InstrumentationTestCase {
         mAd4PushTrackerMock = new RIAd4PushTrackerMock();
         mAdJustTrackerMock = new RIAdJustTrackerMock();
         mBugSenseTrackerMock = new RIBugSenseTrackerMock();
+        mNewRelicTrackerMock = new RINewRelicTrackerMock();
+
         trackers.add(mGoogleAnalyticsTrackerMock);
         trackers.add(mGoogleTagManagerTrackerMock);
         trackers.add(mAd4PushTrackerMock);
         trackers.add(mAdJustTrackerMock);
         trackers.add(mBugSenseTrackerMock);
+        trackers.add(mNewRelicTrackerMock);
         RITracking.getInstance().addTrackers(trackers);
     }
 
@@ -109,13 +114,15 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertTrue(TextUtils.isEmpty(mGoogleTagManagerTrackerMock.getLastTrackedScreenName()));
         assertTrue(TextUtils.isEmpty(mAd4PushTrackerMock.getLastTrackedScreenName()));
         assertTrue(TextUtils.isEmpty(mBugSenseTrackerMock.getLastLeftBreadCrumb()));
+        assertTrue(TextUtils.isEmpty(mNewRelicTrackerMock.getLastInteractionName()));
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(4);
+        CountDownLatch latch = new CountDownLatch(5);
         mGoogleAnalyticsTrackerMock.setSignal(latch);
         mGoogleTagManagerTrackerMock.setSignal(latch);
         mAd4PushTrackerMock.setSignal(latch);
         mBugSenseTrackerMock.setSignal(latch);
+        mNewRelicTrackerMock.setSignal(latch);
         RITracking.getInstance().trackScreenWithName(screenName);
         latch.await(2, TimeUnit.SECONDS);
 
@@ -126,6 +133,7 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertEquals(screenName, mGoogleTagManagerTrackerMock.getLastTrackedScreenName());
         assertEquals(screenName, mAd4PushTrackerMock.getLastTrackedScreenName());
         assertEquals(screenName, mBugSenseTrackerMock.getLastLeftBreadCrumb());
+        assertEquals(screenName, mNewRelicTrackerMock.getLastInteractionName());
     }
 
     public void testTrackUserInfo() throws InterruptedException {
@@ -386,5 +394,41 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertTrue(mAd4PushTrackerMock.wasActivityPaused());
         assertTrue(mAdJustTrackerMock.wasActivityPaused());
         assertTrue(mBugSenseTrackerMock.wasActivityPaused());
+    }
+
+    public void testTrackStartInteraction() throws InterruptedException {
+        String interactionName = "Interaction name";
+
+        // Evaluate initial situation
+        assertTrue(TextUtils.isEmpty(mNewRelicTrackerMock.getLastStartedInteractionName()));
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mNewRelicTrackerMock.setSignal(latch);
+        RITracking.getInstance().trackStartInteraction(interactionName);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertEquals(interactionName, mNewRelicTrackerMock.getLastStartedInteractionName());
+    }
+
+    public void testTrackEndInteraction() throws InterruptedException {
+        String interactionId = "InteractionId";
+
+        // Evaluate initial situation
+        assertTrue(TextUtils.isEmpty(mNewRelicTrackerMock.getLastEndedInteractionId()));
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mNewRelicTrackerMock.setSignal(latch);
+        RITracking.getInstance().trackEndInteraction(interactionId);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertEquals(interactionId, mNewRelicTrackerMock.getLastEndedInteractionId());
     }
 }

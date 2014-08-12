@@ -113,7 +113,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         RILogUtils.logDebug("Google Tag Manager - Tracking event: " + event);
 
         if (mDataLayer == null) {

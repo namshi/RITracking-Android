@@ -18,6 +18,9 @@ import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 public class RINewRelicTrackerMock extends RINewRelicTracker {
 
     private CountDownLatch mSignal;
+    private String mLastInteractionName;
+    private String mLastStartedInteractionName;
+    private String mLastEndedInteractionId;
 
     public RINewRelicTrackerMock() {
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
@@ -31,5 +34,37 @@ public class RINewRelicTrackerMock extends RINewRelicTracker {
 
     public void setSignal(CountDownLatch signal) {
         mSignal = signal;
+    }
+
+    @Override
+    public void trackScreenWithName(String name) {
+        mLastInteractionName = name;
+        mSignal.countDown();
+    }
+
+    @Override
+    public String trackStartInteraction(String name) {
+        mLastStartedInteractionName = name;
+        mSignal.countDown();
+
+        return "";
+    }
+
+    @Override
+    public void trackEndInteraction(String id) {
+        mLastEndedInteractionId = id;
+        mSignal.countDown();
+    }
+
+    public String getLastInteractionName() {
+        return mLastInteractionName;
+    }
+
+    public String getLastStartedInteractionName() {
+        return mLastStartedInteractionName;
+    }
+
+    public String getLastEndedInteractionId() {
+        return mLastEndedInteractionId;
     }
 }

@@ -65,7 +65,7 @@ public class RIAdjustTracker extends RITracker implements
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         RILogUtils.logDebug("Adjust tracker - Tracking event with name: " + event);
 
         if (data == null) {

@@ -51,7 +51,7 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         mIsEventTracked = true;
         mNumberOfSentEvents++;
         mSignal.countDown();
