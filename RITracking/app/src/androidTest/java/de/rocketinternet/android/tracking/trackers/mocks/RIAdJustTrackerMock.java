@@ -3,6 +3,7 @@ package de.rocketinternet.android.tracking.trackers.mocks;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
+import android.net.Uri;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -10,33 +11,30 @@ import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
+import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
 
 /**
  * @author alessandro.balocco
  *
- * This class is a mock implementation of the RIAd4PushTracker used for testing purposes
+ * This class is a mock implementation of the RIAdjustTracker used for testing purposes
  */
-public class RIAd4PushTrackerMock extends RIAd4PushTracker {
+public class RIAdJustTrackerMock extends RIAdjustTracker {
 
     private CountDownLatch mSignal;
-    private boolean mActivityWasCreated;
-    private boolean mActivityWasSplashScreen;
     private boolean mActivityWasResumed;
     private boolean mActivityWasPaused;
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
-    private String mLastTrackedScreenName;
-    private Location mLastLocation;
-    private Map<String, Object> mDeviceInfo;
+    private Uri mLastTrackedUri;
 
-    public RIAd4PushTrackerMock() {
+    public RIAdJustTrackerMock() {
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
     }
 
     @Override
     public boolean initializeTracker(Context context) {
-        String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIAd4PushIntegration");
-        boolean integrationNeeded = Boolean.valueOf(ad4PushIntegration);
+        String adJustIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIAdJustIntegration");
+        boolean integrationNeeded = Boolean.valueOf(adJustIntegration);
         return integrationNeeded;
     }
 
@@ -52,28 +50,8 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     }
 
     @Override
-    public void trackScreenWithName(String name) {
-        mLastTrackedScreenName = name;
-        mSignal.countDown();
-    }
-
-    @Override
-    public void updateDeviceInfo(Map<String, Object> map) {
-        mDeviceInfo = map;
-        mSignal.countDown();
-    }
-
-    @Override
-    public void updateGeoLocation(Location location) {
-        mLastLocation = location;
-        mSignal.countDown();
-    }
-
-
-    @Override
-    public void trackActivityCreated(Activity activity, boolean isSplashScreen) {
-        mActivityWasCreated = true;
-        mActivityWasSplashScreen = isSplashScreen;
+    public void trackOpenUrl(Uri uri) {
+        mLastTrackedUri = uri;
         mSignal.countDown();
     }
 
@@ -97,24 +75,8 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
         return mNumberOfSentEvents;
     }
 
-    public Location getLastLocation() {
-        return mLastLocation;
-    }
-
-    public Map<String, Object> getDeviceInfo() {
-        return mDeviceInfo;
-    }
-
-    public String getLastTrackedScreenName() {
-        return mLastTrackedScreenName;
-    }
-
-    public boolean wasActivityCreated() {
-        return mActivityWasCreated;
-    }
-
-    public boolean wasActivitySplashScreen() {
-        return mActivityWasSplashScreen;
+    public Uri getLastTrackerUri() {
+        return mLastTrackedUri;
     }
 
     public boolean wasActivityResumed() {

@@ -10,6 +10,7 @@ import com.google.android.gms.tagmanager.ContainerHolder;
 import com.google.android.gms.tagmanager.DataLayer;
 import com.google.android.gms.tagmanager.TagManager;
 
+import java.security.Key;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -30,8 +31,7 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Convenience controller to proxy-pass tracking information to Google Tag Manager
+ * Convenience controller to proxy-pass tracking information to Google Tag Manager
  */
 public class RIGoogleTagManagerTracker extends RITracker implements
         RIEventTracking,
@@ -42,9 +42,6 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     private static final String LOG_TAG = RIGoogleTagManagerTracker.class.getSimpleName();
 
     private static final String TRACKER_ID = "RIGoogleTagManagerTrackerID";
-    private static final String CONTAINER_ID = "RIGoogleTagManagerContainerID";
-    private static final String RESOURCE_NAME = "gtm_container";
-    private static final String RESOURCE_TYPE = "raw";
 
     private DataLayer mDataLayer;
 
@@ -64,8 +61,10 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     @Override
     public boolean initializeTracker(Context context) {
         RILogUtils.logDebug("Initializing Google Tag Manager tracker");
-        boolean isResourceAvailable = RITrackingConfiguration.getInstance().isResourceAvailable(context, RESOURCE_NAME, RESOURCE_TYPE);
-        String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap(CONTAINER_ID);
+        String resourceName = RITrackersConstants.GTM_CONTAINER_RESOURCE_NAME;
+        String resourceType = RITrackersConstants.GTM_CONTAINER_RESOURCE_TYPE;
+        boolean isResourceAvailable = RITrackingConfiguration.getInstance().isResourceAvailable(context, resourceName, resourceType);
+        String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GTM_CONTAINER_ID);
         if (isResourceAvailable && !TextUtils.isEmpty(containerId)) {
             createTracker(context, containerId);
             return true;
@@ -73,7 +72,6 @@ public class RIGoogleTagManagerTracker extends RITracker implements
             RILogUtils.logError("GoogleTagManager tracker ISSUE: you are missing (1) container file " +
                     "in raw folder of your app or (2) container ID in tracking properties");
         }
-
         return false;
     }
 

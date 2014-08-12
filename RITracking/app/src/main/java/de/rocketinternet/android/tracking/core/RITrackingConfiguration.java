@@ -10,9 +10,9 @@ import java.util.Properties;
 import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
- *  @author alessandro.balocco
+ * @author alessandro.balocco
  *
- *  RITrackingConfiguration has the configuration for RITracking
+ * RITrackingConfiguration has the configuration for RITracking
  */
 public class RITrackingConfiguration {
 

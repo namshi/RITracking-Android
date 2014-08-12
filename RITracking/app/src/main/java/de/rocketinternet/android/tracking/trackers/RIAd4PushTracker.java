@@ -30,7 +30,6 @@ public class RIAd4PushTracker extends RITracker implements
         RILifeCycleTracking {
 
     private static final String TRACKER_ID = "RIAd4PushTrackerID";
-    private static final String INTEGRATION_NEEDED = "RIAd4PushIntegration";
 
     private A4S mA4S;
     private boolean mNotificationEnabled;
@@ -48,7 +47,7 @@ public class RIAd4PushTracker extends RITracker implements
     @Override
     public boolean initializeTracker(Context context) {
         RILogUtils.logDebug("Initializing Ad4Push tracker");
-        String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(INTEGRATION_NEEDED);
+        String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.AD4PUSH_INTEGRATION);
         boolean isAd4PushIntegrationNeeded = Boolean.valueOf(ad4PushIntegration);
         if (isAd4PushIntegrationNeeded) {
             createTracker(context);

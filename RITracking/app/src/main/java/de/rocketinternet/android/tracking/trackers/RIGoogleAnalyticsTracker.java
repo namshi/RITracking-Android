@@ -7,6 +7,7 @@ import de.rocketinternet.android.tracking.interfaces.RIExceptionTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 import android.content.Context;
@@ -32,8 +33,7 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
         RIExceptionTracking,
         RIEcommerceEventTracking {
 
-    private static final String TRACKER_ID = "RIGoogleAnalitycsTrackerID";
-    private static final String TRACKING_ID = "RIGoogleAnalyticsTrackingID";
+    private static final String TRACKER_ID = "RIGoogleAnalyticsTrackerID";
     private Tracker mTracker;
 
     public RIGoogleAnalyticsTracker() {}
@@ -51,14 +51,14 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     @Override
     public boolean initializeTracker(Context context) {
         RILogUtils.logDebug("Initializing Google Analytics tracker");
-        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(TRACKING_ID);
+        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GA_TRACKING_ID);
         if (!TextUtils.isEmpty(trackingId)) {
             createTracker(context, trackingId);
+            return true;
         } else {
             RILogUtils.logError("Missing Google Analytics Tracking ID in tracking properties");
-            return false;
         }
-        return true;
+        return false;
     }
 
     private void createTracker(Context context, String trackingId) {

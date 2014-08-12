@@ -11,11 +11,11 @@ import de.rocketinternet.android.tracking.utils.serializers.RIAppLaunchJsonSeria
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         The RITrackingApplication class provides an application class with preset tracking of user sessions
- *         <p/>
- *         This class should be inherited by custom application class.
- *         Integrating Ad4Push requires Application class to extend A4SApplication from their SDK.
+ *
+ * The RITrackingApplication class provides an application class with preset tracking of user sessions
+ *
+ * This class should be inherited by custom application class.
+ * Integrating Ad4Push requires Application class to extend A4SApplication from their SDK.
  */
 public class RITrackingApplication extends A4SApplication {
 
