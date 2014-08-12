@@ -5,37 +5,38 @@ A Tracking SDK for Android
 The SDK can be integrated into Android application projects and provide convenient 
 tracking via customizing convenience wrappers in subclasses (i.e. activities). 
 The integrated trackers (Google Tag Manager, AD4Push, etc.) are pervasively initialized 
-using a central property list file bundled with the application to contain all required 
-keys, token and further configuration. The tracking interface is initialized using a file 
-path reference to the property list file.
+using a central properties list file bundled with the application to contain all required 
+keys, token and further configuration.
 
 ## Introduction
 The library is developed with Android Studio IDE. This means that the structure of the 
-code is based of that editor.  
+code is based on that editor.  
 
 The tracking library supports API level 9 as minimum SDK. This decision was made because 
 newer version of Google Play Services provide support starting from that API level to 
-enable more powerful functionalities. Users should be sure to select api level 9 as 
-minimum SDK version for the application in the manifest to avoid problems.  
+enable more powerful functionalities. Users of the library must be sure to select api 
+level 9 as minimum SDK version for the application in the gradle.build file to avoid 
+compatibility issues.  
 
 Refer to [this link](https://developer.android.com/google/play-services/index.html) for further information about Google Play Services.  
 
 The library is supporting the following trackers at the moment:
+
 *   Google Tag Manager (GTM)
 *   Ad4Push
 *   AdJust
 *   BugSense
-*   NewRelic ___<-- in development___
+*   NewRelic
 
 When the app is launched some information about the device and the launch time are 
-collected. These information can be used later for tracking issues.
+collected. These information can be used later for tracking purposes.
 
 ## Events
 
-The library is in charge of receive specific requests from developers and dispatching 
-them to registered trackers. 
+The library will receive specific requests from developers and it will dispatch them to 
+registered trackers. 
 
-The ones listed below are the events that the libray allows to track:
+The ones listed below are the events that the library allows to track:
 
 * ###### Track screens name   
     The screen name is tracked by calling the corresponding method provided by the 
@@ -45,18 +46,18 @@ The ones listed below are the events that the libray allows to track:
         
         RITracking.getInstance().trackScreenWithName(screenName);
 
-    Developers can decide to both decide to send the screen name automatically or handle 
-    that by explicitly          calling the above method and both scenarios are descibed 
-    below. As it is written in the __Integration__          paragraph developers should 
-    extend one of the provided containers (RITrackingActivity, RITrackingFragment, etc...) 
-    for their Activities or Fragments.  
+    Developers can decide to send the screen name automatically or request the library to 
+handle that by explicitly calling the above method. Both scenarios are described below.  
+As written in the __Integration__ paragraph, developers should extend one of the provided 
+containers (RITrackingActivity, RITrackingFragment, etc...) for their Activities or 
+Fragments.  
     
-    By doing that and specifying the screen annotation on top of their class they will 
-    request the library to        automatically track their view. It is also working with 
-    Fragments when a library Fragment class is extended      (ex. RITrackingFragment).
+    By doing that and specifying the screen annotation on top of their classes developers 
+will request the library to automatically track their views. It is also working with 
+Fragments when a library Fragment class is extended (ex. RITrackingFragment).
     
-    The example below show how it's possible to request automatic screen tracking using 
-    activity:
+    The example below show how it's possible to request automatic screen tracking by 
+extenting an activity from the library:
     
         @RITrackingScreenAnnotation(screenName = "The name of the screen")
         public class RIMainExampleActivity extends RITrackingActivity {
@@ -76,11 +77,11 @@ The ones listed below are the events that the libray allows to track:
         
         RITracking.getInstance().trackEvent(eventName, eventValue, userAction, appCategory, dataMap);
     
-    In this case it is up to the user to call the method when needed.
+    In this case it is up to the developers to call it when needed.
 
 * ###### Track users event
-    User related events are of 3 types and they are tracked by calling the corresponding 
-    methods provided by the library.  
+    User related events are of 3 types and they are tracked by calling one of the 
+corresponding methods provided by the library.  
     
     __User Info__: The first method tracks user information, below an example:
         
@@ -93,7 +94,7 @@ The ones listed below are the events that the libray allows to track:
         
         Map<String, Object> deviceInfo = new HashMap<String, Object>();
         
-        RITracking.getInstance().updateDeviceInfo(deviceInfo);
+        RITracking.getInstance().trackUpdateDeviceInfo(deviceInfo);
         
     __Geolocation__: The third method is used to update user geolocation:
         
@@ -101,23 +102,23 @@ The ones listed below are the events that the libray allows to track:
         location.setLatitude(0.0);
         location.setLongitude(0.0);
         
-        RITracking.getInstance().updateGeoLocation(location);
+        RITracking.getInstance().trackUpdateGeoLocation(location);
         
-    In this cases it is up to the user to call the methods when needed.
+    In this cases it is up to developers to call the methods when needed.
 
 * ###### Track exception
     Handled exceptions can be tracked by calling the corresponding method provided by 
-    the library.
+the library.
         
         HashMap<String, String> params = new HashMap<String, String>(); // <-- optional
         Exception exception = new Exception("This is an exception");
 
         RITracking.getInstance().trackEvent(eventName, eventValue, userAction, appCategory, dataMap);
     
-    In this case it is up to the user to call the method when needed.
+    In this case it is up to developers to call the method when needed.
 
 * ###### Track e-commerce events 
-    E-commerce related events and action are of 3 types and they are tracked by calling 
+    E-commerce related events and actions are of 3 types and they are tracked by calling 
 the corresponding methods provided by the library. Tracking e-commerce events requests 
 also developer to use library models. Check the __Models__ section to have a better
 understanding of the models used by the library
@@ -134,7 +135,7 @@ customer cart.
 
         RITrackingProduct product = new RITrackingProduct();
         String cartId = "The id of the cart";
-        String location = "Product detail" // The location from where the product was added
+        String location = "Product detail"; // The location from where the product was added
         
         RITracking.getInstance().trackAddProductToCart(product, cartId, location);
 
@@ -143,12 +144,64 @@ from the customer cart.
 
         RITrackingProduct product = new RITrackingProduct();
         int quantity = 1;           // The removed quantity
-        double cartValue = 32.50    // The value of the cart before removal
+        double cartValue = 32.50;    // The value of the cart before removal
         
         RITracking.getInstance().trackRemoveProductFromCart(product, quantity, cartValue);
         
-Continue reading this guide to have a better understanding which events every tracker is 
-supposed to track and which are the parameters that each one is expecting for them.
+* ###### Track interactions  
+    Interactions can be tracked for example before a method, defining it as a starting 
+point for an interaction. They are used by New Relic tracker. Check the dedicated section 
+for more information. Interactions are tracked by calling the corresponding methods 
+provided by the library.
+    
+    __Start interaction__: The first method tracks when an interaction is started. This 
+method returns a String representing the id of the interaction and that can be used to 
+stop it prematurely.
+
+        String name = "The name of the interaction";
+
+        RITracking.getInstance().trackStartInteraction(name);
+        
+    __End interaction__: The second method tracks when an interaction is ended. This 
+method needs the id of the interaction that should be ended.
+
+        String id = "The id of the interaction";
+
+        RITracking.getInstance().trackEndInteraction(String id);
+
+* ###### Track network interactions
+    Network interactions are used to track network request and possible network failures. 
+They are used by New Relic tracker. Check the dedicated section for more information. 
+Network interactions are tracked by calling the corresponding methods provided by the 
+library.
+    
+    __Network transaction__: The first method tracks HTTP transactions with several available levels of detail.
+
+        String url = "http://www.testUrl.com";
+        int statusCode = 200;
+        long startTime = System.currentTimeMillis(); // When request is fired
+        long endTime = System.currentTimeMillis(); // When response is received
+        long bytesSent = 55555 // The amount of sent bytes
+        long bytesReceived = 22222 // The amount of received bytes
+        String responseBody = "The response body" // This is optional
+        Map<String, String> params = new Hashmap<String, String>(); // This is optional
+
+        RITracking.getInstance().trackHttpTransaction(url, statusCode, startTime, endTime,
+                        bytesSent, bytesReceived, responseBody, params);
+    
+    __Network failures__: The second method tracks network failures.
+
+        String url = "http://www.testUrl.com";
+        long startTime = System.currentTimeMillis(); // When request is fired
+        long endTime = System.currentTimeMillis(); // When response is received
+        Exception exception = new Exception("The caught exception");
+        NetworkFailure failure = NetworkFailure.Unknown;
+
+        RITracking.getInstance().trackNetworkFailure(url, startTime, endTime, exception, failure);
+
+Continue reading this guide to have a better understanding about which events every 
+tracker is supposed to track and which are the parameters that each one is expecting for 
+them.
 
 ## Models
 
@@ -208,8 +261,8 @@ steps:
             /* ... */
         }
 
-2.  Copy the properties file in the library assets folder into the application assets 
-folder
+2.  Copy the properties file, that is located the library assets folder, into the 
+application assets folder
 
         ri_tracking_config.properties
 
@@ -219,7 +272,7 @@ classes because they provide automatic screen tracking functionalities as descri
 __Events__ paragraph.  
     
     The tracking library also provides Fragment classes that developers can extend to 
-    have auto screen tracking using annotations (as describe in __Events__ paragraph). 
+have auto screen tracking using annotations (as describe in __Events__ paragraph). 
     
     Supported activities and fragments:
     *   __RITrackingActivity__: it extends Activity
@@ -228,13 +281,13 @@ __Events__ paragraph.
     *   ___in development to add more classes___
     *   ___...___
     *   __RITrackingFragment__: it extends Fragment
-    *   __RITrackingFragmentSupport__: it extends Fragment class from support library.
+    *   __RITrackingFragmentSupport__: it extends Fragment class from android support library.
 
 #### Deep-Links
 The library simplifies deep-linking filtering and definition. If the application is 
-interested in receving and handling deep-links these are the steps to follow:  
+interested in receiving and handling deep-links these are the steps to follow:  
 
-1.  Create an Activity that extends RIDeepLinkingActivity:
+1.  Create an Activity that extends RITrackingDeepLinkingActivity:
         
         public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity {
             /*...*/
@@ -249,7 +302,8 @@ interested in receving and handling deep-links these are the steps to follow:
             RITracking.getInstance().registerHandler("IDENTIFIER", "HOST", "PATH", this);
         }  
     
-    Finally make the class implements RIOnHandledOpenUrl to get callback from handlers:
+    Finally let the class implements RIOnHandledOpenUrl in order to receive callbacks from
+the handlers:
     
         public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity implements RIOnHandledOpenUrl {
             
@@ -264,7 +318,7 @@ interested in receving and handling deep-links these are the steps to follow:
             }
         }
         
-2.  Declare activity in the AndroidManifest of the application with expected filter:
+2.  Declare activity in the AndroidManifest of the application with expected filters:
         
         <activity
             android:name="your.package.name.RISampleDeepLinkingActivity"
@@ -278,12 +332,12 @@ interested in receving and handling deep-links these are the steps to follow:
             </intent-filter>
         </activity>
 
-Continue reading the __Tracker setup__ paragraph to find instruction on how to integrate 
+Continue reading the __Tracker setup__ paragraph to find instructions on how to integrate 
 single trackers.
 
 ## Trackers setup
 
-Intregation differs for every single tracker. Below are provided specific information for 
+Integration differs for every single tracker. Below are provided specific informations for
 everyone of them, together with an overview of each tracker and the events that each one 
 is expected to track.
 
@@ -291,13 +345,13 @@ is expected to track.
 #### Overview
 Google Tag Manager is meant to track _events_, _user events_, _screens_ and _e-commerce events_. 
 This tracker after successfully retrieving the application container, will push 
-all the information and the event to a so called __Data Layer__ that will automatically 
+all the informations and the events to a so called __Data Layer__ that will automatically 
 match and sync with the web platform.  
 
 For more information and Google Tag Manager official documentation click on [this link](https://developers.google.com/tag-manager/android/v4/). 
 
 #### Integration
-Integrating Google Tag Manager tracker will require the following steps: 
+Integrating Google Tag Manager tracker requires the following steps: 
 
 1.  Update the _RIGoogleTagManagerContainerID_ in the properties file with the right 
 container ID
@@ -319,7 +373,7 @@ id from Google.
 For more information and Ad4Push official documentation click on [this link](http://www.ad4screen.com/DocSDK/doku.php). 
 
 #### Integration
-Integrating Ad4Push tracker will require the following steps: 
+Integrating Ad4Push tracker requires the following steps: 
 
 1.  Update the _RIAd4PushIntegration_ flag in the properties file with a value of true or 
 false depending on the app needs.
@@ -356,8 +410,7 @@ Be sure to add the receiver to the manifest. Down below the code of that sample 
 
 4. If the application requires to show a splash screen it is recommended to extends 
 __RITrackingSplashActivity__ that will lock push notifications until the splash is 
-dismissed accordigly to 
-[Ad4Push documentation](http://www.ad4screen.com/DocSDK/doku.php?id=troubleshooting#splashscreen)
+dismissed accordingly to [Ad4Push documentation](http://www.ad4screen.com/DocSDK/doku.php?id=troubleshooting#splashscreen)
 
 ### AdJust 
 #### Overview
@@ -369,7 +422,7 @@ the library and described in the __Basic Integration - Setup__ paragraph.
 For more information and AdJust official documentation click on [this link](https://github.com/adjust/android_sdk). 
 
 #### Integration
-Integrating AdJust tracker will require the following steps: 
+Integrating AdJust tracker requires the following steps: 
 
 1.  Update the _RIAdJustIntegration_ flag in the properties file with a value of true or 
 false depending on the app needs.
@@ -390,7 +443,7 @@ the __Basic Integration - Setup__ paragraph, developers can automatically track 
 For more information and BugSense official documentation click on [this link](https://www.bugsense.com/docs/android). 
 
 #### Integration
-Integrating BugSense tracker will require the following steps: 
+Integrating BugSense tracker requires the following steps: 
 
 1.  Update the _RIGoogleTagManagerContainerID_ in the properties file with the right 
 Api Key
@@ -398,7 +451,25 @@ Api Key
         RIBugSenseApiKey=YourApiKey
 
 ### NewRelic 
-___in development___
+#### Overview
+New Relic tracker is meant to track _interactions_, _network requests_ and 
+_network failures_. When activities with name are set up, a group of interactions with the
+same name will be created by the tracker. It will be initialized using an App Token 
+from the properties file. 
+
+For more information and New Relic official documentation click on [this link](https://docs.newrelic.com/docs/mobile-monitoring/mobile-sdk-api/new-relic-mobile-sdk-api/working-android-sdk-api). 
+
+#### Integration
+Integrating New Relic tracker requires the following steps: 
+
+1.  Update the _RINewRelicAppToken_ in the properties file with the right 
+App Token
+        
+        RINewRelicAppToken=YourAppToken
+
+2.  If you want to trace a certain method with the usual @Trace annotation, you can do 
+that directly as described in the documentation that you can find by clicking on the link 
+provided above.
 
 ## License
 
