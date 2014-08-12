@@ -1,15 +1,11 @@
 package de.rocketinternet.android.tracking.handlers;
 
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
@@ -60,12 +56,22 @@ public class RIOpenUrlHandler {
 
         Map<String, String> params = new HashMap<String, String>();
 
-        String urlQueryParams = uri.getQuery();
-        String[] separatedQueryParams = urlQueryParams.split("&");
-        for (int i = 0; i < separatedQueryParams.length; i++) {
-            String[] queryParam = separatedQueryParams[i].split("=");
-            params.put(queryParam[0], queryParam[1]);
-            RILogUtils.logError("Query param " + (i + 1) + " with key = " + queryParam[0] + " and value = " + queryParam[1]);
+        // Using two ways to support older Android version lesser than 11. In future we could use only
+        // the second version of it
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            String urlQueryParams = uri.getQuery();
+            String[] separatedQueryParams = urlQueryParams.split("&");
+            for (int i = 0; i < separatedQueryParams.length; i++) {
+                String[] queryParam = separatedQueryParams[i].split("=");
+                params.put(queryParam[0], queryParam[1]);
+                RILogUtils.logError("Query param " + (i + 1) + " with key = " + queryParam[0] + " and value = " + queryParam[1]);
+            }
+        } else {
+            for (String key : uri.getQueryParameterNames()) {
+                String value = uri.getQueryParameter(key);
+                params.put(key, value);
+                RILogUtils.logError("Query param " + key + " : " + value);
+            }
         }
 
         if (mListener != null) {

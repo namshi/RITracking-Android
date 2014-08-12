@@ -1,5 +1,17 @@
 package de.rocketinternet.android.tracking.trackers;
 
+import android.content.Context;
+import android.text.TextUtils;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.analytics.ecommerce.ProductAction;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Executors;
+
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
@@ -9,17 +21,6 @@ import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
 import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
-
-import android.content.Context;
-import android.text.TextUtils;
-
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.analytics.ecommerce.ProductAction;
-
-import java.util.Map;
-import java.util.concurrent.Executors;
 
 /**
  *  @author alessandro.balocco
@@ -108,8 +109,8 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     }
 
     @Override
-    public void trackExceptionWithName(String name) {
-        RILogUtils.logDebug("Google Analytics tracker tracks exception with name " + name);
+    public void trackException(HashMap<String, String> params, Exception exception) {
+        RILogUtils.logDebug("Google Analytics tracker tracks exception with name " + exception.getMessage());
 
         if (mTracker == null) {
             RILogUtils.logError("Missing default Google Analytics tracker");
@@ -119,7 +120,7 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
         // Build and send exception.
         Map<String, String> exceptionParams =
                 new HitBuilders.ExceptionBuilder()
-                        .setDescription(name)
+                        .setDescription(exception.getMessage())
                         .setFatal(false)
                         .build();
 

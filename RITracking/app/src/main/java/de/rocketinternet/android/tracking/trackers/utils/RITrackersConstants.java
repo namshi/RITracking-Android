@@ -25,4 +25,7 @@ public class RITrackersConstants {
 
     /* Ad4Just */
     public static final String ADJUST_INTEGRATION = "RIAdJustIntegration";
+
+    /* BugSense */
+    public static final String BUGSENSE_API_KEY = "RIBugSenseApiKey";
 }

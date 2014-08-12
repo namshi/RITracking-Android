@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import de.rocketinternet.android.tracking.R;
 import de.rocketinternet.android.tracking.core.RITracking;
 import de.rocketinternet.android.tracking.utils.RIAnnotationUtils;
 

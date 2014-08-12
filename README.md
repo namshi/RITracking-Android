@@ -18,14 +18,13 @@ newer version of Google Play Services provide support starting from that API lev
 enable more powerful functionalities. Users should be sure to select api level 9 as 
 minimum SDK version for the application in the manifest to avoid problems.  
 
-Refer to [this link](https://developer.android.com/google/play-services/index.html) for 
-further information about Google Play Services.  
+Refer to [this link](https://developer.android.com/google/play-services/index.html) for further information about Google Play Services.  
 
 The library is supporting the following trackers at the moment:
 *   Google Tag Manager (GTM)
 *   Ad4Push
 *   AdJust
-*   BugSense ___<-- in development___
+*   BugSense
 *   NewRelic ___<-- in development___
 
 When the app is launched some information about the device and the launch time are 
@@ -83,20 +82,20 @@ The ones listed below are the events that the libray allows to track:
     User related events are of 3 types and they are tracked by calling the corresponding 
     methods provided by the library.  
     
-    The first method tracks user information, below an example:
+    __USER INFO__: The first method tracks user information, below an example:
         
         String userEvent = "userEvent";
         Map<String, Object> dataMap = new HashMap<String, Object>();
         
         RITracking.getInstance().trackUserInfo(eventName, eventValue, userAction, appCategory, dataMap);
     
-    The second method is used to update user device information:
+    __DEVICE INFO__: The second method is used to update user device information:
         
         Map<String, Object> deviceInfo = new HashMap<String, Object>();
         
         RITracking.getInstance().updateDeviceInfo(deviceInfo);
         
-    The third method is used to update user geolocation:
+    __GEOLOCATION__: The third method is used to update user geolocation:
         
         Location location = new Location("Test location");
         location.setLatitude(0.0);
@@ -107,7 +106,15 @@ The ones listed below are the events that the libray allows to track:
     In this cases it is up to the user to call the methods when needed.
 
 * ###### Track exception
-    ___in development___
+    Handled exceptions can be tracked by calling the corresponding method provided by 
+    the library.
+        
+        HashMap<String, String> params = new HashMap<String, String>(); // <-- optional
+        Exception exception = new Exception("This is an exception");
+
+        RITracking.getInstance().trackEvent(eventName, eventValue, userAction, appCategory, dataMap);
+    
+    In this case it is up to the user to call the method when needed.
 
 * ###### Track e-commerce events 
     ___in development___
@@ -213,8 +220,7 @@ events_. This tracker after successfully retriving the application container, wi
 all the information and the event to a so called __Data Layer__ that will automatically 
 match and sync with the web platform.  
 
-For more information and official documentation 
-[this link](https://developers.google.com/tag-manager/android/v4/) is the way to go. 
+For more information and Google Tag Manager official documentation click on [this link](https://developers.google.com/tag-manager/android/v4/). 
 
 #### Integration
 Integrating Google Tag Manager tracker will require the following steps: 
@@ -236,8 +242,7 @@ Ad4Push tracker is meant to track _events_, _user events_, _screens_ and _e-comm
 events_. This tracker will be initialized using a private key, a partner key and a sender 
 id from Google.
 
-For more information and official documentation 
-[this link](http://www.ad4screen.com/DocSDK/doku.php) is the way to go. 
+For more information and Ad4Push official documentation click on [this link](http://www.ad4screen.com/DocSDK/doku.php). 
 
 #### Integration
 Integrating Ad4Push tracker will require the following steps: 
@@ -287,11 +292,10 @@ will be initialized using an AppToken in the AndroidManifest. The tracker will s
 tracking session automatically by extending one of the container provided with the 
 library and described in the __Basic Integration - Setup__ paragraph.
 
-For more information and official documentation 
-[this link](https://github.com/adjust/android_sdk) is the way to go. 
+For more information and AdJust official documentation click on [this link](https://github.com/adjust/android_sdk). 
 
 #### Integration
-Integrating adJust tracker will require the following steps: 
+Integrating AdJust tracker will require the following steps: 
 
 1.  Update the _RIAdJustIntegration_ flag in the properties file with a value of true or 
 false depending on the app needs.
@@ -302,7 +306,22 @@ false depending on the app needs.
 being sure to add the correct AppToken for your application.
 
 ### BugSense 
-___in development___
+#### Overview
+BugSense tracker is meant to track _exceptions_ and leaving breadcrumbs that in this case
+will correspond to the _screen name_. This tracker will be initialized using an ApiKey 
+from the properties file. The tracker will start tracking session automatically when app 
+starts and by extending one of the container provided with the library, and described in 
+the __Basic Integration - Setup__ paragraph, developers can automatically track activity session.
+
+For more information and BugSense official documentation click on [this link](https://www.bugsense.com/docs/android). 
+
+#### Integration
+Integrating BugSense tracker will require the following steps: 
+
+1.  Update the _RIGoogleTagManagerContainerID_ in the properties file with the right 
+Api Key
+        
+        RIBugSenseApiKey=YourApiKey
 
 ### NewRelic 
 ___in development___

@@ -3,6 +3,7 @@ package de.rocketinternet.android.tracking.trackers.mocks;
 import android.content.Context;
 import android.text.TextUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -22,8 +23,8 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
     private String mLastTrackedScreenName;
-    private String mLastTrackedException;
     private String mLastCheckoutTransaction;
+    private Exception mLastTrackedException;
 
     public RIGoogleAnalyticsTrackerMock() {
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
@@ -53,8 +54,8 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     }
 
     @Override
-    public void trackExceptionWithName(String name) {
-        mLastTrackedException = name;
+    public void trackException(HashMap<String, String> params, Exception exception) {
+        mLastTrackedException = exception;
         mSignal.countDown();
     }
 
@@ -76,7 +77,7 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
         return mLastTrackedScreenName;
     }
 
-    public String getLastTrackedException() {
+    public Exception getLastTrackedException() {
         return mLastTrackedException;
     }
 
