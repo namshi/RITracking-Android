@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 /**
  * @author alessandro.balocco
- *
- * API interface for exception tracking
+ *         <p/>
+ *         This interface implements tracking for exceptions
  */
 public interface RIExceptionTracking {
 

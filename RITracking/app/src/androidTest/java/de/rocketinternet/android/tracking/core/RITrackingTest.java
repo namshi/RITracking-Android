@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.test.InstrumentationTestCase;
 import android.text.TextUtils;
 
+import com.newrelic.agent.android.util.NetworkFailure;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,13 +85,15 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertFalse(mAd4PushTrackerMock.isEventTracked());
         assertEquals(0, mAdJustTrackerMock.getNumberOfTrackedEvents());
         assertFalse(mAdJustTrackerMock.isEventTracked());
+        assertFalse(mNewRelicTrackerMock.isEventTracked());
 
         // Set count down depending on how many tracker we expect the callback from
-        CountDownLatch latch = new CountDownLatch(4);
+        CountDownLatch latch = new CountDownLatch(5);
         mGoogleAnalyticsTrackerMock.setSignal(latch);
         mGoogleTagManagerTrackerMock.setSignal(latch);
         mAd4PushTrackerMock.setSignal(latch);
         mAdJustTrackerMock.setSignal(latch);
+        mNewRelicTrackerMock.setSignal(latch);
         RITracking.getInstance().trackEvent("", 0, "", "", new HashMap<String, Object>());
         latch.await(2, TimeUnit.SECONDS);
 
@@ -104,6 +108,7 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertTrue(mAd4PushTrackerMock.isEventTracked());
         assertEquals(1, mAdJustTrackerMock.getNumberOfTrackedEvents());
         assertTrue(mAdJustTrackerMock.isEventTracked());
+        assertTrue(mNewRelicTrackerMock.isEventTracked());
     }
 
     public void testTrackScreenName() throws InterruptedException {
@@ -430,5 +435,41 @@ public class RITrackingTest extends InstrumentationTestCase {
         assertEquals(0, latch.getCount());
 
         assertEquals(interactionId, mNewRelicTrackerMock.getLastEndedInteractionId());
+    }
+
+    public void testTrackHttpTransaction() throws InterruptedException {
+        String url = "http://www.test.com";
+
+        // Evaluate initial situation
+        assertTrue(TextUtils.isEmpty(mNewRelicTrackerMock.getLastHttpTransactionUrl()));
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mNewRelicTrackerMock.setSignal(latch);
+        RITracking.getInstance().trackHttpTransaction(url, 200, 11111, 22222, 33333, 44444, "", null);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertEquals(url, mNewRelicTrackerMock.getLastHttpTransactionUrl());
+    }
+
+    public void testTrackNetworkFailure() throws InterruptedException {
+        String url = "http://www.test.com";
+
+        // Evaluate initial situation
+        assertTrue(TextUtils.isEmpty(mNewRelicTrackerMock.getLastNetworkFailureUrl()));
+
+        // Set count down depending on how many tracker we expect the callback from
+        CountDownLatch latch = new CountDownLatch(1);
+        mNewRelicTrackerMock.setSignal(latch);
+        RITracking.getInstance().trackNetworkFailure(url, 11111, 22222, new Exception("Exception"), NetworkFailure.Unknown);
+        latch.await(2, TimeUnit.SECONDS);
+
+        // Validate results
+        assertEquals(0, latch.getCount());
+
+        assertEquals(url, mNewRelicTrackerMock.getLastNetworkFailureUrl());
     }
 }

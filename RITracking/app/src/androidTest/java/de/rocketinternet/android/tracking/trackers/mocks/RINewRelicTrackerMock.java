@@ -3,6 +3,9 @@ package de.rocketinternet.android.tracking.trackers.mocks;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.newrelic.agent.android.util.NetworkFailure;
+
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 
@@ -12,7 +15,6 @@ import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
- *         <p/>
  *         This class is a mock implementation of the RINewRelicTracker used for testing purposes
  */
 public class RINewRelicTrackerMock extends RINewRelicTracker {
@@ -21,6 +23,9 @@ public class RINewRelicTrackerMock extends RINewRelicTracker {
     private String mLastInteractionName;
     private String mLastStartedInteractionName;
     private String mLastEndedInteractionId;
+    private String mLastHttpTransactionUrl;
+    private String mLastNetworkFailureUrl;
+    private boolean mIsEventTracked;
 
     public RINewRelicTrackerMock() {
         mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
@@ -34,6 +39,12 @@ public class RINewRelicTrackerMock extends RINewRelicTracker {
 
     public void setSignal(CountDownLatch signal) {
         mSignal = signal;
+    }
+
+    @Override
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
+        mIsEventTracked = true;
+        mSignal.countDown();
     }
 
     @Override
@@ -56,6 +67,25 @@ public class RINewRelicTrackerMock extends RINewRelicTracker {
         mSignal.countDown();
     }
 
+    @Override
+    public void trackHttpTransaction(String url, int statusCode, long startTime, long endTime,
+                                     long bytesSent, long bytesReceived, String responseBody,
+                                     Map<String, String> params) {
+        mLastHttpTransactionUrl = url;
+        mSignal.countDown();
+    }
+
+    @Override
+    public void trackNetworkFailure(String url, long startTime, long endTime, Exception exception,
+                                    NetworkFailure failure) {
+        mLastNetworkFailureUrl = url;
+        mSignal.countDown();
+    }
+
+    public boolean isEventTracked() {
+        return mIsEventTracked;
+    }
+
     public String getLastInteractionName() {
         return mLastInteractionName;
     }
@@ -66,5 +96,13 @@ public class RINewRelicTrackerMock extends RINewRelicTracker {
 
     public String getLastEndedInteractionId() {
         return mLastEndedInteractionId;
+    }
+
+    public String getLastHttpTransactionUrl() {
+        return mLastHttpTransactionUrl;
+    }
+
+    public String getLastNetworkFailureUrl() {
+        return mLastNetworkFailureUrl;
     }
 }

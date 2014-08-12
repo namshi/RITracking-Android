@@ -4,14 +4,14 @@ import java.util.Map;
 
 /**
  * @author alessandro.balocco
- *
- * This interface implements tracking to an event
+ *         <p/>
+ *         This interface implements tracking for events
  */
 public interface RIEventTracking {
 
     /**
      * A method to track an event happening inside the application.
-     *
+     * <p/>
      * The event may be triggered by the user and further information, such as category, action and
      * value are available.
      *

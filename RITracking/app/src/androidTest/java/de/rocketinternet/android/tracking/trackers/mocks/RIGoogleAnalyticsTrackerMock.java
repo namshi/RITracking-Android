@@ -15,7 +15,6 @@ import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
- *         <p/>
  *         This class is a mock implementation of the RIGoogleAnalyticsTracker used for testing purposes
  */
 public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {

@@ -2,8 +2,8 @@ package de.rocketinternet.android.tracking.interfaces;
 
 /**
  * @author alessandro.balocco
- *
- * This interface implements tracking to a given screen
+ *         <p/>
+ *         This interface implements tracking for screen names
  */
 public interface RIScreenTracking {
 

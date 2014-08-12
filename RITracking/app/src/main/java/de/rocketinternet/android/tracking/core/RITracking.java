@@ -6,6 +6,8 @@ import android.location.Location;
 import android.net.Uri;
 import android.util.Log;
 
+import com.newrelic.agent.android.util.NetworkFailure;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,7 @@ import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
 import de.rocketinternet.android.tracking.interfaces.RIExceptionTracking;
 import de.rocketinternet.android.tracking.interfaces.RIInteractionTracking;
 import de.rocketinternet.android.tracking.interfaces.RILifeCycleTracking;
+import de.rocketinternet.android.tracking.interfaces.RINetworkTracking;
 import de.rocketinternet.android.tracking.interfaces.RIOpenUrlTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.interfaces.RIUserTracking;
@@ -36,9 +39,9 @@ import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
  * @author alessandro.balocco
- * This class allows users of this library to interact with different tracking systems. The class is
- * provides functionalities to track specific events and based on that it automatically spreads these
- * events to registered tracking libraries.
+ *         This class allows users of this library to interact with different tracking systems. The class is
+ *         provides functionalities to track specific events and based on that it automatically spreads these
+ *         events to registered tracking libraries.
  */
 public class RITracking implements
         RIEventTracking,
@@ -48,7 +51,8 @@ public class RITracking implements
         RIOpenUrlTracking,
         RIEcommerceEventTracking,
         RILifeCycleTracking,
-        RIInteractionTracking {
+        RIInteractionTracking,
+        RINetworkTracking {
 
     private static final String PROPERTIES_FILE_NAME = "ri_tracking_config.properties";
 
@@ -487,6 +491,53 @@ public class RITracking implements
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RINewRelicTracker) {
                 ((RIInteractionTracking) tracker).trackEndInteraction(id);
+            }
+        }
+    }
+
+    @Override
+    public void trackHttpTransaction(final String url, final int statusCode, final long startTime,
+                                     final long endTime, final long bytesSent, final long bytesReceived,
+                                     final String responseBody, final Map<String, String> params) {
+        RILogUtils.logDebug("Tracking Http transaction with url: " + url);
+
+        if (mTrackers == null) {
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            return;
+        }
+
+        for (final RITracker tracker : mTrackers) {
+            if (tracker instanceof RINetworkTracking) {
+                tracker.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((RINetworkTracking) tracker).trackHttpTransaction(url, statusCode, startTime,
+                                endTime, bytesSent, bytesReceived, responseBody, params);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void trackNetworkFailure(final String url, final long startTime, final long endTime,
+                                    final Exception exception, final NetworkFailure failure) {
+        RILogUtils.logDebug("Tracking Network failure with url: " + url);
+
+        if (mTrackers == null) {
+            RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
+            return;
+        }
+
+        for (final RITracker tracker : mTrackers) {
+            if (tracker instanceof RINetworkTracking) {
+                tracker.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((RINetworkTracking) tracker).trackNetworkFailure(url, startTime, endTime,
+                                exception, failure);
+                    }
+                });
             }
         }
     }
