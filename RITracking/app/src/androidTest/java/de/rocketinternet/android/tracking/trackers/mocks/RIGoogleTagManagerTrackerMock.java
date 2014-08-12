@@ -15,7 +15,8 @@ import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
- *         This class is a mock implementation of the RIGoogleTagManagerTracker used for testing purposes
+ *
+ * This class is a mock implementation of the RIGoogleTagManagerTracker used for testing purposes
  */
 public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
 

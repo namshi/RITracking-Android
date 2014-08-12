@@ -28,7 +28,8 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         Convenience controller to proxy-pass tracking information to Ad4Push
+ *
+ * Convenience controller to proxy-pass tracking information to Ad4Push
  */
 public class RIAd4PushTracker extends RITracker implements
         RIScreenTracking,

@@ -5,8 +5,8 @@ import android.util.DisplayMetrics;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Utility class that provides methods to get information from the device display
+ *
+ * Utility class that provides methods to get information from the device display
  */
 public class RIDisplayUtils {
 

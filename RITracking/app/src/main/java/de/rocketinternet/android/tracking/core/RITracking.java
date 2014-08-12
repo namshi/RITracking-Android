@@ -39,9 +39,10 @@ import de.rocketinternet.android.tracking.utils.RIResourceUtils;
 
 /**
  * @author alessandro.balocco
- *         This class allows users of this library to interact with different tracking systems. The class is
- *         provides functionalities to track specific events and based on that it automatically spreads these
- *         events to registered tracking libraries.
+ *
+ * This class allows users of this library to interact with different tracking systems. The class is
+ * provides functionalities to track specific events and based on that it automatically spreads these
+ * events to registered tracking libraries.
  */
 public class RITracking implements
         RIEventTracking,

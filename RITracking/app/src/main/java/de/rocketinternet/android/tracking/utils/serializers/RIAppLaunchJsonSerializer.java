@@ -11,8 +11,8 @@ import de.rocketinternet.android.tracking.utils.RIPackageUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Utility class in charge of serializing information when app launches
+ *
+ * Utility class in charge of serializing information when app launches
  */
 public class RIAppLaunchJsonSerializer {
 

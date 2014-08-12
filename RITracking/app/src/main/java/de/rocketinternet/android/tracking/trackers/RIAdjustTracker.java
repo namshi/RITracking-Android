@@ -24,7 +24,8 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         Convenience controller to proxy-pass tracking information to AdJust
+ *
+ * Convenience controller to proxy-pass tracking information to AdJust
  */
 public class RIAdjustTracker extends RITracker implements
         RIEventTracking,

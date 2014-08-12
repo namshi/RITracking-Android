@@ -34,7 +34,8 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         Convenience controller to proxy-pass tracking information to Google Tag Manager
+ *
+ * Convenience controller to proxy-pass tracking information to Google Tag Manager
  */
 public class RIGoogleTagManagerTracker extends RITracker implements
         RIEventTracking,

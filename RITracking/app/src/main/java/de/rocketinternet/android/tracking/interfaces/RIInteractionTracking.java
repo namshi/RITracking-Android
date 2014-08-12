@@ -2,8 +2,8 @@ package de.rocketinternet.android.tracking.interfaces;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This interface implements tracking for interactions mostly used by NewRelic
+ *
+ * This interface implements tracking for interactions mostly used by NewRelic
  */
 public interface RIInteractionTracking {
 

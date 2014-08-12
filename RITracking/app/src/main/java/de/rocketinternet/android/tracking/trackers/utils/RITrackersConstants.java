@@ -2,9 +2,9 @@ package de.rocketinternet.android.tracking.trackers.utils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This utility class contains all static constant for all trackers. It is possible to store here
- *         constants that remain static among different apps.
+ *
+ * This utility class contains all static constant for all trackers. It is possible to store here
+ * constants that remain static among different apps.
  */
 public class RITrackersConstants {
 

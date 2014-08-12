@@ -2,8 +2,8 @@ package de.rocketinternet.android.tracking.models.enums;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Enum that defines the type of payments for a checkout transaction
+ *
+ * Enum that defines the type of payments for a checkout transaction
  */
 public enum RITrackingPaymentMethod {
     COD("COD"),

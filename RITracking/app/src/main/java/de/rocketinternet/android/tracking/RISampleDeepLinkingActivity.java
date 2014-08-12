@@ -12,7 +12,6 @@ import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
  * @author alessandro.balocco
  *
  * This activity is meant to be an example implementation for filtering deep-links
- *
  */
 public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity implements RIOnHandledOpenUrl {
 

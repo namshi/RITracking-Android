@@ -19,7 +19,8 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         Convenience controller to proxy-pass tracking information to NewRelic
+ *
+ * Convenience controller to proxy-pass tracking information to NewRelic
  */
 public class RINewRelicTracker extends RITracker implements
         RIEventTracking,

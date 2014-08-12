@@ -6,8 +6,8 @@ import java.util.Map;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This interface implements tracking for network requests and network failures
+ *
+ * This interface implements tracking for network requests and network failures
  */
 public interface RINetworkTracking {
 

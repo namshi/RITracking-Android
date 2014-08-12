@@ -11,10 +11,10 @@ import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
- *  @author alessandro.balocco
+ * @author alessandro.balocco
  *
- *  Convenience controller to wrap logic for particular deepling URL structures based on regular
- *  expression match pattern
+ * Convenience controller to wrap logic for particular deepling URL structures based on regular
+ * expression match pattern
  */
 public class RIOpenUrlHandler {
 

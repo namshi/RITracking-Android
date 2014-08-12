@@ -5,11 +5,11 @@ import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This interface implements tracking for e-commerce transactions
- *         <p/>
- *         The implementation to this interface should maintain a state machine to collect cart information.
- *         Adding/Removing to/from cart is forwarded to A4S (http://goo.gl/iSjKut) instantly.
+ *
+ * This interface implements tracking for e-commerce transactions
+ *
+ * The implementation to this interface should maintain a state machine to collect cart information.
+ * Adding/Removing to/from cart is forwarded to A4S (http://goo.gl/iSjKut) instantly.
  */
 public interface RIEcommerceEventTracking {
 
