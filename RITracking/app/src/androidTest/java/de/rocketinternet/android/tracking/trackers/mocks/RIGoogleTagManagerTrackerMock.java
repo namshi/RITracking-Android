@@ -51,7 +51,7 @@ public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
     }
 
     @Override
-    public void trackUser(String userEvent, Map<String, Object> map) {
+    public void trackUserInfo(String userEvent, Map<String, Object> map) {
         mLastTrackedUserEvent = userEvent;
         mSignal.countDown();
     }

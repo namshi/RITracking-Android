@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import java.util.Map;
 
-import de.rocketinternet.android.tracking.containers.deeplinks.RIDeepLinkingActivity;
+import de.rocketinternet.android.tracking.containers.deeplinks.RITrackingDeepLinkingActivity;
 import de.rocketinternet.android.tracking.core.RITracking;
 import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 
@@ -14,7 +14,7 @@ import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
  * This activity is meant to be an example implementation for filtering deep-links
  *
  */
-public class RIDeepLinkingExampleActivity extends RIDeepLinkingActivity implements RIOnHandledOpenUrl {
+public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity implements RIOnHandledOpenUrl {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

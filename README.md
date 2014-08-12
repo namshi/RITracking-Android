@@ -12,7 +12,7 @@ property list file.
 
 ## Introduction  
 
-The library is developed with Android Studio as IDE. This means that the structure of the
+The library is developed with Android Studio IDE. This means that the structure of the
 code is based of that editor.  
 
 The tracking library supports API level 9 as minimum SDK. This decision was made 
@@ -26,7 +26,7 @@ further information about Google Play Services.
 
 The library is supporting the following trackers at the moment:
 *   Google Tag Manager (GTM)
-*   Ad4Push ___<-- in development___
+*   Ad4Push
 *   AdJust  ___<-- in development___
 *   BugSense ___<-- in development___
 *   NewRelic ___<-- in development___
@@ -77,12 +77,31 @@ The ones listed below are the events that the libray allows to track:
     In this case it is up to the user to call the method when needed.
 
 * ###### Track users event
-    User related events are tracked by calling the corresponding method provided by the library.
+    User related events are of 3 types and they are tracked by calling the corresponding methods
+    provided by the library.  
+    
+    The first method tracks user information, below an example:
+        
         String userEvent = "userEvent";
         Map<String, Object> dataMap = new HashMap<String, Object>();
         
-        RITracking.getInstance().trackUser(eventName, eventValue, userAction, appCategory, dataMap);
-    In this case it is up to the user to call the method when needed.
+        RITracking.getInstance().trackUserInfo(eventName, eventValue, userAction, appCategory, dataMap);
+    
+    The second method is used to update user device information:
+        
+        Map<String, Object> deviceInfo = new HashMap<String, Object>();
+        
+        RITracking.getInstance().updateDeviceInfo(deviceInfo);
+        
+    The third method is used to update user geolocation:
+        
+        Location location = new Location("Test location");
+        location.setLatitude(0.0);
+        location.setLongitude(0.0);
+        
+        RITracking.getInstance().updateGeoLocation(location);
+        
+    In this cases it is up to the user to call the methods when needed.
 
 * ###### Track exception
     ___in development___
@@ -102,7 +121,7 @@ in manifest and properties file.
 Integrating the library requires the users to follow these steps:
 1.  Application class should extend library Application class:
         
-        public class YourApplication extends RITrackingApplication {
+        public class MyApplication extends RITrackingApplication {
             /* ... */
         }
 
@@ -117,7 +136,8 @@ Integrating the library requires the users to follow these steps:
     have auto screen tracking using annotations (as describe in __Events__ paragraph). 
     
     Supported activities and fragments:
-    *   __RITrackingActivity__: it extends Activity  
+    *   __RITrackingActivity__: it extends Activity
+    *   __RITrackingSplashActivity__: it extends Activity (check Ad4Push paragraph for other insights)
     *   ___in development to add more classes___  
     *   
     *   
@@ -126,13 +146,13 @@ Integrating the library requires the users to follow these steps:
 
 #### Deep-Links
 The library simplifies deep-linking filtering and definition. If the application is interested in
-receving and handling deep-links these are the steps to follow:
+receving and handling deep-links these are the steps to follow:  
+
 1.  Create an Activity that extends RIDeepLinkingActivity:
         
-        public class RIDeepLinkingExampleActivity extends RIDeepLinkingActivity {
+        public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity {
             /*...*/
         }
-    
     By doing that the IDE will require this class to implement the method for registering
     handlers for deep-links:
         
@@ -140,11 +160,11 @@ receving and handling deep-links these are the steps to follow:
         protected void registerHandlers() {
             // Register Handlers for intercepting deep-links
             RITracking.getInstance().registerHandler("IDENTIFIER", "HOST", "PATH", this);
-        }
+        }  
     
     Finally make the class implements RIOnHandledOpenUrl to get callback from handlers:
-        
-        public class RIDeepLinkingExampleActivity extends RIDeepLinkingActivity implements RIOnHandledOpenUrl {
+    
+        public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity implements RIOnHandledOpenUrl {
             
             /*...*/
             
@@ -156,11 +176,11 @@ receving and handling deep-links these are the steps to follow:
                 }
             }
         }
-
+        
 2.  Declare activity in the AndroidManifest of the application with expected filter:
         
         <activity
-            android:name="your.package.name.RIDeepLinkingExampleActivity"
+            android:name="your.package.name.RISampleDeepLinkingActivity"
             android:label="@string/app_name" >
             <intent-filter >
                 <action android:name="android.intent.action.VIEW" />
@@ -181,7 +201,7 @@ of them, together with an overview of each tracker and the events that each one 
 
 ### Google Tag Manager  
 #### Overview
-Google Tag Manager is meant to track _events_, _userEvents_, _screens_ and _e-commerce events_. This
+Google Tag Manager is meant to track _events_, _user events_, _screens_ and _e-commerce events_. This
 tracker after successfully retriving the application container, will push all the information 
 and the event to a so called __Data Layer__ that will automatically match and sync with the web
 platform.  
@@ -203,7 +223,52 @@ of the project.
 add the correct package name where needed.
 
 ### Ad4Push 
-___in development___
+#### Overview
+Ad4Push tracker is meant to track _events_, _user events_, _screens_ and _e-commerce events_. This 
+tracker will be initialized using a private key, a partner key and a sender id from Google.
+
+For more information and official documentation 
+[this link](http://www.ad4screen.com/DocSDK/doku.php) is the way to go. 
+
+#### Integration
+Integrating Ad4Push tracker will require the following steps: 
+
+1.  Update the _RIAd4PushIntegration_ flag in the properties file with a value of true or false depending
+    on the app needs.
+        
+        RIAd4PushIntegration=true    // in this case the library will try to initialize the tracker
+
+2. Check AndroidManifest.xml of the library project and copy the parts related to Ad4Push being sure to
+add the correct package name where needed and the "partner key", "private key" and "sender id" to the 
+Ad4Push Service.
+
+3. If you want to listen and intercept callbacks from push notification there is a class called 
+RISamplePushNotificationReceiver that can be used as an example for that purpose. Be sure to add the 
+receiver to the manifest. Down below the code of that sample class:
+        
+        public class RISamplePushNotificationReceiver extends BroadcastReceiver {
+        
+            public static final String INTENT_ACTION_DISPLAYED = "com.ad4screen.sdk.intent.action.DISPLAYED";
+            public static final String INTENT_ACTION_CLICKED = "com.ad4screen.sdk.intent.action.CLICKED";
+        
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                Bundle bundle = intent.getExtras();
+                handleEvent(context, action, bundle);
+            }
+            
+            private void handleEvent(Context context, String action, Bundle extras) {
+                if (extras != null && !TextUtils.isEmpty(action)) {
+                    if (action.equals(INTENT_ACTION_DISPLAYED)) {} 
+                    else if (action.equals(INTENT_ACTION_CLICKED)) {}
+                }
+            }
+        }
+
+4. If the application requires to show a splash screen it is recommended to extends __RITrackingSplashActivity__
+that will lock push notifications until the splash is dismissed accordigly to 
+[Ad4Push documentation](http://www.ad4screen.com/DocSDK/doku.php?id=troubleshooting#splashscreen)
 
 ### AdJust 
 ___in development___

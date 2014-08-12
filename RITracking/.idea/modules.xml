@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RITracking.iml" filepath="$PROJECT_DIR$/RITracking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/a4SSDK/a4SSDK.iml" filepath="$PROJECT_DIR$/a4SSDK/a4SSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

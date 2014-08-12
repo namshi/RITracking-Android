@@ -21,7 +21,7 @@ import de.rocketinternet.android.tracking.utils.RIAnnotationUtils;
  * This class is extend Fragment class from the support library. Use this class if your minumum SDK
  * is smaller that API level 11.
  */
-public class RITrackingFragmentSupport extends Fragment {
+public abstract class RITrackingFragmentSupport extends Fragment {
 
     @Override
     public void onAttach(Activity activity) {
