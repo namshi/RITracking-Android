@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.rocketinternet.android.tracking">
+
+    <!-- TODO: Add permissions to your AndroidManifest -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!-- TODO: Add Google Play Services to your AndroidManifest -->
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+
+    <!-- ###########   Ad4Push   ############ -->
+    <!-- TODO: Change your pkg name and copy it to your AndroidManifest -->
+    <permission
+        android:name="your.package.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="your.package.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="your.package.permission.A4S_SEND"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="yourpackage.permission.A4S_SEND" />
+    <!-- ############################# -->
+
+    <!-- TODO: Make your application extend RITrackingApplication -->
+    <application
+        android:name=".core.RITrackingApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <!-- This is just a sample activity, nothing interesting -->
+        <activity
+            android:name=".RISampleMainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--  Add Activity to listen for deep-links. The activity should extend RIDeepLinkingActivity
+              and here it is possible to declare the data patterns to be intercepted. As an example
+              take a look to RIDeepLinkingExampleActivity for implementing deep-linking filtering.
+              You should use your package name -->
+        <!-- TODO: Define your activity defining custom schemes and add to your AndroidManifest -->
+        <activity
+            android:name=".RISampleDeepLinkingActivity"
+            android:label="@string/app_name" >
+            <intent-filter >
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://”. Change with expected scheme -->
+                <data android:scheme="example" />
+            </intent-filter>
+        </activity>
+
+        <!-- Multiple SDKs need to register a broadcast receiver for the INSTALL_REFERRER intent
+             in this library. That's the reason why we are implementing a custom BroadcastReceiver
+             that calls all the other receivers that we want to support. -->
+        <!-- TODO: Copy it into your AndroidManifest -->
+        <receiver
+            android:name="de.rocketinternet.android.tracking.receivers.RITrackingInstallReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ############################## -->
+        <!-- ########## TRACKERS ########## -->
+        <!-- ############################## -->
+
+        <!-- ########## GOOGLE TAG MANAGER ########## -->
+        <!--  Add preview activity for Google Tag Manager -->
+        <!-- TODO: Change your package name and add it to your AndroidManifest -->
+        <activity
+            android:name="com.google.android.gms.tagmanager.PreviewActivity"
+            android:label="@string/app_name"
+            android:noHistory="true">  <!-- optional, removes the previewActivity from the activity stack. -->
+            <intent-filter>
+                <data android:scheme="tagmanager.c.your.application.packagename" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
+
+        <!-- TODO: Copy it to your AndroidManifest -->
+        <service android:name="com.google.android.gms.tagmanager.InstallReferrerService"/>
+
+        <!-- ########## AD4PUSH ########## -->
+        <!-- TODO: Insert your keys and copy it to your AndroidManifest -->
+        <service
+            android:name="com.ad4screen.sdk.A4SService"
+            android:label="A4S Service"
+            android:process=":A4SService">
+            <!-- TODO: Use your partner id -->
+            <meta-data
+                android:name="com.ad4screen.partnerid"
+                android:value="your.partner.id" />
+            <!-- TODO: Use your private key -->
+            <meta-data
+                android:name="com.ad4screen.privatekey"
+                android:value="your.private.key" />
+            <!-- TODO: Use your sender id -->
+            <meta-data
+                android:name="com.ad4screen.senderid"
+                android:value="gcm:yoursenderid" />
+            <meta-data
+                android:name="com.ad4screen.no_geoloc"
+                android:value="true" />
+            <!-- Uncomment this if you want to track Facebook app -->
+            <!--<meta-data
+                android:name="com.ad4screen.facebook_appid"
+                android:value="fb:yourfacebookid" /> -->
+        </service>
+
+        <!-- TODO: Copy it in your AndroidManifest -->
+        <receiver
+            android:name="com.ad4screen.sdk.A4SIDFVHandler"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.ad4screen.sdk.intent.action.QUERY" />
+                <category android:name="com.ad4screen.sdk.intent.category.ANONYM_ID" />
+            </intent-filter>
+        </receiver>
+
+        <!-- TODO: Change to your package name and copy it in your AndroidManifest -->
+        <receiver
+            android:name="com.ad4screen.sdk.GCMHandler"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="your.package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- TODO: Copy it in your AndroidManifest -->
+        <activity
+            android:name="com.ad4screen.sdk.A4SPopup"
+            android:taskAffinity=""
+            android:theme="@style/com_ad4screen_sdk_theme_popup" />
+        <activity
+            android:name="com.ad4screen.sdk.A4SInterstitial"
+            android:theme="@style/com_ad4screen_sdk_theme_interstitial" />
+
+        <!-- TODO: Use it as an example but create your own in your AndroidManifest -->
+        <receiver
+            android:name=".RISamplePushNotificationReceiver">
+            <intent-filter>
+                <action android:name="com.ad4screen.sdk.intent.action.DISPLAYED" />
+                <action android:name="com.ad4screen.sdk.intent.action.CLICKED" />
+
+                <category android:name="com.ad4screen.sdk.intent.category.PUSH_NOTIFICATIONS" />
+                <category android:name="com.ad4screen.sdk.intent.category.INAPP_NOTIFICATIONS" />
+                <category android:name="com.ad4screen.sdk.intent.category.INBOX_NOTIFICATIONS" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ########## ADJUST ########## -->
+        <!-- TODO: Change app token and copy it in your AndroidManifest -->
+        <meta-data android:name="AdjustAppToken"    android:value="{YourAppToken}" />
+        <meta-data android:name="AdjustLogLevel"    android:value="info" />
+        <meta-data android:name="AdjustEnvironment" android:value="sandbox" /> <!-- FIXME: change to 'production' -->
+
+        <!-- Enable that feature you plan to send lots of events and they can be batched -->
+        <!--<meta-data android:name="AdjustEventBuffering" android:value="true" />-->
+    </application>
+</manifest>
