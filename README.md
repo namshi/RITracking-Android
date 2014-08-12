@@ -466,7 +466,7 @@ App Token
         RINewRelicAppToken=YourAppToken
 
 2.  If you want to trace a certain method with the usual @Trace annotation, you can do 
-that directly as described in the documentation that you can find by clicking of the link 
+that directly as described in the documentation that you can find by clicking on the link 
 provided above.
 
 ## License
