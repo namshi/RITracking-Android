@@ -119,8 +119,8 @@ The ones listed below are the events that the libray allows to track:
 * ###### Track e-commerce events 
     E-commerce related events and action are of 3 types and they are tracked by calling 
 the corresponding methods provided by the library. Tracking e-commerce events requests 
-also developer to use library entities. Check the __Entities__ section to have a better
-understanding of the entities used by the library
+also developer to use library models. Check the __Models__ section to have a better
+understanding of the models used by the library
     
     __Checkout__: The first method tracks a checkout action using a RITrackingTransaction 
 to contains all the useful information.  
@@ -150,14 +150,14 @@ from the customer cart.
 Continue reading this guide to have a better understanding which events every tracker is 
 supposed to track and which are the parameters that each one is expecting for them.
 
-## Entities
+## Models
 
-The library makes use of custom entities in order to provide different kind of information
+The library makes use of custom models in order to provide different kind of information
 required by different trackers.
 
 #### RITrackingTransaction
 
-This entity describes a transaction that happens when the user of the app requests a 
+This model describes a transaction that happens when the user of the app requests a 
 checkout action. It is composed by the following fields:
 
 * String __transactionId__ | _(The id of the transaction)_
@@ -170,7 +170,7 @@ checkout action. It is composed by the following fields:
 
 #### RITrackingTotal
 
-This entity describes the total amount for a certain order containing further 
+This model describes the total amount for a certain order containing further 
 information as follow:
 
 * double __net__ | _(The net of the order)_
@@ -180,7 +180,7 @@ information as follow:
 
 #### RITrackingProduct
 
-This entity describes a product involved in an operation. Product is described using these
+This model describes a product involved in an operation. Product is described using these
 parameters:
 
 * String __identifier__ | _(The id of the product)_
