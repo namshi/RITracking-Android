@@ -21,11 +21,12 @@ minimum SDK version for the application in the manifest to avoid problems.
 Refer to [this link](https://developer.android.com/google/play-services/index.html) for further information about Google Play Services.  
 
 The library is supporting the following trackers at the moment:
+
 *   Google Tag Manager (GTM)
 *   Ad4Push
 *   AdJust
 *   BugSense
-*   NewRelic ___<-- in development___
+*   NewRelic
 
 When the app is launched some information about the device and the launch time are 
 collected. These information can be used later for tracking issues.
@@ -134,7 +135,7 @@ customer cart.
 
         RITrackingProduct product = new RITrackingProduct();
         String cartId = "The id of the cart";
-        String location = "Product detail" // The location from where the product was added
+        String location = "Product detail"; // The location from where the product was added
         
         RITracking.getInstance().trackAddProductToCart(product, cartId, location);
 
@@ -143,10 +144,61 @@ from the customer cart.
 
         RITrackingProduct product = new RITrackingProduct();
         int quantity = 1;           // The removed quantity
-        double cartValue = 32.50    // The value of the cart before removal
+        double cartValue = 32.50;    // The value of the cart before removal
         
         RITracking.getInstance().trackRemoveProductFromCart(product, quantity, cartValue);
         
+* ###### Track interactions  
+    Interactions can be tracked for example before method defining it as a starting point 
+for an interaction. They are used by NewRelic tracker. Check the dedicated section for 
+more information. Interactions are tracked by calling the corresponding methods provided 
+by the library.
+    
+    __Start interaction__: The first method tracks when an interaction is started. This 
+method returns a String representing the id of the interaction and that can be used to 
+stop it prematurely.
+
+        String name = "The name of the interaction";
+
+        RITracking.getInstance().trackStartInteraction(name);
+        
+    __End interaction__: The second method tracks when an interaction is ended. This 
+method needs the id of the interaction that should be ended.
+
+        String id = "The id of the interaction";
+
+        RITracking.getInstance().trackEndInteraction(String id);
+
+* ###### Track network interactions
+    Network interactions are used to track network request and possible network failures. 
+They are used by NewRelic tracker. Check the dedicated section for more information. 
+Network interactions are tracked by calling the corresponding methods provided by the 
+library.
+    
+    __Network transaction__: The first method tracks HTTP transactions with several available levels of detail.
+
+        String url = "http://www.testUrl.com";
+        int statusCode = 200;
+        long startTime = System.currentTimeMillis(); // When request is fired
+        long endTime = System.currentTimeMillis(); // When response is received
+        long bytesSent = 55555 // The amount of sent bytes
+        long bytesReceived = 22222 // The amount of received bytes
+        String responseBody = "The response body" // This is optional
+        Map<String, String> params = new Hashmap<String, String>(); // This is optional
+
+        RITracking.getInstance().trackHttpTransaction(url, statusCode, startTime, endTime,
+                        bytesSent, bytesReceived, responseBody, params);
+    
+    __Network failures__: The second method tracks network failures.
+
+        String url = "http://www.testUrl.com";
+        long startTime = System.currentTimeMillis(); // When request is fired
+        long endTime = System.currentTimeMillis(); // When response is received
+        Exception exception = new Exception("The caught exception");
+        NetworkFailure failure = NetworkFailure.Unknown;
+
+        RITracking.getInstance().trackNetworkFailure(url, startTime, endTime, exception, failure);
+
 Continue reading this guide to have a better understanding which events every tracker is 
 supposed to track and which are the parameters that each one is expecting for them.
 
@@ -297,7 +349,7 @@ match and sync with the web platform.
 For more information and Google Tag Manager official documentation click on [this link](https://developers.google.com/tag-manager/android/v4/). 
 
 #### Integration
-Integrating Google Tag Manager tracker will require the following steps: 
+Integrating Google Tag Manager tracker requires the following steps: 
 
 1.  Update the _RIGoogleTagManagerContainerID_ in the properties file with the right 
 container ID
@@ -319,7 +371,7 @@ id from Google.
 For more information and Ad4Push official documentation click on [this link](http://www.ad4screen.com/DocSDK/doku.php). 
 
 #### Integration
-Integrating Ad4Push tracker will require the following steps: 
+Integrating Ad4Push tracker requires the following steps: 
 
 1.  Update the _RIAd4PushIntegration_ flag in the properties file with a value of true or 
 false depending on the app needs.
@@ -356,8 +408,7 @@ Be sure to add the receiver to the manifest. Down below the code of that sample 
 
 4. If the application requires to show a splash screen it is recommended to extends 
 __RITrackingSplashActivity__ that will lock push notifications until the splash is 
-dismissed accordigly to 
-[Ad4Push documentation](http://www.ad4screen.com/DocSDK/doku.php?id=troubleshooting#splashscreen)
+dismissed accordigly to [Ad4Push documentation](http://www.ad4screen.com/DocSDK/doku.php?id=troubleshooting#splashscreen)
 
 ### AdJust 
 #### Overview
@@ -369,7 +420,7 @@ the library and described in the __Basic Integration - Setup__ paragraph.
 For more information and AdJust official documentation click on [this link](https://github.com/adjust/android_sdk). 
 
 #### Integration
-Integrating AdJust tracker will require the following steps: 
+Integrating AdJust tracker requires the following steps: 
 
 1.  Update the _RIAdJustIntegration_ flag in the properties file with a value of true or 
 false depending on the app needs.
@@ -390,7 +441,7 @@ the __Basic Integration - Setup__ paragraph, developers can automatically track 
 For more information and BugSense official documentation click on [this link](https://www.bugsense.com/docs/android). 
 
 #### Integration
-Integrating BugSense tracker will require the following steps: 
+Integrating BugSense tracker requires the following steps: 
 
 1.  Update the _RIGoogleTagManagerContainerID_ in the properties file with the right 
 Api Key
@@ -398,7 +449,25 @@ Api Key
         RIBugSenseApiKey=YourApiKey
 
 ### NewRelic 
-___in development___
+#### Overview
+New Relic tracker is meant to track _interactions_, _network request_ and 
+_network failures_. When activities with name are set up a group of interactions with the 
+same name will be created by the tracker. It will be initialized using an App Token 
+from the properties file. 
+
+For more information and New Relic official documentation click on [this link](https://docs.newrelic.com/docs/mobile-monitoring/mobile-sdk-api/new-relic-mobile-sdk-api/working-android-sdk-api). 
+
+#### Integration
+Integrating New Relic tracker requires the following steps: 
+
+1.  Update the _RINewRelicAppToken_ in the properties file with the right 
+App Token
+        
+        RINewRelicAppToken=YourAppToken
+
+2.  If you want to trace a certain method with the usual @Trace annotation, you can do 
+that directly as described in the documentation that you can find by clicking of the link 
+provided above.
 
 ## License
 
