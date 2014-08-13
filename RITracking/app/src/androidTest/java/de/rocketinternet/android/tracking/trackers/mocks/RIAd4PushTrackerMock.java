@@ -6,7 +6,6 @@ import android.location.Location;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
@@ -33,10 +32,6 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     private String mCartIdOfLastAddedProduct;
     private Location mLastLocation;
     private Map<String, Object> mDeviceInfo;
-
-    public RIAd4PushTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
 
     @Override
     public boolean initializeTracker(Context context) {

@@ -12,7 +12,6 @@ import com.ad4screen.sdk.analytics.Purchase;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
@@ -28,8 +27,8 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Convenience controller to proxy-pass tracking information to Ad4Push
+ *
+ * Convenience controller to proxy-pass tracking information to Ad4Push
  */
 public class RIAd4PushTracker extends RITracker implements
         RIScreenTracking,
@@ -42,11 +41,6 @@ public class RIAd4PushTracker extends RITracker implements
 
     private A4S mA4S;
     private boolean mNotificationEnabled;
-
-    @Override
-    public void execute(Runnable runnable) {
-        mQueue.execute(runnable);
-    }
 
     @Override
     public String getIdentifier() {
@@ -70,7 +64,6 @@ public class RIAd4PushTracker extends RITracker implements
 
     private void createTracker(Context context) {
         mA4S = A4S.get(context);
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
         mIdentifier = TRACKER_ID;
     }
 
