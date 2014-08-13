@@ -29,8 +29,8 @@ public class RISampleDeepLinkingActivity extends RITrackingDeepLinkingActivity i
     @Override
     public void onHandledOpenUrl(String identifier, Map<String, String> params) {
         // Handle the eventual callback
-        if (identifier.equals("CATALOG")) {
-
+        if (identifier.equals("IDENTIFIER")) {
+            // Do something
         }
     }
 }

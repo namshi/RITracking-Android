@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
@@ -31,10 +30,6 @@ public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
     private String mLocationOfProductBeforeAddingToCart;
     private String mLastRemovedProduct;
     private String mLastTrackedUserEvent;
-
-    public RIGoogleTagManagerTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
 
     @Override
     public boolean initializeTracker(Context context) {

@@ -10,7 +10,6 @@ import com.google.android.gms.analytics.ecommerce.ProductAction;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
@@ -37,14 +36,6 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     private static final String TRACKER_ID = "RIGoogleAnalyticsTrackerID";
     private Tracker mTracker;
 
-    public RIGoogleAnalyticsTracker() {
-    }
-
-    @Override
-    public void execute(Runnable runnable) {
-        mQueue.execute(runnable);
-    }
-
     @Override
     public String getIdentifier() {
         return mIdentifier;
@@ -68,7 +59,6 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
         GoogleAnalytics.getInstance(context).setLocalDispatchPeriod(5);
         mTracker = GoogleAnalytics.getInstance(context).newTracker(trackingId);
         mTracker.enableExceptionReporting(true);
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
         mIdentifier = TRACKER_ID;
     }
 

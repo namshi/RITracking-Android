@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import de.rocketinternet.android.tracking.R;
@@ -44,18 +43,9 @@ public class RIGoogleTagManagerTracker extends RITracker implements
         RIEcommerceEventTracking {
 
     private static final String LOG_TAG = RIGoogleTagManagerTracker.class.getSimpleName();
-
     private static final String TRACKER_ID = "RIGoogleTagManagerTrackerID";
 
     private DataLayer mDataLayer;
-
-    public RIGoogleTagManagerTracker() {
-    }
-
-    @Override
-    public void execute(Runnable runnable) {
-        mQueue.execute(runnable);
-    }
 
     @Override
     public String getIdentifier() {
@@ -109,7 +99,6 @@ public class RIGoogleTagManagerTracker extends RITracker implements
             }
         }, 2, TimeUnit.SECONDS);
 
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
         mIdentifier = TRACKER_ID;
     }
 

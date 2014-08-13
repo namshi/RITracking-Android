@@ -55,6 +55,7 @@ public class RITracking implements
         RIInteractionTracking,
         RINetworkTracking {
 
+    private static final String DEBUG_MODE = "DebugMode";
     private static final String PROPERTIES_FILE_NAME = "ri_tracking_config.properties";
 
     private static RITracking sInstance;
@@ -114,7 +115,7 @@ public class RITracking implements
         RILogUtils.logDebug("Starting initialisation with property list");
         Properties properties = RIResourceUtils.getProperties(context, PROPERTIES_FILE_NAME);
         RITrackingConfiguration.getInstance().loadPropertiesFromFile(properties);
-
+        mIsDebug = Boolean.valueOf(RITrackingConfiguration.getInstance().getValueFromKeyMap(DEBUG_MODE));
         initializeTrackers(context);
     }
 
@@ -161,10 +162,9 @@ public class RITracking implements
     }
 
     @Override
-    public void trackEvent(final String event, final long value, final String action,
-                           final String category, final Map<String, Object> data) {
-        RILogUtils.logDebug("Tracking event: " + event + " with value: " + value + " with action: "
-                + action + "with category: " + category + " and data: " + data);
+    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+        RILogUtils.logDebug("Tracking event: " + event + " with value: " + value + " with action: " + action +
+                "with category: " + category + " and data: " + data);
 
         if (mTrackers == null) {
             RILogUtils.logError("Invalid call with non-existent trackers. Initialisation may have failed.");
@@ -173,18 +173,13 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RIEventTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RIEventTracking) tracker).trackEvent(event, value, action, category, data);
-                    }
-                });
+                ((RIEventTracking) tracker).trackEvent(event, value, action, category, data);
             }
         }
     }
 
     @Override
-    public void trackScreenWithName(final String name) {
+    public void trackScreenWithName(String name) {
         RILogUtils.logDebug("Tracking screen with name: " + name);
 
         if (mTrackers == null) {
@@ -194,18 +189,13 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RIScreenTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RIScreenTracking) tracker).trackScreenWithName(name);
-                    }
-                });
+                ((RIScreenTracking) tracker).trackScreenWithName(name);
             }
         }
     }
 
     @Override
-    public void trackUserInfo(final String userEvent, final Map<String, Object> map) {
+    public void trackUserInfo(String userEvent, Map<String, Object> map) {
         RILogUtils.logDebug("Tracking user event: " + userEvent);
 
         if (mTrackers == null) {
@@ -215,18 +205,13 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RIUserTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RIUserTracking) tracker).trackUserInfo(userEvent, map);
-                    }
-                });
+                ((RIUserTracking) tracker).trackUserInfo(userEvent, map);
             }
         }
     }
 
     @Override
-    public void trackUpdateDeviceInfo(final Map<String, Object> map) {
+    public void trackUpdateDeviceInfo(Map<String, Object> map) {
         RILogUtils.logDebug("Update Device Info");
 
         if (mTrackers == null) {
@@ -236,18 +221,13 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RIUserTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RIUserTracking) tracker).trackUpdateDeviceInfo(map);
-                    }
-                });
+                ((RIUserTracking) tracker).trackUpdateDeviceInfo(map);
             }
         }
     }
 
     @Override
-    public void trackUpdateGeoLocation(final Location location) {
+    public void trackUpdateGeoLocation(Location location) {
         RILogUtils.logDebug("Update Device Info");
 
         if (mTrackers == null) {
@@ -257,18 +237,13 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RIUserTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RIUserTracking) tracker).trackUpdateGeoLocation(location);
-                    }
-                });
+                ((RIUserTracking) tracker).trackUpdateGeoLocation(location);
             }
         }
     }
 
     @Override
-    public void trackException(final HashMap<String, String> params, final Exception exception) {
+    public void trackException(HashMap<String, String> params, Exception exception) {
         RILogUtils.logDebug("Tracking exception: " + exception.getMessage());
 
         if (mTrackers == null) {
@@ -278,30 +253,20 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RIExceptionTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RIExceptionTracking) tracker).trackException(params, exception);
-                    }
-                });
+                ((RIExceptionTracking) tracker).trackException(params, exception);
             }
         }
     }
 
     @Override
-    public void trackOpenUrl(final Uri uri) {
+    public void trackOpenUrl(Uri uri) {
         RILogUtils.logDebug("Tracking opening URL: " + uri);
 
         // Looking for trackers that implement the interface
         if (mTrackers != null) {
             for (final RITracker tracker : mTrackers) {
                 if (tracker instanceof RIOpenUrlTracking) {
-                    tracker.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((RIOpenUrlTracking) tracker).trackOpenUrl(uri);
-                        }
-                    });
+                    ((RIOpenUrlTracking) tracker).trackOpenUrl(uri);
                 }
             }
         }
@@ -327,7 +292,7 @@ public class RITracking implements
     }
 
     @Override
-    public void trackCheckoutTransaction(final RITrackingTransaction transaction) {
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
         if (transaction != null) {
             RILogUtils.logDebug("Tracking checkout transaction with id " + transaction.getTransactionId());
 
@@ -338,20 +303,14 @@ public class RITracking implements
 
             for (final RITracker tracker : mTrackers) {
                 if (tracker instanceof RIEcommerceEventTracking) {
-                    tracker.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((RIEcommerceEventTracking) tracker).trackCheckoutTransaction(transaction);
-                        }
-                    });
+                    ((RIEcommerceEventTracking) tracker).trackCheckoutTransaction(transaction);
                 }
             }
         }
     }
 
     @Override
-    public void trackAddProductToCart(final RITrackingProduct product, final String cartId,
-                                      final String location) {
+    public void trackAddProductToCart(RITrackingProduct product, String cartId, String location) {
         if (product != null) {
             RILogUtils.logDebug("Tracking add product with id " + product.getIdentifier() + " to cart");
 
@@ -362,20 +321,14 @@ public class RITracking implements
 
             for (final RITracker tracker : mTrackers) {
                 if (tracker instanceof RIEcommerceEventTracking) {
-                    tracker.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((RIEcommerceEventTracking) tracker).trackAddProductToCart(product, cartId, location);
-                        }
-                    });
+                    ((RIEcommerceEventTracking) tracker).trackAddProductToCart(product, cartId, location);
                 }
             }
         }
     }
 
     @Override
-    public void trackRemoveProductFromCart(final RITrackingProduct product, final int quantity,
-                                           final double cartValue) {
+    public void trackRemoveProductFromCart(RITrackingProduct product, int quantity, double cartValue) {
         if (product != null) {
             RILogUtils.logDebug("Tracking remove " + quantity + " products with id " +
                     product.getIdentifier() + " from cart");
@@ -387,19 +340,14 @@ public class RITracking implements
 
             for (final RITracker tracker : mTrackers) {
                 if (tracker instanceof RIEcommerceEventTracking) {
-                    tracker.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((RIEcommerceEventTracking) tracker).trackRemoveProductFromCart(product, quantity, cartValue);
-                        }
-                    });
+                    ((RIEcommerceEventTracking) tracker).trackRemoveProductFromCart(product, quantity, cartValue);
                 }
             }
         }
     }
 
     @Override
-    public void trackActivityCreated(final Activity activity, final boolean isSplashScreen) {
+    public void trackActivityCreated(Activity activity, boolean isSplashScreen) {
         RILogUtils.logDebug("Activity: was created");
 
         if (mTrackers == null) {
@@ -409,19 +357,14 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RILifeCycleTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RILifeCycleTracking) tracker).trackActivityCreated(activity, isSplashScreen);
-                    }
-                });
+                ((RILifeCycleTracking) tracker).trackActivityCreated(activity, isSplashScreen);
             }
         }
 
     }
 
     @Override
-    public void trackActivityResumed(final Activity activity) {
+    public void trackActivityResumed(Activity activity) {
         RILogUtils.logDebug("Activity: was resumed");
 
         if (mTrackers == null) {
@@ -431,18 +374,13 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RILifeCycleTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RILifeCycleTracking) tracker).trackActivityResumed(activity);
-                    }
-                });
+                ((RILifeCycleTracking) tracker).trackActivityResumed(activity);
             }
         }
     }
 
     @Override
-    public void trackActivityPaused(final Activity activity) {
+    public void trackActivityPaused(Activity activity) {
         RILogUtils.logDebug("Activity: was paused");
 
         if (mTrackers == null) {

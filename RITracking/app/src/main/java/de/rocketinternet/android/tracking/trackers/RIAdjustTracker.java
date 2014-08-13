@@ -8,7 +8,6 @@ import com.adjust.sdk.Adjust;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
@@ -36,11 +35,6 @@ public class RIAdjustTracker extends RITracker implements
     private static final String TRACKER_ID = "RIAdJustTrackerID";
 
     @Override
-    public void execute(Runnable runnable) {
-        mQueue.execute(runnable);
-    }
-
-    @Override
     public String getIdentifier() {
         return mIdentifier;
     }
@@ -61,7 +55,6 @@ public class RIAdjustTracker extends RITracker implements
     }
 
     private void createTracker() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
         mIdentifier = TRACKER_ID;
     }
 

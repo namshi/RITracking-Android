@@ -6,7 +6,6 @@ import android.net.Uri;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingTransaction;
@@ -27,10 +26,6 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
     private int mNumberOfSentEvents = 0;
     private Uri mLastTrackedUri;
     private String mLastTrackedCheckoutTransaction;
-
-    public RIAdJustTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
 
     @Override
     public boolean initializeTracker(Context context) {

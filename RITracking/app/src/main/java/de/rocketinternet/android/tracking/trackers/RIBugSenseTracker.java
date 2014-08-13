@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import com.bugsense.trace.BugSenseHandler;
 
 import java.util.HashMap;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.interfaces.RIExceptionTracking;
@@ -27,11 +26,6 @@ public class RIBugSenseTracker extends RITracker implements
         RILifeCycleTracking {
 
     private static final String TRACKER_ID = "RIBugSenseTrackerID";
-
-    @Override
-    public void execute(Runnable runnable) {
-        mQueue.execute(runnable);
-    }
 
     @Override
     public String getIdentifier() {
@@ -54,7 +48,6 @@ public class RIBugSenseTracker extends RITracker implements
 
     private void createTracker(Context context, String apiKey) {
         BugSenseHandler.initAndStartSession(context, apiKey);
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
         mIdentifier = TRACKER_ID;
     }
 
