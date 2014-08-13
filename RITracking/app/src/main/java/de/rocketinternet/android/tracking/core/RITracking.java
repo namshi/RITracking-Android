@@ -162,7 +162,7 @@ public class RITracking implements
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         RILogUtils.logDebug("Tracking event: " + event + " with value: " + value + " with action: " + action +
                 "with category: " + category + " and data: " + data);
 
@@ -390,18 +390,13 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RILifeCycleTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RILifeCycleTracking) tracker).trackActivityPaused(activity);
-                    }
-                });
+                ((RILifeCycleTracking) tracker).trackActivityPaused(activity);
             }
         }
     }
 
     @Override
-    public String trackStartInteraction(final String name) {
+    public String trackStartInteraction(String name) {
         RILogUtils.logDebug("Tracking start interaction with name: " + name);
 
         if (mTrackers == null) {
@@ -435,9 +430,9 @@ public class RITracking implements
     }
 
     @Override
-    public void trackHttpTransaction(final String url, final int statusCode, final long startTime,
-                                     final long endTime, final long bytesSent, final long bytesReceived,
-                                     final String responseBody, final Map<String, String> params) {
+    public void trackHttpTransaction(String url, int statusCode, long startTime, long endTime,
+                                     long bytesSent, long bytesReceived, String responseBody,
+                                     Map<String, String> params) {
         RILogUtils.logDebug("Tracking Http transaction with url: " + url);
 
         if (mTrackers == null) {
@@ -447,20 +442,15 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RINetworkTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RINetworkTracking) tracker).trackHttpTransaction(url, statusCode, startTime,
+                ((RINetworkTracking) tracker).trackHttpTransaction(url, statusCode, startTime,
                                 endTime, bytesSent, bytesReceived, responseBody, params);
-                    }
-                });
             }
         }
     }
 
     @Override
-    public void trackNetworkFailure(final String url, final long startTime, final long endTime,
-                                    final Exception exception, final NetworkFailure failure) {
+    public void trackNetworkFailure(String url, long startTime, long endTime, Exception exception,
+                                    NetworkFailure failure) {
         RILogUtils.logDebug("Tracking Network failure with url: " + url);
 
         if (mTrackers == null) {
@@ -470,13 +460,7 @@ public class RITracking implements
 
         for (final RITracker tracker : mTrackers) {
             if (tracker instanceof RINetworkTracking) {
-                tracker.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((RINetworkTracking) tracker).trackNetworkFailure(url, startTime, endTime,
-                                exception, failure);
-                    }
-                });
+                ((RINetworkTracking) tracker).trackNetworkFailure(url, startTime, endTime, exception, failure);
             }
         }
     }

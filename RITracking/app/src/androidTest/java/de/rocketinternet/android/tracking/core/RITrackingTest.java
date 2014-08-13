@@ -289,7 +289,7 @@ public class RITrackingTest extends InstrumentationTestCase {
         // Validate results
         assertEquals(0, latch.getCount());
 
-        assertEquals("productName", mGoogleTagManagerTrackerMock.getLastRemovedProduct());
+        assertEquals(productName, mGoogleTagManagerTrackerMock.getLastRemovedProduct());
         assertEquals(quantity, mGoogleTagManagerTrackerMock.getNumberOfRemovedProduct());
         assertEquals(cartValue, mGoogleTagManagerTrackerMock.getValueOfCartBeforeRemoval());
     }

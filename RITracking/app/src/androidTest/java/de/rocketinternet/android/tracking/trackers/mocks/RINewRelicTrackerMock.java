@@ -7,7 +7,6 @@ import com.newrelic.agent.android.util.NetworkFailure;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.trackers.RINewRelicTracker;
@@ -27,10 +26,6 @@ public class RINewRelicTrackerMock extends RINewRelicTracker {
     private String mLastHttpTransactionUrl;
     private String mLastNetworkFailureUrl;
     private boolean mIsEventTracked;
-
-    public RINewRelicTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
 
     @Override
     public boolean initializeTracker(Context context) {

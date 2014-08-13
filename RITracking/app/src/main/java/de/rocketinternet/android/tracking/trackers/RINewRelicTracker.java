@@ -7,7 +7,6 @@ import com.newrelic.agent.android.NewRelic;
 import com.newrelic.agent.android.util.NetworkFailure;
 
 import java.util.Map;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.interfaces.RIEventTracking;
@@ -31,11 +30,6 @@ public class RINewRelicTracker extends RITracker implements
     private static final String TRACKER_ID = "RINewRelicTrackerID";
 
     @Override
-    public void execute(Runnable runnable) {
-        mQueue.execute(runnable);
-    }
-
-    @Override
     public String getIdentifier() {
         return mIdentifier;
     }
@@ -56,7 +50,6 @@ public class RINewRelicTracker extends RITracker implements
 
     private void createTracker(Context context, String appToken) {
         NewRelic.withApplicationToken(appToken).start(context);
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
         mIdentifier = TRACKER_ID;
     }
 
