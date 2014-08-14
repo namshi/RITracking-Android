@@ -27,9 +27,9 @@ public class RISamplePushNotificationReceiver extends BroadcastReceiver {
     private void handleEvent(Context context, String action, Bundle extras) {
         if (extras != null && !TextUtils.isEmpty(action)) {
             if (action.equals(INTENT_ACTION_DISPLAYED)) {
-
+                // handle displayed events
             } else if (action.equals(INTENT_ACTION_CLICKED)) {
-
+                // handle clicked event
             }
         }
     }

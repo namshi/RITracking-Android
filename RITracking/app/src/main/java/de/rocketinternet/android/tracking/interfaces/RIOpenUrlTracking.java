@@ -6,8 +6,8 @@ import de.rocketinternet.android.tracking.listeners.RIOnHandledOpenUrl;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         API interface for deeplink URL tracking
+ *
+ * API interface for deeplink URL tracking
  */
 public interface RIOpenUrlTracking {
 
@@ -20,7 +20,7 @@ public interface RIOpenUrlTracking {
 
     /**
      * Register a handler block to be called when the given pattern matches a deep-link URL.
-     * <p/>
+     *
      * The deep-link URL pattern may contain capture directives of the format `{<name>}` where '<name>'
      * is replaced with the actual property name to access the captured information.
      * The handler block receives a dictionary hash containing key-value properties obtained from pattern
@@ -32,4 +32,6 @@ public interface RIOpenUrlTracking {
      * @param listener   A listener for callbacks
      */
     void registerHandler(String identifier, String host, String path, RIOnHandledOpenUrl listener);
+
+    // TODO: add registerHandler method to accept bundles as params
 }
