@@ -275,13 +275,17 @@ __Events__ paragraph.
 have auto screen tracking using annotations (as describe in __Events__ paragraph). 
     
     Supported activities and fragments:
-    *   __RITrackingActivity__: it extends Activity
-    *   __RITrackingSplashActivity__: it extends Activity (check Ad4Push paragraph for other insights)
+    *   __RITrackingActivity__: it extends Activity.
+    *   __RITrackingSplashActivity__: it extends Activity (check Ad4Push paragraph for other insights).
+    *   __RITrackingActionBarActivity__: it extends ActionBarActivity.
+    *   __RITrackingListActivity__: it extends ListActivity.
     *   ___...___
-    *   ___in development to add more classes___
+    *   ___in development, trying to offers support for all use cases___
     *   ___...___
-    *   __RITrackingFragment__: it extends Fragment
+    *   __RITrackingFragment__: it extends Fragment.
+    *   __RITrackingListFragment__: it extends ListFragment.
     *   __RITrackingFragmentSupport__: it extends Fragment class from android support library.
+    *   __RITrackingListFragmentSupport__: it extends ListFragment class from android support library.
 
 #### Deep-Links
 The library simplifies deep-linking filtering and definition. If the application is 
