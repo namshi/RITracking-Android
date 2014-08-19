@@ -52,7 +52,7 @@ public class RIAd4PushTracker extends RITracker implements
         RILogUtils.logDebug("Initializing Ad4Push tracker");
         String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.AD4PUSH_INTEGRATION);
         boolean isAd4PushIntegrationNeeded = Boolean.valueOf(ad4PushIntegration);
-        if (isAd4PushIntegrationNeeded) {
+        if (context != null && isAd4PushIntegrationNeeded) {
             createTracker(context);
             return true;
         } else {

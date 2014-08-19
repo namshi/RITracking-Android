@@ -45,7 +45,7 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     public boolean initializeTracker(Context context) {
         RILogUtils.logDebug("Initializing Google Analytics tracker");
         String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GA_TRACKING_ID);
-        if (!TextUtils.isEmpty(trackingId)) {
+        if (context != null && !TextUtils.isEmpty(trackingId)) {
             createTracker(context, trackingId);
             return true;
         } else {

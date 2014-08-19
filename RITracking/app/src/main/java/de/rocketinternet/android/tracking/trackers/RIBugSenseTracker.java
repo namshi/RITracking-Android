@@ -36,7 +36,7 @@ public class RIBugSenseTracker extends RITracker implements
     public boolean initializeTracker(Context context) {
         RILogUtils.logDebug("Initializing BugSense tracker");
         String bugSenseApiKey = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.BUGSENSE_API_KEY);
-        if (!TextUtils.isEmpty(bugSenseApiKey)) {
+        if (context != null && !TextUtils.isEmpty(bugSenseApiKey)) {
             createTracker(context, bugSenseApiKey);
             return true;
         } else {
