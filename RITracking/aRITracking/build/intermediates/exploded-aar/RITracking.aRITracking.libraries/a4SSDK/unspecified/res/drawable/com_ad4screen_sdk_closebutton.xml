@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/com_ad4screen_sdk_close"
+    android:insetBottom="3dp"
+    android:insetLeft="3dp"
+    android:insetRight="3dp"
+    android:insetTop="3dp">
+
+</inset><!-- From: file:/Users/alessandro.balocco/Workspace/android_studio/RITracking-Android/RITracking/aRITracking/libraries/a4SSDK/src/main/res/drawable/com_ad4screen_sdk_closebutton.xml -->

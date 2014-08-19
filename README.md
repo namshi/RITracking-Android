@@ -249,6 +249,22 @@ parameters:
 
 ## Basic integration
 
+#### Integration
+
+To integrate the library in your project add it as a module. Include it in the 
+setting.gradle file:
+
+        include ':aRITracking'
+
+And in the build.gradle file of the application module add the library between your 
+dependencies:
+
+        dependencies {
+            ...
+            compile project(':aRITracking')
+            ...
+        }
+        
 #### Setup
 
 The library automatically initializes all the trackers which are correctly setup in 
