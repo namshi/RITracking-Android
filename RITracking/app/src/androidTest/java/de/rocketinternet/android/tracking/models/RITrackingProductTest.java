@@ -2,11 +2,6 @@ package de.rocketinternet.android.tracking.models;
 
 import android.test.InstrumentationTestCase;
 
-import java.util.Properties;
-
-import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
-import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
-
 /**
  * @author alessandro.balocco
  */
@@ -23,7 +18,8 @@ public class RITrackingProductTest extends InstrumentationTestCase {
     }
 
     public void testInitializationWithValues() {
-        RITrackingProduct product = new RITrackingProduct("product5", "productName", 5, 5.0, "eur", "productCategory");
+        RITrackingProduct product = new RITrackingProduct("product5", "productName", 5, 5.0, "eur",
+                "productCategory", "productSubCategory", "productBrand", 20, 4.0f);
 
         assertEquals("product5", product.getIdentifier());
         assertEquals("productName", product.getName());
@@ -31,6 +27,10 @@ public class RITrackingProductTest extends InstrumentationTestCase {
         assertEquals(5.0, product.getPrice());
         assertEquals("eur", product.getCurrency());
         assertEquals("productCategory", product.getCategory());
+        assertEquals("productSubCategory", product.getSubCategory());
+        assertEquals("productBrand", product.getBrand());
+        assertEquals(20, product.getDiscount());
+        assertEquals(4.0f, product.getAverageRating());
     }
 
     public void testSetters() {
@@ -53,5 +53,17 @@ public class RITrackingProductTest extends InstrumentationTestCase {
 
         product.setCategory("productCategory");
         assertEquals("productCategory", product.getCategory());
+
+        product.setSubCategory("productSubCategory");
+        assertEquals("productSubCategory", product.getSubCategory());
+
+        product.setBrand("productBrand");
+        assertEquals("productBrand", product.getBrand());
+
+        product.setDiscount(20);
+        assertEquals(20, product.getDiscount());
+
+        product.setAverageRating(4.0f);
+        assertEquals(4.0f, product.getAverageRating());
     }
 }

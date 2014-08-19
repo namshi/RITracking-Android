@@ -2,15 +2,13 @@ package de.rocketinternet.android.tracking.trackers.mocks;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
 import android.net.Uri;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
-import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
 
 /**
@@ -26,10 +24,7 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
     private Uri mLastTrackedUri;
-
-    public RIAdJustTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
+    private String mLastTrackedCheckoutTransaction;
 
     @Override
     public boolean initializeTracker(Context context) {
@@ -67,6 +62,12 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
         mSignal.countDown();
     }
 
+    @Override
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        mLastTrackedCheckoutTransaction = transaction.getTransactionId();
+        mSignal.countDown();
+    }
+
     public boolean isEventTracked() {
         return mIsEventTracked;
     }
@@ -85,5 +86,9 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
 
     public boolean wasActivityPaused() {
         return mActivityWasPaused;
+    }
+
+    public String getLastCheckoutTransaction() {
+        return mLastTrackedCheckoutTransaction;
     }
 }

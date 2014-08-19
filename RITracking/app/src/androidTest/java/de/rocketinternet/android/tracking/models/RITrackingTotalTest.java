@@ -18,9 +18,9 @@ public class RITrackingTotalTest extends InstrumentationTestCase {
     }
 
     public void testInitializationWithValues() {
-        RITrackingTotal total = new RITrackingTotal(5, 0.8f, 15, "dol");
+        RITrackingTotal total = new RITrackingTotal(5.0, 0.8f, 15, "dol");
 
-        assertEquals(5, total.getNet());
+        assertEquals(5.0, total.getNet());
         assertEquals(0.8f, total.getTax());
         assertEquals(15, total.getShipping());
         assertEquals("dol", total.getCurrency());
@@ -29,8 +29,8 @@ public class RITrackingTotalTest extends InstrumentationTestCase {
     public void testSetters() {
         RITrackingTotal total = new RITrackingTotal();
 
-        total.setNet(5);
-        assertEquals(5, total.getNet());
+        total.setNet(5.0);
+        assertEquals(5.0, total.getNet());
 
         total.setTax(0.8f);
         assertEquals(0.8f, total.getTax());

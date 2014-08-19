@@ -6,9 +6,10 @@ import android.location.Location;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
+import de.rocketinternet.android.tracking.models.RITrackingProduct;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
 
 /**
@@ -26,12 +27,11 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
     private String mLastTrackedScreenName;
+    private String mLastTrackedCheckoutTransaction;
+    private String mLastAddedProduct;
+    private String mCartIdOfLastAddedProduct;
     private Location mLastLocation;
     private Map<String, Object> mDeviceInfo;
-
-    public RIAd4PushTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
 
     @Override
     public boolean initializeTracker(Context context) {
@@ -89,6 +89,19 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
         mSignal.countDown();
     }
 
+    @Override
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        mLastTrackedCheckoutTransaction = transaction.getTransactionId();
+        mSignal.countDown();
+    }
+
+    @Override
+    public void trackAddProductToCart(RITrackingProduct product, String cartId, String location) {
+        mLastAddedProduct = product.getName();
+        mCartIdOfLastAddedProduct = cartId;
+        mSignal.countDown();
+    }
+
     public boolean isEventTracked() {
         return mIsEventTracked;
     }
@@ -123,5 +136,17 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
 
     public boolean wasActivityPaused() {
         return mActivityWasPaused;
+    }
+
+    public String getLastCheckoutTransaction() {
+        return mLastTrackedCheckoutTransaction;
+    }
+
+    public String getLastAddedProduct() {
+        return mLastAddedProduct;
+    }
+
+    public String getCartIdOfLastAddedProduct() {
+        return mCartIdOfLastAddedProduct;
     }
 }

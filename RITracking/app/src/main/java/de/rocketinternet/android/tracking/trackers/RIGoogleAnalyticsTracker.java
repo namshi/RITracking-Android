@@ -10,7 +10,6 @@ import com.google.android.gms.analytics.ecommerce.ProductAction;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.interfaces.RIEcommerceEventTracking;
@@ -19,14 +18,14 @@ import de.rocketinternet.android.tracking.interfaces.RIExceptionTracking;
 import de.rocketinternet.android.tracking.interfaces.RIScreenTracking;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
- *  @author alessandro.balocco
- *
- *  @deprecated this tracker is actually deprecated in favor of GTMTracker
- *  Convenience controller to proxy-pass tracking information to Google Analytics
+ * @author alessandro.balocco
+ * @deprecated this tracker is actually deprecated in favor of GTMTracker
+ * Convenience controller to proxy-pass tracking information to Google Analytics
  */
 public class RIGoogleAnalyticsTracker extends RITracker implements
         RIEventTracking,
@@ -36,13 +35,6 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
 
     private static final String TRACKER_ID = "RIGoogleAnalyticsTrackerID";
     private Tracker mTracker;
-
-    public RIGoogleAnalyticsTracker() {}
-
-    @Override
-    public void execute(Runnable runnable) {
-        mQueue.execute(runnable);
-    }
 
     @Override
     public String getIdentifier() {
@@ -67,7 +59,6 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
         GoogleAnalytics.getInstance(context).setLocalDispatchPeriod(5);
         mTracker = GoogleAnalytics.getInstance(context).newTracker(trackingId);
         mTracker.enableExceptionReporting(true);
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
         mIdentifier = TRACKER_ID;
     }
 
@@ -128,32 +119,42 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     }
 
     @Override
-    public void trackCheckoutWithTransactionId(String idTransaction, RITrackingTotal total) {
-        RILogUtils.logDebug("Google Analytics - Tracking checkout with transaction id: " + idTransaction);
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        RILogUtils.logDebug("Google Analytics - Tracking checkout with transaction id: " + transaction.getTransactionId());
 
         if (mTracker == null) {
             RILogUtils.logError("Missing default Google Analytics tracker");
             return;
         }
 
+        RITrackingTotal total = transaction.getTotal();
+        float tax = 0;
+        int shipping = 0;
+        String currency = "";
+        if (total != null) {
+            tax = total.getTax();
+            shipping = total.getShipping();
+            currency = total.getCurrency();
+        }
+
         ProductAction analyticsProductAction = new ProductAction(ProductAction.ACTION_PURCHASE)
-                .setTransactionId(idTransaction)
-                .setTransactionTax(total.getTax())
-                .setTransactionShipping(total.getShipping());
+                .setTransactionId(transaction.getTransactionId())
+                .setTransactionTax(tax)
+                .setTransactionShipping(shipping);
         HitBuilders.ScreenViewBuilder builder = new HitBuilders.ScreenViewBuilder()
                 .setProductAction(analyticsProductAction);
-        mTracker.setScreenName("transaction");
-        mTracker.set("&cu", total.getCurrency());
+        mTracker.setScreenName(RITrackersConstants.GA_CHECKOUT_SCREEN_NAME);
+        mTracker.set(RITrackersConstants.GA_CURRENCY_KEY, currency);
         mTracker.send(builder.build());
     }
 
     @Override
-    public void trackAddProductToCart(RITrackingProduct product) {
+    public void trackAddProductToCart(RITrackingProduct product, String cartId, String location) {
         // TODO: add implementation
     }
 
     @Override
-    public void trackRemoveProductFromCart(String idTransaction, int quantity) {
+    public void trackRemoveProductFromCart(RITrackingProduct product, int quantity, double cartValue) {
         // TODO: add implementation
     }
 }

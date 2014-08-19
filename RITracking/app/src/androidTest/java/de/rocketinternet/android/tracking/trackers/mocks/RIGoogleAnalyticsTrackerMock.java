@@ -6,10 +6,9 @@ import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
-import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
 
 /**
@@ -25,10 +24,6 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     private String mLastTrackedScreenName;
     private String mLastCheckoutTransaction;
     private Exception mLastTrackedException;
-
-    public RIGoogleAnalyticsTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
 
     @Override
     public boolean initializeTracker(Context context) {
@@ -60,8 +55,8 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     }
 
     @Override
-    public void trackCheckoutWithTransactionId(String idTransaction, RITrackingTotal total) {
-        mLastCheckoutTransaction = idTransaction;
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        mLastCheckoutTransaction = transaction.getTransactionId();
         mSignal.countDown();
     }
 

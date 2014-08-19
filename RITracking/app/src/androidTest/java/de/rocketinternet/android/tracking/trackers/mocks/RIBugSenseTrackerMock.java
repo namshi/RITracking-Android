@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.trackers.RIBugSenseTracker;
@@ -23,10 +22,6 @@ public class RIBugSenseTrackerMock extends RIBugSenseTracker {
     private boolean mActivityWasPaused;
     private String mLastLeftBreadCrumb;
     private Exception mLastCaughtException;
-
-    public RIBugSenseTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
 
     @Override
     public boolean initializeTracker(Context context) {

@@ -35,7 +35,6 @@ public class RITrackingApplication extends A4SApplication {
 
         RILogUtils.logDebug("RITracking App launched");
 
-        RITracking.getInstance().setDebug(true);
         RITracking.getInstance().startWithConfigurationFromPropertiesList(getApplicationContext());
 
         // Keep launch time to compare with newer timestamp later
