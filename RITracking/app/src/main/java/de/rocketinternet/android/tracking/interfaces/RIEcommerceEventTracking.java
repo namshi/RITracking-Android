@@ -5,17 +5,11 @@ import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This interface implements tracking for e-commerce transactions
- *         <p/>
- *         The implementation to this interface should maintain a state machine to collect cart information.
- *         Adding/Removing to/from cart is forwarded to Ad-X and A4S (http://goo.gl/iSjKut) instantly.
- *         Both:
- *         GA (https://developers.google.com/analytics/devguides/collection/android/v4/ecommerce)
- *         GTM
- *         A4S (http://www.ad4screen.com/DocSDK/doku.php?id=events)
- *         ADJUST
- *         receive information on checkout.
+ *
+ * This interface implements tracking for e-commerce transactions
+ *
+ * The implementation to this interface should maintain a state machine to collect cart information.
+ * Adding/Removing to/from cart is forwarded to A4S (http://goo.gl/iSjKut) instantly.
  */
 public interface RIEcommerceEventTracking {
 

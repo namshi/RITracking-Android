@@ -33,8 +33,8 @@ import de.rocketinternet.android.tracking.utils.RILogUtils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Convenience controller to proxy-pass tracking information to Google Tag Manager
+ *
+ * Convenience controller to proxy-pass tracking information to Google Tag Manager
  */
 public class RIGoogleTagManagerTracker extends RITracker implements
         RIEventTracking,
@@ -59,7 +59,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
         String resourceType = RITrackersConstants.GTM_CONTAINER_RESOURCE_TYPE;
         boolean isResourceAvailable = RITrackingConfiguration.getInstance().isResourceAvailable(context, resourceName, resourceType);
         String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GTM_CONTAINER_ID);
-        if (isResourceAvailable && !TextUtils.isEmpty(containerId)) {
+        if (context != null && isResourceAvailable && !TextUtils.isEmpty(containerId)) {
             createTracker(context, containerId);
             return true;
         } else {
@@ -103,7 +103,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         RILogUtils.logDebug("Google Tag Manager - Tracking event: " + event);
 
         if (mDataLayer == null) {
@@ -144,12 +144,12 @@ public class RIGoogleTagManagerTracker extends RITracker implements
     }
 
     @Override
-    public void updateDeviceInfo(Map<String, Object> map) {
+    public void trackUpdateDeviceInfo(Map<String, Object> map) {
         // Not used by this tracker
     }
 
     @Override
-    public void updateGeoLocation(Location location) {
+    public void trackUpdateGeoLocation(Location location) {
         // Not used by this tracker
     }
 

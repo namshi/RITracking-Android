@@ -5,8 +5,8 @@ import android.content.pm.PackageInfo;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         Utility class that provides access to package information.
+ *
+ * Utility class that provides access to package information.
  */
 public class RIPackageUtils {
 

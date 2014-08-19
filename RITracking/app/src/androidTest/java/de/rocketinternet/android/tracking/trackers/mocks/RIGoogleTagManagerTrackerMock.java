@@ -10,6 +10,7 @@ import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingProduct;
 import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIGoogleTagManagerTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
@@ -32,7 +33,7 @@ public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleTagManagerContainerID");
+        String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GTM_CONTAINER_ID);
         return !TextUtils.isEmpty(containerId);
     }
 
@@ -41,7 +42,7 @@ public class RIGoogleTagManagerTrackerMock extends RIGoogleTagManagerTracker {
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         mIsEventTracked = true;
         mNumberOfSentEvents++;
         mSignal.countDown();

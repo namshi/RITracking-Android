@@ -45,7 +45,7 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     public boolean initializeTracker(Context context) {
         RILogUtils.logDebug("Initializing Google Analytics tracker");
         String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GA_TRACKING_ID);
-        if (!TextUtils.isEmpty(trackingId)) {
+        if (context != null && !TextUtils.isEmpty(trackingId)) {
             createTracker(context, trackingId);
             return true;
         } else {
@@ -63,7 +63,7 @@ public class RIGoogleAnalyticsTracker extends RITracker implements
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         RILogUtils.logDebug("Google Analytics - Tracking event: " + event);
 
         if (mTracker == null) {

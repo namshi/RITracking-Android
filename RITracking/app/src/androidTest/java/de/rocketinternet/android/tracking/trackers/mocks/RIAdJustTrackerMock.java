@@ -10,6 +10,7 @@ import java.util.concurrent.CountDownLatch;
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
@@ -28,7 +29,7 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String adJustIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIAdJustIntegration");
+        String adJustIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.ADJUST_INTEGRATION);
         boolean integrationNeeded = Boolean.valueOf(adJustIntegration);
         return integrationNeeded;
     }
@@ -38,7 +39,7 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         mIsEventTracked = true;
         mNumberOfSentEvents++;
         mSignal.countDown();

@@ -52,7 +52,7 @@ public class RIAd4PushTracker extends RITracker implements
         RILogUtils.logDebug("Initializing Ad4Push tracker");
         String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.AD4PUSH_INTEGRATION);
         boolean isAd4PushIntegrationNeeded = Boolean.valueOf(ad4PushIntegration);
-        if (isAd4PushIntegrationNeeded) {
+        if (context != null && isAd4PushIntegrationNeeded) {
             createTracker(context);
             return true;
         } else {
@@ -86,7 +86,7 @@ public class RIAd4PushTracker extends RITracker implements
     }
 
     @Override
-    public void updateDeviceInfo(Map<String, Object> map) {
+    public void trackUpdateDeviceInfo(Map<String, Object> map) {
         RILogUtils.logDebug("Ad4Push tracker - update device info");
 
         if (mA4S == null) {
@@ -102,7 +102,7 @@ public class RIAd4PushTracker extends RITracker implements
     }
 
     @Override
-    public void updateGeoLocation(Location location) {
+    public void trackUpdateGeoLocation(Location location) {
         if (location != null) {
             RILogUtils.logDebug("Ad4Push tracker - update geolocation with: lng = " + location.getLongitude() +
                     "and lat = " + location.getLatitude());
@@ -117,7 +117,7 @@ public class RIAd4PushTracker extends RITracker implements
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         RILogUtils.logDebug("Ad4Push tracker - Tracking event with name: " + event);
 
         if (mA4S == null) {

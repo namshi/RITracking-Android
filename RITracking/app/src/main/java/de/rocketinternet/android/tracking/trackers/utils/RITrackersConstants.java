@@ -2,20 +2,22 @@ package de.rocketinternet.android.tracking.trackers.utils;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This utility class contains all static constant for all trackers. It is possible to store here
- *         constants that remain static among different apps.
+ *
+ * This utility class contains all static constant for all trackers. It is possible to store here
+ * constants that remain static among different apps.
  */
 public class RITrackersConstants {
 
-
-    /* Google Analytics - Deprecated */
+    /**
+     * GOOGLE ANALYTICS - Deprecated
+     */
     public static final String GA_TRACKING_ID = "RIGoogleAnalyticsTrackingID";
     public static final String GA_CHECKOUT_SCREEN_NAME = "transaction";
     public static final String GA_CURRENCY_KEY = "&cu";
 
-
-    /* Google Tag Manager */
+    /**
+     * GOOGLE TAG MANAGER
+     */
     public static final String GTM_CONTAINER_ID = "RIGoogleTagManagerContainerID";
     public static final String GTM_CONTAINER_RESOURCE_NAME = "gtm_container";
     public static final String GTM_CONTAINER_RESOURCE_TYPE = "raw";
@@ -55,16 +57,24 @@ public class RITrackersConstants {
     public static final String GTM_PRODUCT_PRICE = "productPrice";
     public static final String GTM_PRODUCT_QUANTITY = "productQuantity";
 
-
-    /* Ad4Push */
+    /**
+     * AD4PUSH
+     */
     public static final String AD4PUSH_INTEGRATION = "RIAd4PushIntegration";
     public static final String AD4PUSH_VIEW = "view";
 
-
-    /* Ad4Just */
+    /**
+     * ADJUST
+     */
     public static final String ADJUST_INTEGRATION = "RIAdJustIntegration";
 
-
-    /* BugSense */
+    /**
+     * BUG SENSE
+     */
     public static final String BUGSENSE_API_KEY = "RIBugSenseApiKey";
+
+    /**
+     * NEW RELIC
+     */
+    public static final String NEWRELIC_APP_TOKEN = "RINewRelicAppToken";
 }

@@ -10,6 +10,7 @@ import java.util.concurrent.CountDownLatch;
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
@@ -27,7 +28,7 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
 
     @Override
     public boolean initializeTracker(Context context) {
-        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleAnalyticsTrackingID");
+        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GA_TRACKING_ID);
         return !TextUtils.isEmpty(trackingId);
     }
 
@@ -36,7 +37,7 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         mIsEventTracked = true;
         mNumberOfSentEvents++;
         mSignal.countDown();
