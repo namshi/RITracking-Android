@@ -4,8 +4,8 @@ import java.util.Map;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This interface implements tracking to an event
+ *
+ * This interface implements tracking for events
  */
 public interface RIEventTracking {
 
@@ -21,5 +21,5 @@ public interface RIEventTracking {
      * @param category (optional) An identifier for the category of the app the user is in
      * @param data     (optional) Additional data about the event
      */
-    void trackEvent(String event, int value, String action, String category, Map<String, Object> data);
+    void trackEvent(String event, long value, String action, String category, Map<String, Object> data);
 }

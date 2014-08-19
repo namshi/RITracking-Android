@@ -2,16 +2,15 @@ package de.rocketinternet.android.tracking.trackers.mocks;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
 import android.net.Uri;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
-import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIAdjustTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
@@ -26,14 +25,11 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
     private Uri mLastTrackedUri;
-
-    public RIAdJustTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
+    private String mLastTrackedCheckoutTransaction;
 
     @Override
     public boolean initializeTracker(Context context) {
-        String adJustIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIAdJustIntegration");
+        String adJustIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.ADJUST_INTEGRATION);
         boolean integrationNeeded = Boolean.valueOf(adJustIntegration);
         return integrationNeeded;
     }
@@ -43,7 +39,7 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         mIsEventTracked = true;
         mNumberOfSentEvents++;
         mSignal.countDown();
@@ -67,6 +63,12 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
         mSignal.countDown();
     }
 
+    @Override
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        mLastTrackedCheckoutTransaction = transaction.getTransactionId();
+        mSignal.countDown();
+    }
+
     public boolean isEventTracked() {
         return mIsEventTracked;
     }
@@ -85,5 +87,9 @@ public class RIAdJustTrackerMock extends RIAdjustTracker {
 
     public boolean wasActivityPaused() {
         return mActivityWasPaused;
+    }
+
+    public String getLastCheckoutTransaction() {
+        return mLastTrackedCheckoutTransaction;
     }
 }

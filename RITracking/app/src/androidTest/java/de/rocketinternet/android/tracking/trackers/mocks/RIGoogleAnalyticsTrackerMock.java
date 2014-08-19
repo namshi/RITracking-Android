@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
-import de.rocketinternet.android.tracking.models.RITrackingTotal;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIGoogleAnalyticsTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
@@ -26,13 +26,9 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     private String mLastCheckoutTransaction;
     private Exception mLastTrackedException;
 
-    public RIGoogleAnalyticsTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
-
     @Override
     public boolean initializeTracker(Context context) {
-        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIGoogleAnalyticsTrackingID");
+        String trackingId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GA_TRACKING_ID);
         return !TextUtils.isEmpty(trackingId);
     }
 
@@ -41,7 +37,7 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         mIsEventTracked = true;
         mNumberOfSentEvents++;
         mSignal.countDown();
@@ -60,8 +56,8 @@ public class RIGoogleAnalyticsTrackerMock extends RIGoogleAnalyticsTracker {
     }
 
     @Override
-    public void trackCheckoutWithTransactionId(String idTransaction, RITrackingTotal total) {
-        mLastCheckoutTransaction = idTransaction;
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        mLastCheckoutTransaction = transaction.getTransactionId();
         mSignal.countDown();
     }
 

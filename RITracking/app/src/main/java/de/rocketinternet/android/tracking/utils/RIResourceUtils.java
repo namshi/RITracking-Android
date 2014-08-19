@@ -9,9 +9,9 @@ import java.util.Properties;
 import de.rocketinternet.android.tracking.core.RITracking;
 
 /**
- *  @author alessandro.balocco
+ * @author alessandro.balocco
  *
- *  Utility class that provide access to the assets folder of the app
+ * Utility class that provide access to the assets folder of the app
  */
 public class RIResourceUtils {
 

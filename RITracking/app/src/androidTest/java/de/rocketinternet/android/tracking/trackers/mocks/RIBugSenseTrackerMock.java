@@ -6,15 +6,15 @@ import android.text.TextUtils;
 
 import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
 import de.rocketinternet.android.tracking.trackers.RIBugSenseTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
- *         <p/>
- *         This class is a mock implementation of the RIBugSenseTracker used for testing purposes
+ *
+ * This class is a mock implementation of the RIBugSenseTracker used for testing purposes
  */
 public class RIBugSenseTrackerMock extends RIBugSenseTracker {
 
@@ -24,13 +24,9 @@ public class RIBugSenseTrackerMock extends RIBugSenseTracker {
     private String mLastLeftBreadCrumb;
     private Exception mLastCaughtException;
 
-    public RIBugSenseTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
-
     @Override
     public boolean initializeTracker(Context context) {
-        String bugSenseApiKey = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIBugSenseApiKey");
+        String bugSenseApiKey = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.BUGSENSE_API_KEY);
         return !TextUtils.isEmpty(bugSenseApiKey);
     }
 

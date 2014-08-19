@@ -6,10 +6,12 @@ import android.location.Location;
 
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 
 import de.rocketinternet.android.tracking.core.RITrackingConfiguration;
+import de.rocketinternet.android.tracking.models.RITrackingProduct;
+import de.rocketinternet.android.tracking.models.RITrackingTransaction;
 import de.rocketinternet.android.tracking.trackers.RIAd4PushTracker;
+import de.rocketinternet.android.tracking.trackers.utils.RITrackersConstants;
 
 /**
  * @author alessandro.balocco
@@ -26,16 +28,15 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     private boolean mIsEventTracked;
     private int mNumberOfSentEvents = 0;
     private String mLastTrackedScreenName;
+    private String mLastTrackedCheckoutTransaction;
+    private String mLastAddedProduct;
+    private String mCartIdOfLastAddedProduct;
     private Location mLastLocation;
     private Map<String, Object> mDeviceInfo;
 
-    public RIAd4PushTrackerMock() {
-        mQueue = Executors.newFixedThreadPool(NUMBER_OF_CONCURRENT_TASKS);
-    }
-
     @Override
     public boolean initializeTracker(Context context) {
-        String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap("RIAd4PushIntegration");
+        String ad4PushIntegration = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.AD4PUSH_INTEGRATION);
         boolean integrationNeeded = Boolean.valueOf(ad4PushIntegration);
         return integrationNeeded;
     }
@@ -45,7 +46,7 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     }
 
     @Override
-    public void trackEvent(String event, int value, String action, String category, Map<String, Object> data) {
+    public void trackEvent(String event, long value, String action, String category, Map<String, Object> data) {
         mIsEventTracked = true;
         mNumberOfSentEvents++;
         mSignal.countDown();
@@ -58,13 +59,13 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     }
 
     @Override
-    public void updateDeviceInfo(Map<String, Object> map) {
+    public void trackUpdateDeviceInfo(Map<String, Object> map) {
         mDeviceInfo = map;
         mSignal.countDown();
     }
 
     @Override
-    public void updateGeoLocation(Location location) {
+    public void trackUpdateGeoLocation(Location location) {
         mLastLocation = location;
         mSignal.countDown();
     }
@@ -86,6 +87,19 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
     @Override
     public void trackActivityPaused(Activity activity) {
         mActivityWasPaused = true;
+        mSignal.countDown();
+    }
+
+    @Override
+    public void trackCheckoutTransaction(RITrackingTransaction transaction) {
+        mLastTrackedCheckoutTransaction = transaction.getTransactionId();
+        mSignal.countDown();
+    }
+
+    @Override
+    public void trackAddProductToCart(RITrackingProduct product, String cartId, String location) {
+        mLastAddedProduct = product.getName();
+        mCartIdOfLastAddedProduct = cartId;
         mSignal.countDown();
     }
 
@@ -123,5 +137,17 @@ public class RIAd4PushTrackerMock extends RIAd4PushTracker {
 
     public boolean wasActivityPaused() {
         return mActivityWasPaused;
+    }
+
+    public String getLastCheckoutTransaction() {
+        return mLastTrackedCheckoutTransaction;
+    }
+
+    public String getLastAddedProduct() {
+        return mLastAddedProduct;
+    }
+
+    public String getCartIdOfLastAddedProduct() {
+        return mCartIdOfLastAddedProduct;
     }
 }

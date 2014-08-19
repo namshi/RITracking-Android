@@ -71,6 +71,7 @@
     <orderEntry type="library" exported="" name="1_dexmaker-mockito-1.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="mockito-core-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="A4SSDK" level="project" />
+    <orderEntry type="library" exported="" name="android-agent-3.419.0" level="project" />
     <orderEntry type="library" exported="" name="mockito-all-1.9.5" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="objenesis-1.0" level="project" />
     <orderEntry type="library" exported="" name="libGoogleAnalyticsServices" level="project" />

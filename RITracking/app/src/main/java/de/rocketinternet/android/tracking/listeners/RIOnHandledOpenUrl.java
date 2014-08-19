@@ -3,10 +3,10 @@ package de.rocketinternet.android.tracking.listeners;
 import java.util.Map;
 
 /**
- *  @author alessandro.balocco
+ * @author alessandro.balocco
  *
- *  API interface that is called when a URL respect the patterns previously defined and needs to be
- *  filter to provide specific behaviour
+ * API interface that is called when a URL respect the patterns previously defined and needs to be
+ * filter to provide specific behaviour
  */
 public interface RIOnHandledOpenUrl {
 
