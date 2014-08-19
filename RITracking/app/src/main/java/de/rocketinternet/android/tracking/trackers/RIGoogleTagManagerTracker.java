@@ -59,7 +59,7 @@ public class RIGoogleTagManagerTracker extends RITracker implements
         String resourceType = RITrackersConstants.GTM_CONTAINER_RESOURCE_TYPE;
         boolean isResourceAvailable = RITrackingConfiguration.getInstance().isResourceAvailable(context, resourceName, resourceType);
         String containerId = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.GTM_CONTAINER_ID);
-        if (isResourceAvailable && !TextUtils.isEmpty(containerId)) {
+        if (context != null && isResourceAvailable && !TextUtils.isEmpty(containerId)) {
             createTracker(context, containerId);
             return true;
         } else {

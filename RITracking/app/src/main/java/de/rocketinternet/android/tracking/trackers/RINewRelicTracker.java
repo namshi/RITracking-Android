@@ -38,7 +38,7 @@ public class RINewRelicTracker extends RITracker implements
     public boolean initializeTracker(Context context) {
         RILogUtils.logDebug("Initializing New Relic tracker");
         String appToken = RITrackingConfiguration.getInstance().getValueFromKeyMap(RITrackersConstants.NEWRELIC_APP_TOKEN);
-        if (!TextUtils.isEmpty(appToken)) {
+        if (context != null && !TextUtils.isEmpty(appToken)) {
             createTracker(context, appToken);
             return true;
         } else {
