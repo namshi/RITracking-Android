@@ -38,12 +38,8 @@ buildscript {
 
 repositories {
     mavenCentral()
-    maven {
-        url "http://www.bugsense.com/gradle/"
-    }
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/comnewrelic-1163'
-    }
+    maven { url 'http://www.bugsense.com/gradle/' }
+    maven { url 'https://oss.sonatype.org/content/repositories/comnewrelic-1163' }
 }
 
 dependencies {
@@ -53,6 +49,9 @@ dependencies {
     compile 'com.adjust.sdk:adjust-android:3.5.0'
     compile 'com.bugsense.trace:bugsense:3.5'
     compile 'com.newrelic.agent.android:android-agent:3.419.0'
+    compile project(':aRITracking:libraries:a4SSDK')
+    compile files('libs/A4SSDK.jar')
+    compile files('libs/A4SSDK-GooglePlayServices-1.1.jar')
     androidTestCompile 'org.mockito:mockito-core:1.9.+'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.0'
     androidTestCompile 'com.google.dexmaker:dexmaker:1.0'

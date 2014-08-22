@@ -1,1 +1,2 @@
 include ':aRITracking'
+include ':aRITracking:libraries:a4SSDK'

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="RITracking" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="RITracking.aRITracking.libraries" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":aRITracking" />
+        <option name="GRADLE_PROJECT_PATH" value=":aRITracking:libraries:a4SSDK" />
       </configuration>
     </facet>
     <facet type="android" name="Android">
@@ -77,26 +77,11 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="adjust-android-3.5.0" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-5.2.08" level="project" />
-    <orderEntry type="library" exported="" name="bugsense-3.5" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="dexmaker-mockito-1.0" level="project" />
-    <orderEntry type="library" exported="" name="1_dexmaker-mockito-1.0" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="mockito-core-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="A4SSDK" level="project" />
-    <orderEntry type="library" exported="" name="android-agent-3.419.0" level="project" />
-    <orderEntry type="library" exported="" name="mockito-all-1.9.5" level="project" />
-    <orderEntry type="library" exported="" name="A4SSDK-GooglePlayServices-1.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="objenesis-1.0" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="dexmaker-1.0" level="project" />
-    <orderEntry type="library" exported="" name="1_dexmaker-1.0" level="project" />
-    <orderEntry type="module" module-name="a4SSDK" exported="" />
   </component>
 </module>
 
