@@ -53,8 +53,6 @@ dependencies {
     compile 'com.adjust.sdk:adjust-android:3.5.0'
     compile 'com.bugsense.trace:bugsense:3.5'
     compile 'com.newrelic.agent.android:android-agent:3.419.0'
-    compile files('libs/A4SSDK.jar')
-    compile project('libraries:a4SSDK')
     androidTestCompile 'org.mockito:mockito-core:1.9.+'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.0'
     androidTestCompile 'com.google.dexmaker:dexmaker:1.0'

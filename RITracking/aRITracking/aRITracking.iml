@@ -96,7 +96,6 @@
     <orderEntry type="library" exported="" name="libGoogleAnalyticsServices" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="dexmaker-1.0" level="project" />
     <orderEntry type="library" exported="" name="1_dexmaker-1.0" level="project" />
-    <orderEntry type="module" module-name="a4SSDK" exported="" />
   </component>
 </module>
 
