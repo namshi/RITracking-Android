@@ -13,12 +13,13 @@ The library is developed with Android Studio IDE. This means that the structure 
 code is based on that editor.  
 
 The tracking library supports API level 9 as minimum SDK. This decision was made because 
-newer version of Google Play Services provide support starting from that API level to 
+newer version of Google Play Services provides support starting from that API level to 
 enable more powerful functionalities. Users of the library must be sure to select api 
 level 9 as minimum SDK version for the application in the gradle.build file to avoid 
 compatibility issues.  
 
-Refer to [this link](https://developer.android.com/google/play-services/index.html) for further information about Google Play Services.  
+Refer to [this link](https://developer.android.com/google/play-services/index.html) for further 
+information about Google Play Services.  
 
 The library is supporting the following trackers at the moment:
 
@@ -38,7 +39,8 @@ registered trackers.
 
 The ones listed below are the events that the library allows to track:
 
-* ###### Track screens name   
+* ###### Track screens name    
+
     The screen name is tracked by calling the corresponding method provided by the 
     library.
         
@@ -66,7 +68,8 @@ extenting an activity from the library:
     
     For the ones that want to track their screen manually, the first method is always available.
 
-* ###### Track generic events
+* ###### Track generic events    
+
     Generic events are tracked by calling the corresponding method provided by the library.
         
         String eventName = "eventName";
@@ -79,7 +82,8 @@ extenting an activity from the library:
     
     In this case it is up to the developers to call it when needed.
 
-* ###### Track users event
+* ###### Track users event    
+
     User related events are of 3 types and they are tracked by calling one of the 
 corresponding methods provided by the library.  
     
@@ -106,7 +110,8 @@ corresponding methods provided by the library.
         
     In this cases it is up to developers to call the methods when needed.
 
-* ###### Track exception
+* ###### Track exception    
+
     Handled exceptions can be tracked by calling the corresponding method provided by 
 the library.
         
@@ -117,7 +122,8 @@ the library.
     
     In this case it is up to developers to call the method when needed.
 
-* ###### Track e-commerce events 
+* ###### Track e-commerce events    
+
     E-commerce related events and actions are of 3 types and they are tracked by calling 
 the corresponding methods provided by the library. Tracking e-commerce events requests 
 also developer to use library models. Check the __Models__ section to have a better
@@ -148,7 +154,8 @@ from the customer cart.
         
         RITracking.getInstance().trackRemoveProductFromCart(product, quantity, cartValue);
         
-* ###### Track interactions  
+* ###### Track interactions    
+
     Interactions can be tracked for example before a method, defining it as a starting 
 point for an interaction. They are used by New Relic tracker. Check the dedicated section 
 for more information. Interactions are tracked by calling the corresponding methods 
@@ -169,7 +176,8 @@ method needs the id of the interaction that should be ended.
 
         RITracking.getInstance().trackEndInteraction(String id);
 
-* ###### Track network interactions
+* ###### Track network interactions    
+
     Network interactions are used to track network request and possible network failures. 
 They are used by New Relic tracker. Check the dedicated section for more information. 
 Network interactions are tracked by calling the corresponding methods provided by the 
@@ -251,20 +259,39 @@ parameters:
 
 #### Integration
 
-To integrate the library in your project add it as a module. Include it in the 
-setting.gradle file:
+Follow these steps in order to integrate the library in your project:   
 
-        include ':aRITracking'
+1.  Checkout the project from Github in a local directory.
 
-And in the build.gradle file of the application module add the library between your 
-dependencies:
+2.    In Android Studio add it as a module by choosing File -> Import Module and select 
+RITracking directory from the directory you created before.
+
+3.    In the main setting.gradle file include library dependencies by adding (we assume 
+that you move your library into a 'libraries' folder with all the other libraries needed 
+by your application. If you are not doing that, adjust the two below includes paths 
+accordingly to your configuration):    
+
+		include ':libraries:RITracking'
+        include ':libraries:RITracking:libraries:a4SSDK'
+
+4.  In your app/build.gradle file add the tracking library among all the other dependencies, 
+as follow (again like in point 3 we assume you put the library in 'libraries' folder. It's up 
+to you to fix it accorgingly to your configuration):    
 
         dependencies {
-            ...
-            compile project(':aRITracking')
+        	...
+            compile project(':libraries:RITracking')
             ...
         }
-        
+
+5.  Still in app/build.gradle file add this part in the repositories closure:
+
+        repositories {
+            ...
+            maven { url 'http://www.bugsense.com/gradle/' }
+            ...
+        }
+
 #### Setup
 
 The library automatically initializes all the trackers which are correctly setup in 
