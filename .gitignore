@@ -26,8 +26,8 @@ RITracking/gen/
 # Gradle files
 RITracking/.gradle/
 RITracking/build/
-RITracking/app/build/
-RITracking/A4SSDK/build/
+RITracking/aRITracking/build/
+RITracking/aRITracking/libraries/a4SSDK/build/
 
 # Local configuration file (sdk path, etc)
 RITracking/local.properties
