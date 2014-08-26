@@ -49,7 +49,7 @@ dependencies {
     compile 'com.adjust.sdk:adjust-android:3.5.0'
     compile 'com.bugsense.trace:bugsense:3.5'
     compile 'com.newrelic.agent.android:android-agent:3.419.0'
-    compile project(':aRITracking:libraries:a4SSDK')
+    compile project(':RITracking:libraries:a4SSDK')
     compile files('libs/A4SSDK.jar')
     compile files('libs/A4SSDK-GooglePlayServices-1.1.jar')
     androidTestCompile 'org.mockito:mockito-core:1.9.+'

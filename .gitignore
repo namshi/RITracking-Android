@@ -26,8 +26,8 @@ gen/
 # Gradle files
 .gradle/
 build/
-aRITracking/build/
-aRITracking/libraries/a4SSDK/build/
+RITracking/build/
+RITracking/libraries/a4SSDK/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
