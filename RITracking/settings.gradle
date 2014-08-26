@@ -1,2 +1,2 @@
-include ':app'
-include ':a4SSDK'
+include ':aRITracking'
+include ':aRITracking:libraries:a4SSDK'
